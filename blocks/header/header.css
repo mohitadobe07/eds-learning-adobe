@@ -373,15 +373,30 @@ header nav .nav-tools .nav-search input:focus {
   outline: none;
 }
 
-/* ===== WKND utility strip (top row) — Sign In + EN-US locale dropdown, right-aligned ===== */
+/* ===== WKND utility strip (top row) — full-bleed dark bar, light text, Sign In + EN-US dropdown ===== */
 header nav .nav-utility {
   grid-area: utility;
+  position: relative;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 24px;
   width: 100%;
-  padding: 6px 0;
+  padding: 4px 0;
+  color: #f7f7f7;
+}
+
+/* full-bleed dark background behind the utility strip (matches source #202020 bar) */
+header nav .nav-utility::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  background: var(--dark-color);
+  z-index: -1;
 }
 
 header nav .nav-utility p {
@@ -394,7 +409,7 @@ header nav .nav-utility .nav-lang > p {
   font-weight: 400;
   font-size: 14px;
   text-transform: uppercase;
-  color: var(--text-color);
+  color: #f7f7f7;
   text-decoration: none;
 }
 
@@ -465,6 +480,7 @@ header nav .nav-utility .nav-lang > ul > li a:any-link {
   padding: 8px 16px;
   text-transform: none;
   white-space: nowrap;
+  color: var(--text-color);
 }
 
 header nav .nav-utility .nav-lang > ul > li a:hover {
