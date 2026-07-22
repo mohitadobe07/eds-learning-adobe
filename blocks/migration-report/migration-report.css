@@ -208,7 +208,7 @@
   color: var(--mr-warn);
 }
 
-.migration-report-pill.built {
+.migration-report-pill.blocks-count {
   background: #e6edff;
   color: var(--mr-info);
 }

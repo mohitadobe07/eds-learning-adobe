@@ -75,7 +75,7 @@ function buildTemplates(d) {
     sum.innerHTML = `<span class="migration-report-tname">${esc(t.name)}</span>`
       + `<span class="migration-report-count">${t.count} page${t.count === 1 ? '' : 's'}</span>`
       + `<span class="migration-report-pill ${t.analyzed ? 'analyzed' : 'pending'}">${t.analyzed ? 'analyzed' : 'not analyzed'}</span>${
-        t.blocks.length ? `<span class="migration-report-pill built">${t.blocks.length} blocks</span>` : ''}`;
+        t.blocks.length ? `<span class="migration-report-pill blocks-count">${t.blocks.length} blocks</span>` : ''}`;
     det.append(sum);
     const body = el('div', 'migration-report-tmpl-body');
     body.append(el('p', 'migration-report-desc', esc(t.desc)));
@@ -83,7 +83,7 @@ function buildTemplates(d) {
     body.append(el('h4', 'migration-report-h4', `Mapped blocks (${t.blocks.length})`));
     const bl = el('div', 'migration-report-blocklist');
     if (t.blocks.length) {
-      t.blocks.forEach((b) => bl.append(el('span', 'migration-report-blockchip', `${esc(b)}<span class="migration-report-pill built">built</span>`)));
+      t.blocks.forEach((b) => bl.append(el('span', 'migration-report-blockchip', esc(b))));
     } else {
       bl.append(el('span', 'migration-report-muted', 'Default content only'));
     }
@@ -106,14 +106,14 @@ function buildBlocks(d) {
   sec.append(el(
     'p',
     'migration-report-sub',
-    `${d.blocks.length} unique block variants detected. Filter by name or toggle EDS / custom / built.`,
+    `${d.blocks.length} unique block variants detected. Filter by name or toggle EDS / custom.`,
   ));
   const bar = el('div', 'migration-report-filterbar');
   const input = el('input', 'migration-report-search');
   input.type = 'text';
   input.placeholder = 'Filter blocks by name or shape…';
   bar.append(input);
-  [['all', 'All'], ['eds', 'EDS'], ['custom', 'Custom'], ['built', 'Built']].forEach(([f, l], i) => {
+  [['all', 'All'], ['eds', 'EDS'], ['custom', 'Custom']].forEach(([f, l], i) => {
     const b = el('button', `migration-report-ftag${i === 0 ? ' on' : ''}`, l);
     b.type = 'button';
     b.dataset.f = f;
@@ -134,9 +134,8 @@ function buildBlocks(d) {
     const type = v.base === 'unknown' ? 'custom' : 'eds';
     const tr = el('tr');
     tr.dataset.type = type;
-    tr.dataset.built = v.built ? '1' : '0';
     tr.dataset.name = `${v.id} ${v.desc}`.toLowerCase();
-    tr.innerHTML = `<td><code>${esc(v.id)}</code>${v.built ? '<span class="migration-report-pill built">built</span>' : ''}</td>`
+    tr.innerHTML = `<td><code>${esc(v.id)}</code></td>`
       + `<td>${esc(v.base)}</td><td>${esc(v.desc)}</td><td>${v.pages}</td>`
       + `<td><span class="migration-report-pill ${type}">${type === 'custom' ? 'custom' : 'EDS block'}</span></td>`;
     tb.append(tr);
@@ -302,7 +301,6 @@ export default function decorate(block) {
       let okMode = true;
       if (mode === 'eds') okMode = r.dataset.type === 'eds';
       else if (mode === 'custom') okMode = r.dataset.type === 'custom';
-      else if (mode === 'built') okMode = r.dataset.built === '1';
       r.hidden = !(okText && okMode);
     });
   };
