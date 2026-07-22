@@ -141,6 +141,30 @@ export default async function decorate(block) {
     brandLink.closest('.button-container').className = '';
   }
 
+  // Utility strip: wire the language toggle (EN-US) as a dropdown.
+  const navUtility = nav.querySelector('.nav-utility');
+  if (navUtility) {
+    const langToggle = navUtility.querySelector('li:has(ul)');
+    if (langToggle) {
+      langToggle.classList.add('nav-lang');
+      langToggle.setAttribute('aria-expanded', 'false');
+      const label = langToggle.querySelector(':scope > p');
+      if (label) {
+        label.setAttribute('role', 'button');
+        label.setAttribute('tabindex', '0');
+      }
+      const toggle = () => {
+        const open = langToggle.getAttribute('aria-expanded') === 'true';
+        langToggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+      };
+      langToggle.addEventListener('click', (e) => { e.stopPropagation(); toggle(); });
+      langToggle.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+      });
+      document.addEventListener('click', () => langToggle.setAttribute('aria-expanded', 'false'));
+    }
+  }
+
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {

@@ -373,12 +373,13 @@ header nav .nav-tools .nav-search input:focus {
   outline: none;
 }
 
-/* ===== WKND utility strip (top row) — EN-US locale toggle, right-aligned ===== */
+/* ===== WKND utility strip (top row) — Sign In + EN-US locale dropdown, right-aligned ===== */
 header nav .nav-utility {
   grid-area: utility;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  gap: 24px;
   width: 100%;
   padding: 6px 0;
 }
@@ -387,13 +388,87 @@ header nav .nav-utility p {
   margin: 0;
 }
 
-header nav .nav-utility a:any-link {
+header nav .nav-utility a:any-link,
+header nav .nav-utility .nav-lang > p {
   font-family: var(--body-font-family);
   font-weight: 400;
   font-size: 14px;
   text-transform: uppercase;
   color: var(--text-color);
   text-decoration: none;
+}
+
+/* utility bar uses two flex items: Sign In (p) and the language list (ul) */
+/* stylelint-disable-next-line no-descending-specificity */
+header nav .nav-utility > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/* language toggle label with flag + caret */
+header nav .nav-utility .nav-lang > p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+header nav .nav-utility .nav-lang > p .icon-flag-us {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+}
+
+header nav .nav-utility .nav-lang > p .icon-flag-us img {
+  width: 100%;
+  height: 100%;
+}
+
+header nav .nav-utility .nav-lang > p::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid currentcolor;
+  margin-left: 2px;
+}
+
+/* dropdown locale list */
+header nav .nav-utility .nav-lang > ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 10;
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 8px 0;
+  min-width: 180px;
+  background: var(--background-color);
+  border: 1px solid var(--light-color);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 12%);
+}
+
+header nav .nav-utility .nav-lang[aria-expanded='true'] > ul {
+  display: block;
+}
+
+header nav .nav-utility .nav-lang > ul > li {
+  padding: 0;
+}
+
+header nav .nav-utility .nav-lang > ul > li a:any-link {
+  display: block;
+  padding: 8px 16px;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+header nav .nav-utility .nav-lang > ul > li a:hover {
+  background: var(--light-color);
 }
 
 /* WKND layout: utility strip on top, then logo left · nav centered · tools right */
