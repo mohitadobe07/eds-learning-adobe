@@ -503,6 +503,7 @@ header nav .nav-utility .nav-lang > ul > li a:hover {
     position: relative;
     display: grid;
     grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto auto;
     grid-template-areas:
       'utility utility utility'
       'brand sections tools';
