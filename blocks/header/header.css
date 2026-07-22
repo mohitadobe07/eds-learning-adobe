@@ -347,8 +347,16 @@ header nav .nav-tools .icon-search img {
     justify-content: center;
   }
 
+  header nav .nav-sections .default-content-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
   header nav .nav-sections .default-content-wrapper > ul {
     gap: 40px;
+    margin: 0;
+    justify-content: center;
   }
 
   /* keep the brand from stretching so nav stays centered */
