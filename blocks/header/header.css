@@ -332,25 +332,34 @@ header nav .nav-tools .icon-search img {
   height: 20px;
 }
 
-/* WKND layout: logo left · nav centered · tools right, matched to source (1200px inner) */
+/* WKND layout: logo left · nav absolutely centered · tools right, matched to source (1200px inner) */
 @media (width >= 900px) {
   header nav {
+    position: relative;
     max-width: 1200px;
     padding: 0 24px;
     gap: 0;
   }
 
-  /* center the main nav in the row */
+  /* keep the brand from stretching */
+  header .nav-brand {
+    flex: 0 0 auto;
+  }
+
+  /* nav absolutely centered on the full row so logo/tools widths don't shift it */
   header nav .nav-sections {
-    flex: 1 1 auto;
+    position: absolute;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: center;
+    pointer-events: none;
   }
 
   header nav .nav-sections .default-content-wrapper {
-    width: 100%;
     display: flex;
     justify-content: center;
+    pointer-events: auto;
   }
 
   header nav .nav-sections .default-content-wrapper > ul {
@@ -359,12 +368,9 @@ header nav .nav-tools .icon-search img {
     justify-content: center;
   }
 
-  /* keep the brand from stretching so nav stays centered */
-  header .nav-brand {
-    flex: 0 0 auto;
-  }
-
+  /* tools pushed to the right edge */
   header nav .nav-tools {
     flex: 0 0 auto;
+    margin-left: auto;
   }
 }
