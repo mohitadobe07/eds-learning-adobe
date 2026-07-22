@@ -1,20 +1,75 @@
+/* WKND footer — dark background, white text */
 footer {
-  background-color: var(--light-color);
+  background-color: var(--footer-bg-color, #202020);
+  color: #fff;
   font-size: var(--body-font-size-xs);
 }
 
 footer .footer > div {
   margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
+  max-width: var(--content-max-width, 1200px);
+  padding: 48px 24px 32px;
 }
 
 footer .footer p {
-  margin: 0;
+  margin: 0 0 12px;
+}
+
+footer .footer a:any-link {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer .footer a:hover {
+  text-decoration: underline;
+}
+
+/* WKND wordmark */
+footer .footer p:first-child a {
+  font-family: var(--body-font-family);
+  font-weight: 800;
+  font-size: 24px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* nav + social lists */
+footer .footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
+footer .footer ul li {
+  font-family: var(--body-font-family);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 13px;
+}
+
+/* "Follow Us" heading */
+footer .footer p strong {
+  font-family: var(--body-font-family);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 13px;
+}
+
+/* legal / copyright text */
+footer .footer p:nth-last-child(-n + 2) {
+  color: #b3b3b3;
+  font-size: 12px;
+  line-height: 1.6;
+  max-width: 900px;
 }
 
 @media (width >= 900px) {
   footer .footer > div {
-    padding: 40px 32px 24px;
+    padding: 56px 32px 32px;
   }
 }
