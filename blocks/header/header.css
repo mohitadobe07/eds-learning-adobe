@@ -391,17 +391,18 @@ header nav .nav-utility .default-content-wrapper {
   gap: 24px;
 }
 
-/* full-bleed dark background behind the utility strip (matches source #202020 bar) */
-header nav .nav-utility::before {
+/* full-bleed dark background behind the utility strip (matches source #202020 bar).
+   Bleeds to the viewport edges without 100vw (which includes the scrollbar and
+   caused a horizontal scrollbar). Anchored to the full-width fixed .nav-wrapper. */
+header .nav-wrapper::before {
   content: '';
   position: absolute;
   top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 100vw;
-  margin-left: -50vw;
+  left: 0;
+  right: 0;
+  height: 36px;
   background: var(--dark-color);
-  z-index: -1;
+  z-index: 0;
 }
 
 header nav .nav-utility p {
