@@ -441,22 +441,48 @@
   content: "\2713";
 }
 
+.migration-report-step.pending::before {
+  background: #fff;
+  color: var(--mr-muted);
+  border: 2px solid var(--mr-line);
+}
+
 .migration-report-step b {
-  display: block;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
   font-size: 16px;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 }
 
 .migration-report-st {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-left: 8px;
+  color: var(--mr-muted);
+  background: var(--mr-panel);
+  border: 1px solid var(--mr-line);
+  padding: 2px 9px;
+  border-radius: 20px;
+}
+
+.migration-report-effort {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--mr-warn);
+  background: var(--mr-warn-bg);
+  padding: 2px 9px;
+  border-radius: 20px;
 }
 
 .migration-report-step.done .migration-report-st {
   color: var(--mr-good);
+  background: var(--mr-good-bg);
+  border-color: #bfe3cb;
 }
 
 .migration-report-step.next .migration-report-st {

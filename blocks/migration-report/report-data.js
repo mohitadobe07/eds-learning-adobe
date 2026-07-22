@@ -456,47 +456,69 @@ const reportData = {
     },
   ],
   plan: [
-    [
-      'Site scope & template discovery',
-      'done',
-      '64 pages crawled, grouped into 6 templates, 31 block variants cataloged.',
-    ],
-    [
-      'Page analysis',
-      'done',
-      'All 6 representative pages analyzed — content structure, sections, and authoring decisions captured.',
-    ],
-    [
-      'Block variants',
-      'done',
-      '10 EDS block variants created/reused (hero, carousel, cards, tabs, accordion, quote, breadcrumbs, metadata, profile & share cards).',
-    ],
-    [
-      'Import infrastructure',
-      'done',
-      '10 parsers + site-wide cleanup transformer + reusable import script (import-wknd.js).',
-    ],
-    [
-      'Content import',
-      'done',
-      '6 us/en representative pages imported.',
-    ],
-    [
-      'Design migration',
-      'done',
-      'WKND brand tokens (Asar serif, Source Sans Pro, yellow #ffeb00 accent, dark footer) applied to global styles + all 10 blocks.',
-    ],
-    [
-      'Navigation & footer',
-      'next',
-      'Instrument the WKND header (logo, main nav, locale switcher, search) and localized footer.',
-    ],
-    [
-      'Verification',
-      'next',
-      'Preview locally and run visual critique against the original.',
-    ],
+    {
+      phase: 'Phase 1',
+      title: 'Discovery & Scoping',
+      status: 'pending',
+      effort: '2–3 days',
+      desc: 'Crawl the full site, group 64 pages into templates, catalog block variants, and produce this scope report. Confirm migration boundaries and locale strategy.',
+    },
+    {
+      phase: 'Phase 2',
+      title: 'Page Analysis & Content Modeling',
+      status: 'pending',
+      effort: '3–5 days',
+      desc: 'Analyze the 6 representative templates: section boundaries, default-content vs block decisions, and the authoring model for each block.',
+    },
+    {
+      phase: 'Phase 3',
+      title: 'Block Development',
+      status: 'pending',
+      effort: '8–12 days',
+      desc: 'Build ~10 EDS blocks (hero, carousel, cards, tabs, accordion, quote, breadcrumbs, metadata, profile & share cards) plus decoration JS/CSS for the 24 EDS-mappable variants and bespoke handling for the 7 custom shapes.',
+    },
+    {
+      phase: 'Phase 4',
+      title: 'Import Infrastructure',
+      status: 'pending',
+      effort: '3–4 days',
+      desc: 'Generate parsers per block variant, site-wide cleanup/section transformers, and a reusable import script driven by the template catalog.',
+    },
+    {
+      phase: 'Phase 5',
+      title: 'Content Import & Locales',
+      status: 'pending',
+      effort: '4–6 days',
+      desc: 'Import representative pages per template, validate, then bulk-import all 64 pages across the 7 locales. Reconcile per-locale content and links.',
+    },
+    {
+      phase: 'Phase 6',
+      title: 'Design System & Styling',
+      status: 'pending',
+      effort: '5–7 days',
+      desc: 'Extract WKND brand tokens (Asar serif, Source Sans Pro, yellow accent, dark footer), apply global styles, and match each block to the original design with visual verification.',
+    },
+    {
+      phase: 'Phase 7',
+      title: 'Navigation & Footer',
+      status: 'pending',
+      effort: '2–3 days',
+      desc: 'Instrument the WKND header (logo, main nav, locale switcher, search) and the localized footer as EDS nav/footer blocks.',
+    },
+    {
+      phase: 'Phase 8',
+      title: 'Verification, QA & Launch',
+      status: 'pending',
+      effort: '3–5 days',
+      desc: 'Full-page visual critique against the original, accessibility and PageSpeed (target 100) checks, cross-locale QA, and production cutover.',
+    },
   ],
+  effortSummary: {
+    totalLow: 30,
+    totalHigh: 45,
+    unit: 'developer-days',
+    note: 'Estimate for a single experienced EDS developer. Ranges account for the 7 custom block shapes and 7-locale content reconciliation. Parallelizing block development and content import can compress the calendar timeline.',
+  },
 };
 
 export default reportData;

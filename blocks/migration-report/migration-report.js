@@ -176,23 +176,39 @@ function buildInventory(d) {
 function buildPlan(d) {
   const sec = el('section', 'migration-report-section');
   sec.id = 'plan';
-  sec.append(el('h2', 'migration-report-h2', 'Migration Plan'));
-  sec.append(el('p', 'migration-report-sub', 'End-to-end workflow. Completed steps reflect the us/en migration executed so far.'));
+  sec.append(el('h2', 'migration-report-h2', 'Migration Plan & Effort Estimate'));
+  sec.append(el(
+    'p',
+    'migration-report-sub',
+    'Phase-wise plan to migrate the WKND site to Edge Delivery Services with effort estimates. All phases are pending — this is a forward-looking estimate for the full migration.',
+  ));
+
+  const es = d.effortSummary;
+  if (es) {
+    const cards = el('div', 'migration-report-cards');
+    cards.append(metricCard(`${es.totalLow}–${es.totalHigh}`, `Total effort (${es.unit})`));
+    cards.append(metricCard(d.plan.length, 'Phases'));
+    cards.append(metricCard('0%', 'Completed'));
+    sec.append(cards);
+  }
+
   const ol = el('ol', 'migration-report-plan');
-  d.plan.forEach(([title, st, desc]) => {
-    const li = el('li', `migration-report-step ${st}`);
-    const labels = { done: 'Complete', next: 'Next' };
-    const label = labels[st] || 'Pending';
-    li.innerHTML = `<b>${esc(title)}<span class="migration-report-st">${label}</span></b>${esc(desc)}`;
+  d.plan.forEach((p) => {
+    const li = el('li', `migration-report-step ${p.status}`);
+    li.innerHTML = `<b>${esc(p.phase)}: ${esc(p.title)}`
+      + '<span class="migration-report-st">Pending</span>'
+      + `<span class="migration-report-effort">${esc(p.effort)}</span></b>${esc(p.desc)}`;
     ol.append(li);
   });
   sec.append(ol);
-  sec.append(el(
-    'div',
-    'migration-report-note',
-    '<strong>Recommended focus:</strong> the us/en tree was migrated first (6 representative pages). '
-    + 'The remaining pages across all locales reuse these same templates and blocks, so bulk import can follow once verification passes.',
-  ));
+
+  if (es) {
+    sec.append(el(
+      'div',
+      'migration-report-note',
+      `<strong>Total estimated effort: ${es.totalLow}–${es.totalHigh} ${es.unit}.</strong> ${esc(es.note)}`,
+    ));
+  }
   return sec;
 }
 
