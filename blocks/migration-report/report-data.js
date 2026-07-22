@@ -526,6 +526,81 @@ const reportData = {
     unit: 'developer-days',
     note: 'Sequential build order: foundation first (setup → global styles → header/footer), then one template at a time (blocks + import + verify), then the multi-locale rollout, then launch. Estimate assumes a single experienced EDS developer; template steps can be parallelized across developers to compress the calendar timeline.',
   },
+  ema: {
+    intro: 'The Experience Modernization Agent (EMA) automates most of the migration through AI-driven skills: it crawls and catalogs the site, generates block code and import parsers, imports content, extracts the design system, and validates the result visually. The developer shifts from writing every block by hand to reviewing and refining agent output — collapsing the same 9 steps from ~24–34 days to ~4–7 days.',
+    steps: [
+      {
+        phase: 'Step 1',
+        title: 'Project Setup & Import Infrastructure',
+        manual: '2–3 days',
+        emaEffort: '2–3 hrs',
+        how: 'EMA detects the project type, configures the block library, and auto-generates parsers, the cleanup transformer, and a reusable import script from the analyzed templates. You review the generated infrastructure.',
+      },
+      {
+        phase: 'Step 2',
+        title: 'Base & Global Styles (Design System)',
+        manual: '3–4 days',
+        emaEffort: '3–5 hrs',
+        how: 'The design skill extracts exact brand tokens (fonts, colors, spacing) from the live source via computed-style analysis and writes styles.css + brand.css automatically. You confirm the token values.',
+      },
+      {
+        phase: 'Step 3',
+        title: 'Header & Footer (Global Blocks)',
+        manual: '2–3 days',
+        emaEffort: '3–5 hrs',
+        how: 'The navigation and footer orchestrators instrument the header (logo, nav, locale switcher, search) and localized footer from screenshots + DOM, producing the nav/footer blocks. You verify structure and hover behavior.',
+      },
+      {
+        phase: 'Step 4',
+        title: 'Homepage Template',
+        manual: '3–4 days',
+        emaEffort: '30–60 min',
+        how: 'Page-analysis identifies sections and block variants; block code + parsers are generated and content imported in one pass. The design expert styles each block from source computed styles. You review the rendered page.',
+      },
+      {
+        phase: 'Step 5',
+        title: 'Adventure Detail & Adventures Listing',
+        manual: '4–5 days',
+        emaEffort: '45–90 min',
+        how: 'EMA reuses blocks already built (carousel, cards) and only generates the new ones (breadcrumbs, metadata, tabs) via similarity detection, then bulk-imports all 34 pages. Reuse means near-zero incremental block work.',
+      },
+      {
+        phase: 'Step 6',
+        title: 'Article & Content-Listing Templates',
+        manual: '3–4 days',
+        emaEffort: '30–60 min',
+        how: 'New variants (quote, share cards, profile cards) are auto-generated; breadcrumbs are reused. Content for all 17 pages is imported and styled by the agent.',
+      },
+      {
+        phase: 'Step 7',
+        title: 'FAQ Template',
+        manual: '1–2 days',
+        emaEffort: '15–30 min',
+        how: 'The accordion block is generated from the vanilla EDS block and styled from source; the 2 pages import automatically. Contact sidebar handled as default content.',
+      },
+      {
+        phase: 'Step 8',
+        title: 'Full Locale Rollout',
+        manual: '3–4 days',
+        emaEffort: '30–60 min',
+        how: 'Because every template + block is proven, the same import script bulk-imports all remaining locale pages in one run. The agent classifies each URL to its template automatically.',
+      },
+      {
+        phase: 'Step 9',
+        title: 'Verification, QA & Launch',
+        manual: '3–5 days',
+        emaEffort: '2–4 hrs',
+        how: 'The visual-critique skill compares each migrated page against the original screenshot and auto-fixes styling gaps over iterations. You do a final human review, then publish.',
+      },
+    ],
+    summary: {
+      totalLow: 4,
+      totalHigh: 7,
+      unit: 'developer-days',
+      speedup: '~5–6× faster',
+      note: 'EMA does the heavy lifting (crawl, block code, parsers, import, design extraction, visual critique) autonomously; the developer reviews and refines rather than authoring from scratch. Actual time depends on how many custom block shapes need manual polish and the depth of human QA.',
+    },
+  },
 };
 
 export default reportData;

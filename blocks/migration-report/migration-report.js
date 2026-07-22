@@ -212,6 +212,42 @@ function buildPlan(d) {
   return sec;
 }
 
+function buildEma(d) {
+  const sec = el('section', 'migration-report-section');
+  sec.id = 'ema';
+  const e = d.ema;
+  sec.append(el('h2', 'migration-report-h2', 'With EMA — Accelerated Estimate'));
+  sec.append(el('p', 'migration-report-sub', esc(e.intro)));
+
+  const cards = el('div', 'migration-report-cards');
+  cards.append(metricCard(`${d.effortSummary.totalLow}–${d.effortSummary.totalHigh}`, 'Manual (developer-days)'));
+  cards.append(metricCard(`${e.summary.totalLow}–${e.summary.totalHigh}`, `With EMA (${e.summary.unit})`));
+  cards.append(metricCard(e.summary.speedup, 'Speed-up'));
+  sec.append(cards);
+
+  const table = el('table', 'migration-report-table migration-report-ema-table');
+  table.innerHTML = '<thead><tr><th>Step</th><th>Manual</th><th>With EMA</th>'
+    + '<th>How EMA does it</th></tr></thead>';
+  const tb = el('tbody');
+  e.steps.forEach((s) => {
+    const tr = el('tr');
+    tr.innerHTML = `<td><strong>${esc(s.phase)}</strong><br>${esc(s.title)}</td>`
+      + `<td><span class="migration-report-manual-badge">${esc(s.manual)}</span></td>`
+      + `<td><span class="migration-report-ema-badge">${esc(s.emaEffort)}</span></td>`
+      + `<td>${esc(s.how)}</td>`;
+    tb.append(tr);
+  });
+  table.append(tb);
+  sec.append(table);
+
+  sec.append(el(
+    'div',
+    'migration-report-note',
+    `<strong>With EMA: ~${e.summary.totalLow}–${e.summary.totalHigh} ${e.summary.unit} (${e.summary.speedup}).</strong> ${esc(e.summary.note)}`,
+  ));
+  return sec;
+}
+
 export default function decorate(block) {
   const d = reportData;
   block.textContent = '';
@@ -230,6 +266,7 @@ export default function decorate(block) {
     { id: 'blocks', label: 'Block Inventory', build: buildBlocks },
     { id: 'inventory', label: 'Page Inventory', build: buildInventory },
     { id: 'plan', label: 'Migration Plan', build: buildPlan },
+    { id: 'ema', label: 'With EMA', build: buildEma },
   ];
 
   const tabs = buildTabs(sections);

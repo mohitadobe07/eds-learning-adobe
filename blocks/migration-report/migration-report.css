@@ -499,6 +499,36 @@
   margin-top: 18px;
 }
 
+/* EMA comparison */
+.migration-report-manual-badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--mr-muted);
+  background: var(--mr-panel);
+  border: 1px solid var(--mr-line);
+  padding: 2px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.migration-report-ema-badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--mr-good);
+  background: var(--mr-good-bg);
+  border: 1px solid #bfe3cb;
+  padding: 2px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+#ema .migration-report-ema-table th:nth-child(4),
+#ema .migration-report-ema-table td:nth-child(4) {
+  min-width: 260px;
+}
+
 @media (width >= 900px) {
   .migration-report-title {
     font-size: 40px;
