@@ -502,11 +502,9 @@ header nav .nav-utility .nav-lang > ul > li a:hover {
   header nav[aria-expanded='true'] {
     position: relative;
     display: grid;
-    grid-template-columns: auto 1fr auto;
-    grid-template-rows: auto auto;
-    grid-template-areas:
-      'utility utility utility'
-      'brand sections tools';
+    grid-template:
+      'utility utility utility' auto
+      'brand sections tools' auto / auto 1fr auto;
     align-items: center;
     max-width: 1200px;
     min-height: 0;
