@@ -310,7 +310,6 @@ header nav .nav-sections .default-content-wrapper > ul > li {
 
 @media (width >= 900px) {
   header nav .nav-sections .default-content-wrapper > ul > li {
-    padding: 6px 4px;
     border-bottom: 3px solid transparent;
   }
 
@@ -493,9 +492,11 @@ header nav .nav-utility .nav-lang > ul > li a:hover {
   background: var(--light-color);
 }
 
-/* WKND layout: utility strip on top, then logo left · nav centered · tools right */
+/* WKND layout (matches source): utility strip on top; row 2 = logo left,
+   then nav + search grouped on the right. Nav links touch (gap 0). */
 @media (width >= 900px) {
-  /* two-row grid: utility strip (row 1) + main nav (row 2) */
+  /* two-row grid: utility strip (row 1) full-width + main nav (row 2):
+     brand (left) | sections (right-aligned in flex space) | tools (far right) */
   header nav {
     position: relative;
     display: grid;
@@ -515,36 +516,43 @@ header nav .nav-utility .nav-lang > ul > li a:hover {
     flex: 0 0 auto;
   }
 
-  /* main nav centered across the full row (row 2) */
+  /* nav links pushed to the right of the flexible middle column, adjacent to search */
   header nav .nav-sections {
     grid-area: sections;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: var(--nav-height);
     display: flex;
     align-items: center;
-    justify-content: center;
-    pointer-events: none;
+    justify-content: flex-end;
+    height: var(--nav-height);
   }
 
   header nav .nav-sections .default-content-wrapper {
     display: flex;
-    justify-content: center;
-    pointer-events: auto;
   }
 
+  /* nav links touch each other, uppercase, full-height (source) */
   header nav .nav-sections .default-content-wrapper > ul {
-    gap: 40px;
+    display: flex;
+    gap: 0;
     margin: 0;
-    justify-content: center;
   }
 
+  header nav .nav-sections .default-content-wrapper > ul > li {
+    padding: 0;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li a:any-link {
+    display: flex;
+    align-items: center;
+    height: var(--nav-height);
+    padding: 0 20px;
+  }
+
+  /* search sits at the far right, just after the nav links */
   header nav .nav-tools {
     grid-area: tools;
-    flex: 0 0 auto;
-    margin-left: auto;
     align-self: center;
+    display: flex;
+    align-items: center;
+    margin-left: 24px;
   }
 }
