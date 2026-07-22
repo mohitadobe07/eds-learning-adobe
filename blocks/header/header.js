@@ -124,7 +124,11 @@ export default async function decorate(block) {
   nav.id = 'nav';
   while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
 
-  const classes = ['brand', 'sections', 'tools'];
+  // Four content sections → utility (top strip), brand, sections (main nav), tools.
+  // Falls back to the 3-section layout (brand, sections, tools) if no utility strip is authored.
+  const classes = nav.children.length >= 4
+    ? ['utility', 'brand', 'sections', 'tools']
+    : ['brand', 'sections', 'tools'];
   classes.forEach((c, i) => {
     const section = nav.children[i];
     if (section) section.classList.add(`nav-${c}`);
