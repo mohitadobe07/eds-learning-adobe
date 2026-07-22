@@ -275,25 +275,25 @@ header nav .nav-tools {
   gap: 16px;
 }
 
-/* ===== WKND header styling ===== */
+/* ===== WKND header styling (matched to source computed styles) ===== */
 
-/* WKND wordmark logo (text-based) */
+/* WKND wordmark logo — source logo renders ~128x48 */
 header .nav-brand a:any-link {
   font-family: var(--body-font-family);
-  font-weight: 800;
-  font-size: 26px;
-  letter-spacing: 2px;
+  font-weight: 700;
+  font-size: 30px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--text-color);
   text-decoration: none;
 }
 
-/* main nav links: uppercase, dark, yellow highlight on hover/active */
+/* main nav links: uppercase, dark, weight 400 (source), yellow highlight on hover/active */
 header nav .nav-sections .default-content-wrapper > ul > li {
   font-family: var(--body-font-family);
-  font-weight: 600;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: normal;
   font-size: 14px;
 }
 
@@ -312,10 +312,10 @@ header nav .nav-sections .default-content-wrapper > ul > li {
 /* tools area: locale switcher + search on the right */
 header nav .nav-tools p {
   font-family: var(--body-font-family);
-  font-weight: 600;
-  font-size: 13px;
+  font-weight: 400;
+  font-size: 14px;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: normal;
   color: var(--text-color);
 }
 

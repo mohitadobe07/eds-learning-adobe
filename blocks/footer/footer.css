@@ -1,14 +1,14 @@
-/* WKND footer — dark background, white text */
+/* WKND footer — matched to source computed styles (dark #202020, #ebebeb text) */
 footer {
   background-color: var(--footer-bg-color, #202020);
-  color: #fff;
+  color: #ebebeb;
   font-size: var(--body-font-size-xs);
 }
 
 footer .footer > div {
   margin: auto;
   max-width: var(--content-max-width, 1200px);
-  padding: 48px 24px 32px;
+  padding: 40px 24px 24px;
 }
 
 footer .footer p {
@@ -16,7 +16,7 @@ footer .footer p {
 }
 
 footer .footer a:any-link {
-  color: #fff;
+  color: #ebebeb;
   text-decoration: none;
 }
 
@@ -27,13 +27,13 @@ footer .footer a:hover {
 /* WKND wordmark */
 footer .footer p:first-child a {
   font-family: var(--body-font-family);
-  font-weight: 800;
-  font-size: 24px;
-  letter-spacing: 2px;
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: 1px;
   text-transform: uppercase;
 }
 
-/* nav + social lists */
+/* nav list — uppercase, weight 400 (source), 14px */
 footer .footer ul {
   list-style: none;
   padding: 0;
@@ -45,31 +45,57 @@ footer .footer ul {
 
 footer .footer ul li {
   font-family: var(--body-font-family);
-  font-weight: 600;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-size: 13px;
+  letter-spacing: normal;
+  font-size: 14px;
 }
 
-/* "Follow Us" heading */
+/* "Follow Us" heading — 16px semibold uppercase */
 footer .footer p strong {
   font-family: var(--body-font-family);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-size: 13px;
+  letter-spacing: normal;
+  font-size: 16px;
 }
 
-/* legal / copyright text */
-footer .footer p:nth-last-child(-n + 2) {
-  color: #b3b3b3;
+/* social links rendered as WKND 48x48 light squares with dark labels */
+footer .footer ul:last-of-type {
+  gap: 4px;
+}
+
+footer .footer ul:last-of-type li a:any-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  height: 48px;
+  padding: 0 10px;
+  background-color: #ebebeb;
+  color: #202020;
   font-size: 12px;
-  line-height: 1.6;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+
+footer .footer ul:last-of-type li a:hover {
+  background-color: #fff;
+  text-decoration: none;
+}
+
+/* legal / copyright text — #f7f7f7, 12px */
+footer .footer p:nth-last-child(-n + 2) {
+  color: #f7f7f7;
+  font-size: 12px;
+  line-height: 1.5;
   max-width: 900px;
 }
 
 @media (width >= 900px) {
   footer .footer > div {
-    padding: 56px 32px 32px;
+    padding: 48px 32px 24px;
   }
 }
