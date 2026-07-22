@@ -509,7 +509,7 @@ header nav .nav-utility .nav-lang > ul > li a:hover {
     align-items: center;
     max-width: 1200px;
     min-height: 0;
-    padding: 8px 24px 0;
+    padding: 0 24px;
     gap: 0;
     height: auto;
     overflow: visible;
@@ -520,13 +520,13 @@ header nav .nav-utility .nav-lang > ul > li a:hover {
     flex: 0 0 auto;
   }
 
-  /* nav links pushed to the right of the flexible middle column, adjacent to search */
+  /* main nav row height — trimmed to match source (~64px) */
   header nav .nav-sections {
     grid-area: sections;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    height: var(--nav-height);
+    height: 64px;
   }
 
   header nav .nav-sections .default-content-wrapper {
@@ -549,8 +549,8 @@ header nav .nav-utility .nav-lang > ul > li a:hover {
   header nav .nav-sections .default-content-wrapper > ul > li a:any-link {
     display: flex;
     align-items: center;
-    height: var(--nav-height);
-    padding: 0 20px;
+    height: 64px;
+    padding: 0 18px;
   }
 
   /* search sits at the far right, just after the nav links */
