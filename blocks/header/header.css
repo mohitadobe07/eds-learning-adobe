@@ -323,3 +323,32 @@ header nav .nav-tools .icon-search img {
   width: 20px;
   height: 20px;
 }
+
+/* WKND layout: logo left · nav centered · tools right, matched to source (1200px inner) */
+@media (width >= 900px) {
+  header nav {
+    max-width: 1200px;
+    padding: 0 24px;
+    gap: 0;
+  }
+
+  /* center the main nav in the row */
+  header nav .nav-sections {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul {
+    gap: 40px;
+  }
+
+  /* keep the brand from stretching so nav stays centered */
+  header .nav-brand {
+    flex: 0 0 auto;
+  }
+
+  header nav .nav-tools {
+    flex: 0 0 auto;
+  }
+}

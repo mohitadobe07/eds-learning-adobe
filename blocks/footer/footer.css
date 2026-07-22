@@ -1,4 +1,4 @@
-/* WKND footer — matched to source computed styles (dark #202020, #ebebeb text) */
+/* WKND footer — matched to source computed styles + layout (dark #202020, #ebebeb text) */
 footer {
   background-color: var(--footer-bg-color, #202020);
   color: #ebebeb;
@@ -37,10 +37,10 @@ footer .footer p:first-child a {
 footer .footer ul {
   list-style: none;
   padding: 0;
-  margin: 0 0 20px;
+  margin: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 24px;
+  gap: 12px 24px;
 }
 
 footer .footer ul li {
@@ -91,11 +91,62 @@ footer .footer p:nth-last-child(-n + 2) {
   color: #f7f7f7;
   font-size: 12px;
   line-height: 1.5;
-  max-width: 900px;
+  max-width: 100%;
 }
 
+/* ===== WKND footer layout (matched to source: horizontal top band + legal below) ===== */
 @media (width >= 900px) {
   footer .footer > div {
-    padding: 48px 32px 24px;
+    padding: 48px 32px 32px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: start;
+    column-gap: 48px;
+  }
+
+  /* row 1: logo (left) · nav (center) · Follow Us heading (right) */
+  footer .footer > div > p:first-child {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0;
+  }
+
+  footer .footer > div > ul:first-of-type {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    justify-content: center;
+    margin: 0;
+  }
+
+  footer .footer > div > p:nth-child(3) {
+    grid-column: 3;
+    grid-row: 1;
+    margin: 0;
+    text-align: right;
+  }
+
+  /* row 2: social squares under the Follow Us heading (right column) */
+  footer .footer > div > ul:last-of-type {
+    grid-column: 3;
+    grid-row: 2;
+    justify-content: flex-end;
+    margin: 12px 0 0;
+  }
+
+  /* row 3: legal spans all columns */
+  footer .footer > div > p:nth-last-child(-n + 2) {
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+
+  footer .footer > div > p:nth-child(5) {
+    grid-row: 3;
+    margin-top: 32px;
+  }
+
+  footer .footer > div > p:last-child {
+    grid-row: 4;
+    margin-top: 8px;
   }
 }
