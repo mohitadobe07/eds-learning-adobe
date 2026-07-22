@@ -155,6 +155,24 @@ export default async function decorate(block) {
     });
   }
 
+  // Build the WKND search field: replace the authored :search: icon token with a
+  // real input (search icon inside a light field + "Search" placeholder).
+  const navTools = nav.querySelector('.nav-tools');
+  const searchIcon = navTools ? navTools.querySelector('.icon-search') : null;
+  if (searchIcon) {
+    const field = document.createElement('div');
+    field.className = 'nav-search';
+    const iconClone = searchIcon.cloneNode(true);
+    const input = document.createElement('input');
+    input.type = 'search';
+    input.name = 'fulltext';
+    input.placeholder = 'Search';
+    input.setAttribute('aria-label', 'Search');
+    field.append(iconClone, input);
+    const target = searchIcon.closest('p') || searchIcon;
+    target.replaceWith(field);
+  }
+
   // hamburger for mobile
   const hamburger = document.createElement('div');
   hamburger.classList.add('nav-hamburger');
