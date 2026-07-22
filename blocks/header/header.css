@@ -4,7 +4,7 @@ header .nav-wrapper {
   width: 100%;
   z-index: 2;
   position: fixed;
-  border-bottom: 1px solid var(--light-color);
+  box-shadow: 0 8px 20px 0 rgb(0 0 0 / 26%);
 }
 
 header nav {
@@ -531,6 +531,8 @@ header nav .nav-utility .nav-lang > ul > li a:hover {
 
   header nav .nav-sections .default-content-wrapper {
     display: flex;
+    width: 100%;
+    justify-content: flex-end;
   }
 
   /* nav links touch each other, uppercase, full-height (source) */
