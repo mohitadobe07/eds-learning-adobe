@@ -180,14 +180,14 @@ function buildPlan(d) {
   sec.append(el(
     'p',
     'migration-report-sub',
-    'Phase-wise plan to migrate the WKND site to Edge Delivery Services with effort estimates. All phases are pending — this is a forward-looking estimate for the full migration.',
+    'Sequential build order for migrating the WKND site to Edge Delivery Services: foundation first (project setup → base styles → header & footer), then one template at a time, then the full multi-locale rollout and launch. All steps are pending — this is a forward-looking plan.',
   ));
 
   const es = d.effortSummary;
   if (es) {
     const cards = el('div', 'migration-report-cards');
     cards.append(metricCard(`${es.totalLow}–${es.totalHigh}`, `Total effort (${es.unit})`));
-    cards.append(metricCard(d.plan.length, 'Phases'));
+    cards.append(metricCard(d.plan.length, 'Steps'));
     cards.append(metricCard('0%', 'Completed'));
     sec.append(cards);
   }
