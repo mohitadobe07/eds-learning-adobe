@@ -277,15 +277,23 @@ header nav .nav-tools {
 
 /* ===== WKND header styling (matched to source computed styles) ===== */
 
-/* WKND wordmark logo — source logo renders ~128x48 */
+/* WKND logo SVG — source renders 128x48 */
 header .nav-brand a:any-link {
-  font-family: var(--body-font-family);
-  font-weight: 700;
-  font-size: 30px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--text-color);
+  display: inline-flex;
+  align-items: center;
   text-decoration: none;
+}
+
+header .nav-brand .icon-wknd-logo-dark {
+  display: inline-block;
+  width: 128px;
+  height: 48px;
+}
+
+header .nav-brand .icon-wknd-logo-dark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 /* main nav links: uppercase, dark, weight 400 (source), yellow highlight on hover/active */
