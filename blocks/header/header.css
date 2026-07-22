@@ -380,10 +380,16 @@ header nav .nav-utility {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 24px;
   width: 100%;
   padding: 4px 0;
   color: #f7f7f7;
+}
+
+/* the authored content wrapper is the actual flex row holding Sign In + language */
+header nav .nav-utility .default-content-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
 
 /* full-bleed dark background behind the utility strip (matches source #202020 bar) */
@@ -415,7 +421,7 @@ header nav .nav-utility .nav-lang > p {
 
 /* utility bar uses two flex items: Sign In (p) and the language list (ul) */
 /* stylelint-disable-next-line no-descending-specificity */
-header nav .nav-utility > ul {
+header nav .nav-utility .default-content-wrapper > ul {
   list-style: none;
   margin: 0;
   padding: 0;
