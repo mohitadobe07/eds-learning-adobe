@@ -69,9 +69,9 @@ footer .footer p strong {
   font-size: 16px;
 }
 
-/* social links rendered as WKND 48x48 light squares with dark labels */
+/* social links: WKND connected strip of 48x48 light squares (no gap, dark glyph) */
 footer .footer ul:last-of-type {
-  gap: 4px;
+  gap: 0;
 }
 
 footer .footer ul:last-of-type li a:any-link {
@@ -91,11 +91,11 @@ footer .footer ul:last-of-type li a:hover {
   text-decoration: none;
 }
 
-/* social SVG glyph — dark, centered in the light square */
+/* social SVG glyph — dark, centered in the light square (source glyph ~18px) */
 footer .footer ul:last-of-type .icon {
   display: inline-flex;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   color: #202020;
 }
 
