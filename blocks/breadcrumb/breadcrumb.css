@@ -17,6 +17,7 @@
 .breadcrumb .breadcrumb-item {
   display: inline-flex;
   align-items: center;
+  padding: 10px 0;
   color: var(--text-color);
 }
 
