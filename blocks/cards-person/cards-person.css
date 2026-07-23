@@ -2,6 +2,10 @@
  * Source: https://wknd.site/us/en/about-us.html
  * Each card: circular portrait photo, centered H3 name, H5 role/tagline,
  * and a horizontal row of 3 social icon links. 4-across on desktop.
+ *
+ * Note: each person imports as its own single-card cards-person block, so the
+ * *wrappers* (.cards-person-wrapper) are laid out as a flex row to form the
+ * multi-column grid; the per-block <ul> holds a single card.
  */
 
 .cards-person > ul {
@@ -13,20 +17,6 @@
   gap: 40px 24px;
 }
 
-/* tablet: 2 columns */
-@media (width >= 600px) {
-  .cards-person > ul {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-/* desktop: up to 4 columns (contributors grid is 4-across, guides 3-across) */
-@media (width >= 900px) {
-  .cards-person > ul {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
 .cards-person > ul > li {
   margin: 0;
   padding: 0;
@@ -34,6 +24,43 @@
   background-color: transparent;
   min-width: 0;
   text-align: center;
+}
+
+/* Lay consecutive person-card blocks out as a grid. Each .cards-person-wrapper
+   holds one person; a run of them (between the section headings) flows into
+   rows. Full width on mobile, 2-up tablet, 4-up desktop. */
+main .section .cards-person-wrapper {
+  display: inline-block;
+  width: 100%;
+  vertical-align: top;
+  margin: 0 0 40px;
+}
+
+@media (width >= 600px) {
+  main .section .cards-person-wrapper {
+    width: calc(50% - 12px);
+    margin-right: 24px;
+  }
+
+  main .section .cards-person-wrapper:nth-of-type(2n) {
+    margin-right: 0;
+  }
+}
+
+@media (width >= 900px) {
+  main .section .cards-person-wrapper {
+    width: calc(25% - 18px);
+    margin-right: 24px;
+  }
+
+  /* reset the tablet 2n rule, then clear every 4th on desktop */
+  main .section .cards-person-wrapper:nth-of-type(2n) {
+    margin-right: 24px;
+  }
+
+  main .section .cards-person-wrapper:nth-of-type(4n) {
+    margin-right: 0;
+  }
 }
 
 /* circular portrait photo */
@@ -55,12 +82,12 @@
   padding: 0;
 }
 
-/* name */
+/* name — Asar serif, matching the source contributor cards */
 .cards-person .cards-person-card-body h3 {
   margin: 16px 0 0;
-  font-family: var(--body-font-family);
-  font-size: 20px;
-  font-weight: 600;
+  font-family: var(--heading-font-family);
+  font-size: 24px;
+  font-weight: 400;
   line-height: 1.4;
 }
 

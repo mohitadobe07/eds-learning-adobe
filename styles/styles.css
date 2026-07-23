@@ -551,3 +551,14 @@ main:has(blockquote) .section > .default-content-wrapper p.button-wrapper a.butt
   background-color: var(--accent-color);
   color: var(--text-color);
 }
+
+/* Magazine listing, FAQ, and About Us page titles — match the source's 40px
+   H1 (the default heading scale renders 48px). Scoped to each template via a
+   block that only appears on that page. */
+/* stylelint-disable no-descending-specificity */
+main:has(.accordion) .default-content-wrapper h1,
+main:has(.cards-person) .default-content-wrapper h1,
+main:has(.columns):has(.cards) .default-content-wrapper h1 {
+  font-size: 40px;
+}
+/* stylelint-enable no-descending-specificity */

@@ -13,12 +13,24 @@
 
 .accordion details summary {
   position: relative;
-  padding: 0 16px;
+  padding: 16px;
   padding-right: 46px;
   cursor: pointer;
   list-style: none;
   overflow: auto;
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
   transition: background-color 0.2s;
+}
+
+/* the question text lands in a <p> inside the summary — flatten its margins */
+.accordion details summary p {
+  margin: 0;
+  font: inherit;
+  text-transform: inherit;
 }
 
 .accordion details[open] summary {
