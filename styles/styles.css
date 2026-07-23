@@ -355,6 +355,7 @@ main .section.dark a:any-link {
   main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .info-panel-wrapper {
     grid-column: 1;
     grid-row: 2;
+    align-self: start;
   }
 
   /* "Share this Adventure" (default content with an h5) sits in the left
