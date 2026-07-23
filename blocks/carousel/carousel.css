@@ -81,9 +81,13 @@
 }
 
 /* image-only slide (e.g. adventure-detail hero): no overlapping card —
-   render as a plain full-bleed image band */
-.carousel .carousel-slide .carousel-slide-content:not(:has(*)) {
+   render as a plain full-bleed image band, ~400px tall */
+.carousel .carousel-slide.carousel-slide-image-only .carousel-slide-content {
   display: none;
+}
+
+.carousel:has(.carousel-slide-image-only) {
+  --carousel-image-height: 400px;
 }
 
 .carousel .carousel-slide .carousel-slide-content h1,
@@ -222,6 +226,10 @@
     --carousel-card-overlap: 120px;
   }
 
+  .carousel:has(.carousel-slide-image-only) {
+    --carousel-image-height: 400px;
+  }
+
   .carousel .carousel-navigation-buttons {
     left: 24px;
     right: 24px;
@@ -237,6 +245,11 @@
   .carousel {
     --carousel-image-height: 640px;
     --carousel-card-overlap: 180px;
+  }
+
+  /* image-only carousel (adventure detail) stays ~400px at all breakpoints */
+  .carousel:has(.carousel-slide-image-only) {
+    --carousel-image-height: 400px;
   }
 
   .carousel .carousel-slide .carousel-slide-content {

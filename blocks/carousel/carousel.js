@@ -79,6 +79,13 @@ function createSlide(row, slideIndex, carouselId) {
     slide.append(column);
   });
 
+  // Mark image-only slides (empty content column) so CSS can render them as a
+  // plain image band with no overlapping content card.
+  const contentCol = slide.querySelector('.carousel-slide-content');
+  if (!contentCol || !contentCol.querySelector('*')) {
+    slide.classList.add('carousel-slide-image-only');
+  }
+
   const labeledBy = slide.querySelector('h1, h2, h3, h4, h5, h6');
   if (labeledBy) {
     slide.setAttribute('aria-labelledby', labeledBy.getAttribute('id'));
