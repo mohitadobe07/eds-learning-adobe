@@ -381,10 +381,13 @@ main .section.dark a:any-link {
     grid-row: 2 / span 2;
 
     /* fill the column (stretch) but pin to top (start) so a short panel can't
-       shrink/shift the tabs or push the info panel down */
+       shrink/shift the tabs or push the info panel down. margin:0 overrides the
+       section's `> div { margin: auto }`, whose auto vertical margins would
+       otherwise center the wrapper and drift the tab strip down on short panels. */
     place-self: start stretch;
     width: 100%;
     min-width: 0;
+    margin: 0;
   }
 
   main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .tabs-wrapper .tabs {
