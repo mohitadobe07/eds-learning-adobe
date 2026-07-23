@@ -80,14 +80,19 @@
   color: var(--text-color);
 }
 
-/* image-only slide (e.g. adventure-detail hero): no overlapping card —
-   render as a plain full-bleed image band, ~400px tall */
-.carousel .carousel-slide.carousel-slide-image-only .carousel-slide-content {
-  display: none;
+/* image-only carousel (e.g. adventure-detail hero): plain image band, ~400px,
+   no overlapping content card. Uses the section's own full width (not 100vw)
+   to avoid a horizontal scrollbar when nested in a padded content section. */
+.carousel.carousel:has(.carousel-slide-image-only) {
+  width: auto;
+  margin-left: 0;
+  margin-right: 0;
+
+  --carousel-image-height: 400px;
 }
 
-.carousel:has(.carousel-slide-image-only) {
-  --carousel-image-height: 400px;
+.carousel .carousel-slide.carousel-slide-image-only .carousel-slide-content {
+  display: none;
 }
 
 .carousel .carousel-slide .carousel-slide-content h1,
