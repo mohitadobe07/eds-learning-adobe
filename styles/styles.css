@@ -62,6 +62,13 @@ header {
   min-height: var(--nav-height);
 }
 
+/* header is position:fixed on desktop — reserve its full height (utility strip + main row) */
+@media (width >= 900px) {
+  header {
+    min-height: 124px;
+  }
+}
+
 header .header,
 footer .footer {
   visibility: hidden;
