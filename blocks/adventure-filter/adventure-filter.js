@@ -9,10 +9,10 @@ import { createOptimizedPicture } from '../../scripts/aem.js';
  *
  * Expected authored structure (one row per adventure card):
  *   Column 1 = the card image.
- * Column 2 = card body: a linked heading, a description paragraph, and a final
- *            paragraph listing one or more comma-separated categories
- *            (e.g. "Surfing, Travel"). The category paragraph is consumed to
- *            build the filter and removed from the visible card.
+ *   Column 2 = card body: a linked heading and a description paragraph.
+ *   Column 3 = one or more comma-separated categories (e.g. "Surfing, Travel"),
+ *              or empty for uncategorized (All-only) cards. Consumed to build
+ *              the filter; not rendered in the card.
  *
  * @param {Element} block The block element
  */
@@ -30,10 +30,24 @@ export default function decorate(block) {
   const orderedCategories = [];
 
   rows.forEach((row) => {
+    const cols = [...row.children];
+    // Column 3 (if present) holds the comma-separated categories.
+    const categoryCol = cols.length >= 3 ? cols[cols.length - 1] : null;
+    const cardCategories = [];
+    if (categoryCol) {
+      categoryCol.textContent.split(',').forEach((cat) => {
+        const label = cat.trim();
+        if (!label) return;
+        cardCategories.push(label);
+        if (!orderedCategories.includes(label)) orderedCategories.push(label);
+      });
+      categoryCol.remove();
+    }
+
     const li = document.createElement('li');
     while (row.firstElementChild) li.append(row.firstElementChild);
 
-    // Classify the two columns: image vs body.
+    // Classify the remaining columns: image vs body.
     [...li.children].forEach((div) => {
       if (div.children.length === 1 && div.querySelector('picture')) {
         div.className = 'adventure-filter-card-image';
@@ -41,24 +55,6 @@ export default function decorate(block) {
         div.className = 'adventure-filter-card-body';
       }
     });
-
-    // The last paragraph in the body holds the comma-separated categories.
-    const body = li.querySelector('.adventure-filter-card-body');
-    const cardCategories = [];
-    if (body) {
-      const paras = [...body.querySelectorAll('p')];
-      const categoryPara = paras[paras.length - 1];
-      // Treat the final plain-text paragraph (no links) as the category list.
-      if (categoryPara && !categoryPara.querySelector('a')) {
-        categoryPara.textContent.split(',').forEach((cat) => {
-          const label = cat.trim();
-          if (!label) return;
-          cardCategories.push(label);
-          if (!orderedCategories.includes(label)) orderedCategories.push(label);
-        });
-        categoryPara.remove();
-      }
-    }
 
     li.dataset.categories = cardCategories.map(slug).join(' ');
     ul.append(li);

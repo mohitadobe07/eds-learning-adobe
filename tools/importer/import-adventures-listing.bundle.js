@@ -123,12 +123,8 @@ var CustomImportScript = (() => {
         bodyCell.push(p);
       }
       const categories = titleToCategories[title.toLowerCase()] || [];
-      if (categories.length) {
-        const catPara = document.createElement("p");
-        catPara.textContent = categories.join(", ");
-        bodyCell.push(catPara);
-      }
-      cells.push([imageCell, bodyCell]);
+      const categoryCell = categories.join(", ");
+      cells.push([imageCell, bodyCell, categoryCell]);
     });
     if (cells.length === 0) {
       element.replaceWith(...element.childNodes);

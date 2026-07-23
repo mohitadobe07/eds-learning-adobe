@@ -9,10 +9,10 @@
  * Target block (blocks/adventure-filter/adventure-filter.js) expects one row
  * per adventure card:
  *   Column 1 = the card image.
- *   Column 2 = card body: linked heading, description paragraph, and a final
- *              plain-text paragraph listing comma-separated categories
- *              (e.g. "Surfing, Travel"). The block consumes that paragraph to
- *              build the filter tabs and removes it from the visible card.
+ *   Column 2 = card body: linked heading + description paragraph.
+ *   Column 3 = comma-separated categories (e.g. "Surfing, Travel"), or empty
+ *              for uncategorized (All-only) cards. A dedicated column keeps the
+ *              categories unambiguous even when a card has no category.
  *
  * Source: an AEM cmp-tabs whose FIRST (active) tab-panel — the "All" tab — holds
  * every unique adventure card as <li class="cmp-image-list__item"> nodes. Later
@@ -72,7 +72,7 @@ export default function parse(element, { document }) {
       imageCell = picture;
     }
 
-    // Column 2: body cell — linked heading, description, category paragraph.
+    // Column 2: body cell — linked heading + description.
     const bodyCell = [];
 
     if (title) {
@@ -96,15 +96,11 @@ export default function parse(element, { document }) {
       bodyCell.push(p);
     }
 
-    // Final plain-text paragraph = comma-separated categories for this card.
+    // Column 3: comma-separated categories (empty for All-only cards).
     const categories = titleToCategories[title.toLowerCase()] || [];
-    if (categories.length) {
-      const catPara = document.createElement('p');
-      catPara.textContent = categories.join(', ');
-      bodyCell.push(catPara);
-    }
+    const categoryCell = categories.join(', ');
 
-    cells.push([imageCell, bodyCell]);
+    cells.push([imageCell, bodyCell, categoryCell]);
   });
 
   if (cells.length === 0) {
