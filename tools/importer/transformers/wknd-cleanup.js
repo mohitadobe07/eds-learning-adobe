@@ -123,5 +123,24 @@ export default function transform(hookName, element, payload) {
       const normalized = href.replace(/\.html(?=$|[?#])/i, '');
       if (normalized !== href) a.setAttribute('href', normalized);
     });
+
+    // Buttonize standalone AEM CTAs (a.cmp-button) that survive as default
+    // content (block parsers have already consumed block-scoped CTAs). Wrap the
+    // link text in <strong><em> so EDS decorateButtons renders it as the yellow
+    // accent button — matching the source WKND primary buttons.
+    element.querySelectorAll('a.cmp-button').forEach((a) => {
+      const doc = a.ownerDocument;
+      // Use the button label text (source wraps it in span.cmp-button__text).
+      const label = (a.textContent || '').trim();
+      if (!label) return;
+      const link = doc.createElement('a');
+      link.setAttribute('href', a.getAttribute('href') || '');
+      link.textContent = label;
+      const em = doc.createElement('em');
+      const strong = doc.createElement('strong');
+      em.append(link);
+      strong.append(em);
+      a.replaceWith(strong);
+    });
   }
 }

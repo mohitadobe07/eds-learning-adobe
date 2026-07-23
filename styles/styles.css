@@ -52,6 +52,10 @@ body {
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-m);
   line-height: 1.6;
+
+  /* contain full-bleed (100vw) blocks like the hero/carousel so the vertical
+     scrollbar width can't trigger a horizontal scrollbar */
+  overflow-x: clip;
 }
 
 body.appear {

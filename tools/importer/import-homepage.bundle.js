@@ -237,6 +237,19 @@ var CustomImportScript = (() => {
         const normalized = href.replace(/\.html(?=$|[?#])/i, "");
         if (normalized !== href) a.setAttribute("href", normalized);
       });
+      element.querySelectorAll("a.cmp-button").forEach((a) => {
+        const doc = a.ownerDocument;
+        const label = (a.textContent || "").trim();
+        if (!label) return;
+        const link = doc.createElement("a");
+        link.setAttribute("href", a.getAttribute("href") || "");
+        link.textContent = label;
+        const em = doc.createElement("em");
+        const strong = doc.createElement("strong");
+        em.append(link);
+        strong.append(em);
+        a.replaceWith(strong);
+      });
     }
   }
 
