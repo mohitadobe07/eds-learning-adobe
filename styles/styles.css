@@ -370,7 +370,12 @@ main .section.dark a:any-link {
 
     /* fill the column so a short panel can't shrink/shift the tabs */
     justify-self: stretch;
+    width: 100%;
     min-width: 0;
+  }
+
+  main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .tabs-wrapper .tabs {
+    width: 100%;
   }
 
   /* keep the title (default content with an h1) full-width above the columns,
