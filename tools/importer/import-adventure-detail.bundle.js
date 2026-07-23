@@ -44,29 +44,31 @@ var CustomImportScript = (() => {
   // tools/importer/parsers/breadcrumb.js
   function parse(element, { document }) {
     const items = element.querySelectorAll(".cmp-breadcrumb__item, li");
-    const cells = [];
+    const ul = document.createElement("ul");
     items.forEach((li) => {
       var _a;
       const link = li.querySelector("a");
       const isActive = li.classList.contains("cmp-breadcrumb__item--active");
       const label = (((_a = li.querySelector("span")) == null ? void 0 : _a.textContent) || li.textContent || "").trim();
       if (!label) return;
+      const crumb = document.createElement("li");
       if (link && !isActive) {
         const a = document.createElement("a");
         let href = link.getAttribute("href") || "";
         href = href.replace(/\.html($|[?#])/, "$1");
         a.setAttribute("href", href);
         a.textContent = label;
-        cells.push([a]);
+        crumb.append(a);
       } else {
-        cells.push([label]);
+        crumb.textContent = label;
       }
+      ul.append(crumb);
     });
-    if (cells.length === 0) {
+    if (!ul.children.length) {
       element.replaceWith(...element.childNodes);
       return;
     }
-    const block = WebImporter.Blocks.createBlock(document, { name: "breadcrumb", cells });
+    const block = WebImporter.Blocks.createBlock(document, { name: "breadcrumb", cells: [[ul]] });
     element.replaceWith(block);
   }
 
@@ -158,7 +160,10 @@ var CustomImportScript = (() => {
         '[id*="consent"]',
         '[class*="consent"]',
         "#onetrust-consent-sdk",
-        "#onetrust-banner-sdk"
+        "#onetrust-banner-sdk",
+        // Content-fragment internal title — not shown on the source page and
+        // would otherwise duplicate the page H1 (e.g. "Bali Surf Camp").
+        ".cmp-contentfragment__title"
       ]);
     }
     if (hookName === TransformHook.afterTransform) {
@@ -321,8 +326,7 @@ var CustomImportScript = (() => {
       { id: "d1", name: "Breadcrumb", selector: "main nav.cmp-breadcrumb", style: null, blocks: ["breadcrumb"], defaultContent: [] },
       { id: "d2", name: "Hero Image", selector: "main div.carousel.cmp-carousel--mini", style: null, blocks: ["hero"], defaultContent: [] },
       { id: "d3", name: "Title", selector: "main div.title.cmp-title--underline", style: null, blocks: [], defaultContent: ["main div.title.cmp-title--underline h1"] },
-      { id: "d4", name: "Info Panel", selector: "main article > dl.cmp-contentfragment__elements", style: null, blocks: ["info-panel"], defaultContent: [] },
-      { id: "d6", name: "Trip Details Tabs", selector: "main div.tabs.panelcontainer > div.cmp-tabs", style: null, blocks: ["tabs"], defaultContent: [] }
+      { id: "d4", name: "Detail Body", selector: "main article > dl.cmp-contentfragment__elements", style: "detail-body", blocks: ["info-panel", "tabs"], defaultContent: [] }
     ]
   };
   var transformers = [

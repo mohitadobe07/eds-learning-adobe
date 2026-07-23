@@ -37,6 +37,9 @@ export default function transform(hookName, element, payload) {
       '[class*="consent"]',
       '#onetrust-consent-sdk',
       '#onetrust-banner-sdk',
+      // Content-fragment internal title — not shown on the source page and
+      // would otherwise duplicate the page H1 (e.g. "Bali Surf Camp").
+      '.cmp-contentfragment__title',
     ]);
   }
 

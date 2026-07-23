@@ -1,4 +1,5 @@
-/* Breadcrumb — horizontal trail of crumbs with a separator between them. */
+/* Breadcrumb — uppercase trail of crumbs with a yellow arrow separator,
+   matching the WKND source (ADVENTURES ▸ BALI SURF CAMP). */
 
 .breadcrumb .breadcrumb-list {
   display: flex;
@@ -9,7 +10,10 @@
   padding: 0;
   list-style: none;
   font-family: var(--body-font-family);
-  font-size: var(--body-font-size-xs, 14px);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .breadcrumb .breadcrumb-item {
@@ -18,14 +22,20 @@
   color: var(--text-color);
 }
 
+/* yellow arrow separator between crumbs */
 .breadcrumb .breadcrumb-item:not(:first-child)::before {
-  content: '/';
-  margin: 0 8px;
-  color: #767676;
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin: 0 12px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 6px solid var(--accent-color);
 }
 
 .breadcrumb .breadcrumb-link:any-link {
-  color: var(--link-color, #1473e6);
+  color: var(--text-color);
   text-decoration: none;
 }
 
@@ -35,6 +45,5 @@
 }
 
 .breadcrumb .breadcrumb-item-active {
-  color: #767676;
-  font-weight: 600;
+  color: var(--text-color);
 }

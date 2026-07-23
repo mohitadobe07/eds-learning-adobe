@@ -30,8 +30,7 @@ const PAGE_TEMPLATE = {
     { id: 'd1', name: 'Breadcrumb', selector: 'main nav.cmp-breadcrumb', style: null, blocks: ['breadcrumb'], defaultContent: [] },
     { id: 'd2', name: 'Hero Image', selector: 'main div.carousel.cmp-carousel--mini', style: null, blocks: ['hero'], defaultContent: [] },
     { id: 'd3', name: 'Title', selector: 'main div.title.cmp-title--underline', style: null, blocks: [], defaultContent: ['main div.title.cmp-title--underline h1'] },
-    { id: 'd4', name: 'Info Panel', selector: 'main article > dl.cmp-contentfragment__elements', style: null, blocks: ['info-panel'], defaultContent: [] },
-    { id: 'd6', name: 'Trip Details Tabs', selector: 'main div.tabs.panelcontainer > div.cmp-tabs', style: null, blocks: ['tabs'], defaultContent: [] },
+    { id: 'd4', name: 'Detail Body', selector: 'main article > dl.cmp-contentfragment__elements', style: 'detail-body', blocks: ['info-panel', 'tabs'], defaultContent: [] },
   ],
 };
 

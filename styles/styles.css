@@ -334,3 +334,21 @@ main .section.dark {
 main .section.dark a:any-link {
   color: #fff;
 }
+
+/* adventure detail body — info panel sidebar (left) + tabs (right) */
+@media (width >= 900px) {
+  main .section.detail-body > div {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    column-gap: 48px;
+    align-items: start;
+  }
+
+  main .section.detail-body .info-panel-wrapper {
+    grid-column: 1;
+  }
+
+  main .section.detail-body .tabs-wrapper {
+    grid-column: 2;
+  }
+}
