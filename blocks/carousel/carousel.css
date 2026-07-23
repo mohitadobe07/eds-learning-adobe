@@ -162,10 +162,7 @@
    the image sides). */
 .carousel .carousel-navigation-buttons {
   position: absolute;
-  right: 24px;
-  bottom: 20px;
-  left: auto;
-  top: auto;
+  inset: auto 24px 20px auto;
   transform: none;
   display: flex;
   align-items: center;
@@ -225,7 +222,7 @@
   }
 
   .carousel .carousel-slide .carousel-slide-content {
-    padding: 28px 28px;
+    padding: 28px;
   }
 }
 
