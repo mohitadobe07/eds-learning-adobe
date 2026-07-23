@@ -343,6 +343,13 @@ main .section.dark a:any-link {
     grid-template-columns: 263px 1fr;
     column-gap: 48px;
     align-items: start;
+
+    /* constrain to the content column so the full-width title wrapper can't
+       stretch the grid past the viewport (which caused a horizontal scrollbar) */
+    box-sizing: border-box;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
   }
 
   main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .info-panel-wrapper {
