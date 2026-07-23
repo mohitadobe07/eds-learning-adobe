@@ -171,11 +171,14 @@ button.button {
   max-width: 100%;
   margin: 0;
   border: 2px solid transparent;
-  border-radius: 2.4em;
-  padding: 0.5em 1.2em;
-  font: inherit;
-  font-weight: 500;
+  border-radius: 0; /* WKND buttons are square */
+  padding: 14px 35px;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 600;
   line-height: 1.25;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
   overflow: hidden;
