@@ -80,13 +80,14 @@
   color: var(--text-color);
 }
 
-/* image-only carousel (e.g. adventure-detail hero): plain image band, ~400px,
-   no overlapping content card. Uses the section's own full width (not 100vw)
-   to avoid a horizontal scrollbar when nested in a padded content section. */
+/* image-only carousel (e.g. adventure-detail hero): full-bleed image band,
+   ~400px, no overlapping content card. calc(50% - 50vw) breaks out of the
+   padded content section edge-to-edge without triggering a horizontal
+   scrollbar (body has overflow-x: clip). */
 .carousel.carousel:has(.carousel-slide-image-only) {
-  width: auto;
-  margin-left: 0;
-  margin-right: 0;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
 
   --carousel-image-height: 400px;
 }

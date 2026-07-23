@@ -360,7 +360,13 @@ main .section.dark a:any-link {
   main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .info-panel-wrapper {
     grid-column: 1;
     grid-row: 2;
-    align-self: start;
+
+    /* fill the 263px column (the section's `margin:auto` on > div otherwise
+       shrinks this wrapper to its content width) and pin to the top */
+    place-self: start stretch;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
   }
 
   /* "Share this Adventure" (default content with an h5) sits in the left
