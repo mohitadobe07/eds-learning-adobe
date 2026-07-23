@@ -20,8 +20,8 @@
   border: 0;
   border-radius: 0;
   padding: 8px 16px;
-  background-color: var(--text-color);
-  color: #fff;
+  background-color: var(--light-color);
+  color: var(--text-color);
   font-family: var(--body-font-family);
   font-size: 14px;
   font-weight: 400;
@@ -33,13 +33,14 @@
   transition: background-color 0.2s, color 0.2s;
 }
 
-/* hover: light background, dark text */
+/* hover: dark background, light text */
 .tabs .tabs-list button:hover,
 .tabs .tabs-list button:focus-visible {
-  background-color: var(--light-color);
-  color: var(--text-color);
+  background-color: var(--text-color);
+  color: #fff;
 }
 
+/* active tab: dark filled */
 .tabs .tabs-list button[aria-selected='true'] {
   background-color: var(--text-color);
   color: #fff;
