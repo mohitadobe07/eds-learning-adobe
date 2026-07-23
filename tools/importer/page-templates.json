@@ -1,0 +1,95 @@
+{
+  "metadata": {
+    "projectType": "doc"
+  },
+  "templates": [
+    {
+      "name": "homepage",
+      "urls": [
+        "https://wknd.site/us/en.html"
+      ],
+      "representativeUrl": "https://wknd.site/us/en.html",
+      "coverageGaps": [],
+      "description": "WKND homepage: hero carousel, featured-article teaser, recent-articles card row, secondary hero teaser, destination card grid",
+      "blocks": [
+        {
+          "name": "carousel",
+          "instances": [
+            "main .carousel.cmp-carousel--hero"
+          ]
+        },
+        {
+          "name": "columns",
+          "instances": [
+            "main .teaser.cmp-teaser--featured"
+          ]
+        },
+        {
+          "name": "cards",
+          "instances": [
+            "main .cmp-layout-container--fixed:nth-of-type(1) .image-list.list",
+            "main .cmp-layout-container--fixed:nth-of-type(2) .image-list.list"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "rc2",
+          "name": "Hero Carousel",
+          "selector": "main .cmp-carousel--hero",
+          "style": null,
+          "blocks": ["carousel"],
+          "defaultContent": []
+        },
+        {
+          "id": "rc3",
+          "name": "Featured Article",
+          "selector": "main .teaser.cmp-teaser--featured",
+          "style": null,
+          "blocks": ["columns"],
+          "defaultContent": []
+        },
+        {
+          "id": "rc4",
+          "name": "Recent Articles Heading",
+          "selector": "main .title.cmp-title--underline:nth-of-type(2)",
+          "style": null,
+          "blocks": [],
+          "defaultContent": ["main .title.cmp-title--underline:nth-of-type(2) h2"]
+        },
+        {
+          "id": "rc5",
+          "name": "Recent Articles Cards",
+          "selector": "main .cmp-layout-container--fixed:nth-of-type(1) .image-list.list",
+          "style": null,
+          "blocks": ["cards"],
+          "defaultContent": []
+        },
+        {
+          "id": "rc9",
+          "name": "Next Adventures Teaser",
+          "selector": "main .teaser.cmp-teaser--hero.cmp-teaser--imagebottom",
+          "style": null,
+          "blocks": [],
+          "defaultContent": ["main .teaser.cmp-teaser--hero.cmp-teaser--imagebottom"]
+        },
+        {
+          "id": "rc10",
+          "name": "Where To Go Heading",
+          "selector": "main .cmp-layout-container--fixed:nth-of-type(2) .title",
+          "style": null,
+          "blocks": [],
+          "defaultContent": ["main .cmp-layout-container--fixed:nth-of-type(2) .title h3"]
+        },
+        {
+          "id": "rc11",
+          "name": "Destination Cards",
+          "selector": "main .cmp-layout-container--fixed:nth-of-type(2) .image-list.list",
+          "style": null,
+          "blocks": ["cards"],
+          "defaultContent": []
+        }
+      ]
+    }
+  ]
+}

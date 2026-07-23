@@ -1,27 +1,86 @@
+/* WKND article / destination card grid
+ * Values extracted from source: https://wknd.site/us/en.html
+ * (.image-list.list — "Recent Articles" & destination grids)
+ * Source layout: flex-wrap, 4 across on desktop, 274px item width,
+ * ~14px horizontal gutter, 32px row gap, image 260x200 (aspect 13/10),
+ * uppercase grey description 14px/21px #696969.
+ */
+
 .cards > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  gap: 24px;
+  grid-template-columns: 1fr;
+  gap: 32px 14px;
+}
+
+/* tablet: 2 columns */
+@media (width >= 600px) {
+  .cards > ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* desktop: 4 columns (matches source) */
+@media (width >= 900px) {
+  .cards > ul {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .cards > ul > li {
-  border: 1px solid #dadada;
-  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
 }
 
-.cards .cards-card-body {
-  margin: 16px;
-}
-
+/* image on top, fixed source aspect ratio (260 x 200) */
 .cards .cards-card-image {
   line-height: 0;
 }
 
 .cards > ul > li img {
+  display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 13 / 10;
   object-fit: cover;
+  border-radius: 0;
+}
+
+/* text block below the image */
+.cards .cards-card-body {
+  margin: 0;
+  padding: 0;
+}
+
+/* linked title — WKND serif heading (brand), source size 18px / lh 27px, weight 400 */
+.cards .cards-card-body h3 {
+  margin: 12px 0 0;
+  font-family: var(--heading-font-family);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.cards .cards-card-body h3 a:any-link {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.cards .cards-card-body h3 a:hover {
+  color: var(--text-color);
+  text-decoration: underline;
+}
+
+/* description — uppercase grey, matches source #696969 14px / 21px */
+.cards .cards-card-body p {
+  margin: 16px 0 0;
+  color: #696969;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  text-transform: uppercase;
 }

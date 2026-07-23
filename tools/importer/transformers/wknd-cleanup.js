@@ -1,0 +1,103 @@
+/* eslint-disable */
+/* global WebImporter */
+
+/**
+ * Transformer: WKND site-wide cleanup.
+ *
+ * Removes AEM Sites chrome / non-authorable content and unwraps the deep
+ * responsivegrid / cmp-container wrapper divs so the actual content sections
+ * are exposed at the top level of `main`.
+ *
+ * All selectors below were verified against migration-work/cleaned.html.
+ */
+
+const TransformHook = { beforeTransform: 'beforeTransform', afterTransform: 'afterTransform' };
+
+export default function transform(hookName, element, payload) {
+  if (hookName === TransformHook.beforeTransform) {
+    // Enable body scroll (source body carries the `scrolly` class and may lock
+    // overflow). Verified: <body class="page basicpage anonymous scrolly">.
+    const doc = element.ownerDocument;
+    if (doc && doc.body) {
+      doc.body.classList.remove('scrolly');
+      doc.body.style.overflow = 'scroll';
+    }
+
+    // Non-content resources / noise that could interfere with parsing.
+    // Verified generic tags; site emits scripts/styles/noscript/meta noise.
+    WebImporter.DOMUtils.remove(element, [
+      'script',
+      'style',
+      'noscript',
+      'link',
+      // Cookie / consent banners (generic + common vendor ids/classes).
+      '[id*="cookie"]',
+      '[class*="cookie"]',
+      '[id*="consent"]',
+      '[class*="consent"]',
+      '#onetrust-consent-sdk',
+      '#onetrust-banner-sdk',
+    ]);
+  }
+
+  if (hookName === TransformHook.afterTransform) {
+    // Remove AEM Sites global chrome (non-authorable).
+    // Verified in cleaned.html:
+    //   <header ... class="experiencefragment cmp-experiencefragment--header ...">
+    //   <footer ... class="experiencefragment cmp-experiencefragment--footer ...">
+    WebImporter.DOMUtils.remove(element, [
+      'header.cmp-experiencefragment--header',
+      '.cmp-experiencefragment--header',
+      'footer.cmp-experiencefragment--footer',
+      '.cmp-experiencefragment--footer',
+      // Mobile navigation clone lives outside the header/footer XF wrappers and
+      // otherwise leaks the site nav (Home / Magazine / Adventures / ...) into content.
+      '.cmp-navigation--mobile',
+      '.cmp-navigation',
+      '.cmp-languagenavigation',
+      'iframe',
+      'source',
+    ]);
+
+    // Unwrap the deep AEM responsivegrid / container wrapper chain so the real
+    // content sections become direct children. Verified wrapper selectors:
+    //   .root.container.responsivegrid > #container-... .cmp-container > .aem-Grid
+    //   nested .container.responsivegrid > .cmp-container > .aem-Grid ...
+    //   inner <main class="... cmp-layout-container--fixed ...">
+    // We unwrap repeatedly until no wrapper remains, promoting each wrapper's
+    // children into its parent while preserving content order.
+    const WRAPPER_SELECTOR = [
+      '.responsivegrid',
+      '.cmp-container',
+      '.aem-Grid',
+      'main.cmp-layout-container--fixed',
+    ].join(',');
+
+    let wrapper = element.querySelector(WRAPPER_SELECTOR);
+    let guard = 0;
+    while (wrapper && wrapper !== element && guard < 5000) {
+      const parent = wrapper.parentNode;
+      if (parent) {
+        while (wrapper.firstChild) {
+          parent.insertBefore(wrapper.firstChild, wrapper);
+        }
+        wrapper.remove();
+      } else {
+        break;
+      }
+      wrapper = element.querySelector(WRAPPER_SELECTOR);
+      guard += 1;
+    }
+
+    // Strip AEM data-layer / accessibility attributes that authors never edit.
+    element.querySelectorAll('*').forEach((el) => {
+      el.removeAttribute('data-cmp-data-layer');
+      el.removeAttribute('data-cmp-hook-image');
+      el.removeAttribute('data-cmp-hook-teaser');
+      el.removeAttribute('data-cmp-hook-carousel');
+      el.removeAttribute('data-cmp-data-layer-enabled');
+      el.removeAttribute('data-cmp-link-accessibility-enabled');
+      el.removeAttribute('data-cmp-link-accessibility-text');
+    });
+  }
+}

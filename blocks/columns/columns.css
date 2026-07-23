@@ -31,3 +31,110 @@
     order: unset;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   WKND "Featured Article" teaser variant.
+   A single-row columns block (image column + text column) renders as a large
+   image beside a light-gray text panel. Scoped to `:only-child` rows so the
+   multi-row boilerplate columns layout is unaffected.
+   Values extracted from https://wknd.site/us/en.html computed styles.
+   --------------------------------------------------------------------------- */
+
+/* text column: light gray panel */
+.columns > div:only-child > div:not(.columns-img-col) {
+  background-color: #ebebeb;
+  padding: 36px;
+}
+
+/* description body copy (source: Source Sans Pro 14px/400, line-height 24.5px) */
+.columns > div:only-child > div:not(.columns-img-col) p {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--text-color);
+}
+
+/* eyebrow — first paragraph in the text column (bold sans, source: 18px/700) */
+.columns > div:only-child > div:not(.columns-img-col) > p:first-child {
+  margin: 0 0 13.5px;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text-color);
+}
+
+/* heading — serif (source: Asar 36px/400) */
+.columns > div:only-child > div:not(.columns-img-col) h2 {
+  margin: 18px 0;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-xl);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+/* CTA — yellow block button (source: #ffea00 bg, #202020 text, 14px 35px, uppercase 600) */
+.columns > div:only-child > div:not(.columns-img-col) p:last-child {
+  margin: 18px 0 0;
+}
+
+.columns > div:only-child > div:not(.columns-img-col) p:last-child a:any-link {
+  display: inline-block;
+  margin: 0;
+  padding: 14px 35px;
+  border: 0;
+  border-radius: 0;
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.columns > div:only-child > div:not(.columns-img-col) p:last-child a:hover {
+  background-color: var(--text-color);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* image fills its column height beside the panel */
+.columns > div:only-child > .columns-img-col img {
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (width >= 900px) {
+  /* image on the left, text panel on the right (source layout), no gap */
+  .columns > div:only-child {
+    align-items: stretch;
+    flex-direction: row-reverse;
+    gap: 0;
+  }
+
+  /* image ~62%, text panel ~38% (source: 709px / 427px of 1136px) */
+  .columns > div:only-child > .columns-img-col {
+    flex: 0 0 62%;
+    order: unset;
+  }
+
+  .columns > div:only-child > div:not(.columns-img-col) {
+    display: flex;
+    flex: 0 0 38%;
+    flex-direction: column;
+    order: unset;
+
+    /* extra top padding lifts the text group like the source (63px top) */
+    padding: 63px 36px 36px;
+  }
+
+  /* larger serif heading on desktop */
+  .columns > div:only-child > div:not(.columns-img-col) h2 {
+    font-size: 36px;
+  }
+}
