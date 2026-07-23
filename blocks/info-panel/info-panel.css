@@ -20,14 +20,17 @@
 
 .info-panel .info-panel-term {
   margin: 0;
+  font-family: var(--body-font-family);
   font-size: 12px;
   font-weight: 400;
+  line-height: 1.5;
   text-transform: uppercase;
   color: #696969;
 }
 
 .info-panel .info-panel-value {
   margin: 0;
+  font-family: var(--body-font-family);
   font-size: 14px;
   font-weight: 600;
   line-height: 1.5;
@@ -36,4 +39,7 @@
 
 .info-panel .info-panel-value p {
   margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 600;
 }

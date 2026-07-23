@@ -51,8 +51,10 @@
   margin: 0;
   padding: 24px 0 0;
   overflow: auto;
+  font-family: var(--body-font-family);
   font-size: 18px;
-  line-height: 1.5;
+  font-weight: 400;
+  line-height: 2.5;
   color: var(--text-color);
 
   /* reserve a stable height so switching between short/tall panels doesn't
@@ -65,7 +67,20 @@
 }
 
 .tabs .tabs-panel p {
-  margin: 0 0 20px;
+  margin: 0 0 13.5px;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  line-height: 2.5;
+}
+
+.tabs .tabs-panel li {
+  font-family: var(--body-font-family);
+  font-size: 18px;
+}
+
+.tabs .tabs-panel strong,
+.tabs .tabs-panel b {
+  font-weight: 600;
 }
 
 .tabs .tabs-panel img {
