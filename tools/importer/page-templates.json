@@ -253,6 +253,64 @@
           "defaultContent": []
         }
       ]
+    },
+    {
+      "name": "magazine-article",
+      "urls": [
+        "https://wknd.site/us/en/magazine/arctic-surfing.html"
+      ],
+      "representativeUrl": "https://wknd.site/us/en/magazine/arctic-surfing.html",
+      "coverageGaps": [],
+      "description": "WKND magazine article: breadcrumb, article body (title, byline, rich text with blockquote and section headings), author bio, related-stories sidebar",
+      "blocks": [
+        {
+          "name": "breadcrumb",
+          "instances": [
+            "main nav.cmp-breadcrumb"
+          ]
+        },
+        {
+          "name": "cards",
+          "instances": [
+            "main aside .list.cmp-list--upnext"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "d1",
+          "name": "Breadcrumb",
+          "selector": "main nav.cmp-breadcrumb",
+          "style": null,
+          "blocks": [
+            "breadcrumb"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "d2",
+          "name": "Article Body",
+          "selector": "main article",
+          "style": null,
+          "blocks": [],
+          "defaultContent": [
+            "main article h1",
+            "main article .cmp-contentfragment__elements"
+          ]
+        },
+        {
+          "id": "d3",
+          "name": "Related Stories",
+          "selector": "main aside",
+          "style": null,
+          "blocks": [
+            "cards"
+          ],
+          "defaultContent": [
+            "main aside h5.cmp-title__text"
+          ]
+        }
+      ]
     }
   ]
 }

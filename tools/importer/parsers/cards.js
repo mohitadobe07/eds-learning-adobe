@@ -15,6 +15,39 @@
 export default function parse(element, { document }) {
   const cells = [];
 
+  // Variant B: "up next" / related-stories list — each item is a linked title
+  // plus a date, no image (main aside .list.cmp-list--upnext). One card per
+  // item: a single body cell holding an <h3><a>title</a></h3> and the date.
+  const listItems = element.querySelectorAll('.cmp-list__item');
+  if (listItems.length) {
+    listItems.forEach((item) => {
+      const link = item.querySelector('a.cmp-list__item-link, a');
+      const title = item.querySelector('.cmp-list__item-title');
+      const date = item.querySelector('.cmp-list__item-date');
+      const contentCell = [];
+      if (link) {
+        const heading = document.createElement('h3');
+        const a = document.createElement('a');
+        a.href = link.getAttribute('href');
+        a.textContent = (title ? title.textContent : link.textContent).trim();
+        heading.append(a);
+        contentCell.push(heading);
+      }
+      if (date && date.textContent.trim()) {
+        const p = document.createElement('p');
+        p.textContent = date.textContent.trim();
+        contentCell.push(p);
+      }
+      if (contentCell.length) cells.push([contentCell]);
+    });
+
+    if (cells.length) {
+      const block = WebImporter.Blocks.createBlock(document, { name: 'cards', cells });
+      element.replaceWith(block);
+      return;
+    }
+  }
+
   const items = element.querySelectorAll('.cmp-image-list__item');
   items.forEach((item) => {
     // Image cell
