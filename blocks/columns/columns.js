@@ -21,7 +21,10 @@ export default function decorate(block) {
   // Tag it so CSS can render it as a compact, dimmed locked card, and move the
   // image column to the top of each row so the card is image-over-text
   // regardless of the source cell order.
-  if (!block.querySelector('a')) {
+  // Gated on the page also having a `.cards` block (the magazine listing "All
+  // Articles" grid) so the linkless intro teaser on the adventures-listing page
+  // — which has no `.cards` — is not mistaken for a locked members-only card.
+  if (!block.querySelector('a') && document.querySelector('.cards')) {
     block.classList.add('columns-locked');
     [...block.children].forEach((row) => {
       const imgCol = row.querySelector(':scope > .columns-img-col');
