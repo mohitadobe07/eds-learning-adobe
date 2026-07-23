@@ -116,12 +116,12 @@ footer .footer p:nth-last-child(-n + 2) {
 @media (width >= 900px) {
   footer .footer .default-content-wrapper {
     display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: start;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
     column-gap: 48px;
   }
 
-  /* row 1: logo (left) · nav (center) · Follow Us heading (right) */
+  /* row 1: logo (left) · nav (left-clustered) · Follow Us heading · social squares — all inline */
   footer .footer .default-content-wrapper > p:first-child {
     grid-column: 1;
     grid-row: 1;
@@ -132,7 +132,7 @@ footer .footer p:nth-last-child(-n + 2) {
     grid-column: 2;
     grid-row: 1;
     align-self: center;
-    justify-content: center;
+    justify-content: flex-start;
     margin: 0;
   }
 
@@ -141,29 +141,30 @@ footer .footer p:nth-last-child(-n + 2) {
     grid-row: 1;
     margin: 0;
     text-align: right;
+    white-space: nowrap;
   }
 
-  /* row 2: social squares under the Follow Us heading (right column) */
+  /* social squares inline to the right of the Follow Us heading (same row) */
   footer .footer .default-content-wrapper > ul:last-of-type {
-    grid-column: 3;
-    grid-row: 2;
+    grid-column: 4;
+    grid-row: 1;
     justify-content: flex-end;
-    margin: 12px 0 0;
+    margin: 0;
   }
 
-  /* row 3-4: legal spans all columns beneath the band */
+  /* row 2-3: legal spans all columns beneath the band */
   footer .footer .default-content-wrapper > p:nth-last-child(-n + 2) {
     grid-column: 1 / -1;
     margin: 0;
   }
 
   footer .footer .default-content-wrapper > p:nth-child(5) {
-    grid-row: 3;
+    grid-row: 2;
     margin-top: 32px;
   }
 
   footer .footer .default-content-wrapper > p:last-child {
-    grid-row: 4;
+    grid-row: 3;
     margin-top: 8px;
   }
 }
