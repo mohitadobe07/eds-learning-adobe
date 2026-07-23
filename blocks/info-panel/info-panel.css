@@ -20,6 +20,7 @@
 
 .info-panel .info-panel-term {
   margin: 0;
+  padding: 12px 0 0;
   font-family: var(--body-font-family);
   font-size: 12px;
   font-weight: 400;
@@ -30,6 +31,7 @@
 
 .info-panel .info-panel-value {
   margin: 0;
+  padding: 7px 0 0;
   font-family: var(--body-font-family);
   font-size: 14px;
   font-weight: 600;
