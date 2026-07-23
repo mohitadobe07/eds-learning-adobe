@@ -362,10 +362,15 @@ main .section.dark a:any-link {
     grid-row: 2 / span 2;
   }
 
-  /* keep the title (default content with an h1) full-width above the columns */
+  /* keep the title (default content with an h1) full-width above the columns,
+     left-aligned to the content edge (not centered) */
   main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .default-content-wrapper:has(h1) {
     grid-column: 1 / -1;
     grid-row: 1;
+    justify-self: stretch;
+    width: 100%;
+    max-width: none;
+    margin: 0;
   }
 }
 
