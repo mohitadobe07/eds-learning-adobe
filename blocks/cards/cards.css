@@ -55,18 +55,21 @@
   padding: 0;
 }
 
-/* linked title — matches source: Source Sans Pro (body font), 18px / lh 27px, weight 600 */
+/* linked title — matches source: Source Sans Pro (body font), 18px / lh 27px,
+   weight 600, UPPERCASE (source cmp-image-list__item-title is uppercase) */
 .cards .cards-card-body h3 {
-  margin: 12px 0 0;
+  margin: 16px 0 0;
   font-family: var(--body-font-family);
   font-size: 18px;
   font-weight: 600;
   line-height: 1.5;
+  text-transform: uppercase;
 }
 
 .cards .cards-card-body h3 a:any-link {
   color: var(--text-color);
   text-decoration: none;
+  text-transform: uppercase;
 }
 
 .cards .cards-card-body h3 a:hover {
