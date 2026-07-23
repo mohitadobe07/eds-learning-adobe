@@ -4,6 +4,21 @@ import { loadFragment } from '../fragment/fragment.js';
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
 
+/**
+ * Append a trailing slash to internal page links. Skips hash-only anchors,
+ * external URLs, and links that already end with a slash.
+ * @param {Element} container Element whose descendant links to normalize
+ */
+function addTrailingSlashToLinks(container) {
+  container.querySelectorAll('a[href]').forEach((a) => {
+    const href = a.getAttribute('href');
+    if (!href || !href.startsWith('/')) return;
+    const [path, rest = ''] = href.split(/(?=[?#])/);
+    if (path.endsWith('/')) return;
+    a.setAttribute('href', `${path}/${rest}`);
+  });
+}
+
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
     const nav = document.getElementById('nav');
@@ -123,6 +138,7 @@ export default async function decorate(block) {
   const nav = document.createElement('nav');
   nav.id = 'nav';
   while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
+  addTrailingSlashToLinks(nav);
 
   // Four content sections → utility (top strip), brand, sections (main nav), tools.
   // Falls back to the 3-section layout (brand, sections, tools) if no utility strip is authored.
