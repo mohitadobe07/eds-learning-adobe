@@ -520,13 +520,13 @@ header nav .nav-utility .nav-lang > ul > li a:hover {
     flex: 0 0 auto;
   }
 
-  /* main nav row height — trimmed to match source (~64px) */
+  /* spacious white nav row (logo vertically centered, like the source) */
   header nav .nav-sections {
     grid-area: sections;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    height: 64px;
+    height: 96px;
   }
 
   header nav .nav-sections .default-content-wrapper {
@@ -535,11 +535,12 @@ header nav .nav-utility .nav-lang > ul > li a:hover {
     justify-content: flex-end;
   }
 
-  /* nav links touch each other, uppercase, full-height (source) */
+  /* nav links, uppercase, with clear spacing between items (source) */
   header nav .nav-sections .default-content-wrapper > ul {
     display: flex;
     gap: 0;
     margin: 0;
+    align-items: center;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li {
@@ -549,8 +550,8 @@ header nav .nav-utility .nav-lang > ul > li a:hover {
   header nav .nav-sections .default-content-wrapper > ul > li a:any-link {
     display: flex;
     align-items: center;
-    height: 64px;
-    padding: 0 18px;
+    height: 96px;
+    padding: 0 22px;
   }
 
   /* search sits at the far right, just after the nav links */
