@@ -191,6 +191,30 @@ var CustomImportScript = (() => {
         el.removeAttribute("data-cmp-link-accessibility-enabled");
         el.removeAttribute("data-cmp-link-accessibility-text");
       });
+      const sourceHost = (() => {
+        try {
+          return new URL(payload && payload.url).hostname;
+        } catch (e) {
+          return null;
+        }
+      })();
+      element.querySelectorAll("a[href]").forEach((a) => {
+        const href = a.getAttribute("href");
+        if (!href || href.startsWith("#")) return;
+        let isInternal = href.startsWith("/");
+        let url = null;
+        if (!isInternal) {
+          try {
+            url = new URL(href, payload && payload.url);
+            isInternal = sourceHost && url.hostname === sourceHost;
+          } catch (e) {
+            return;
+          }
+        }
+        if (!isInternal) return;
+        const normalized = href.replace(/\.html(?=$|[?#])/i, "");
+        if (normalized !== href) a.setAttribute("href", normalized);
+      });
     }
   }
 

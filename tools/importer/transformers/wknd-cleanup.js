@@ -99,5 +99,29 @@ export default function transform(hookName, element, payload) {
       el.removeAttribute('data-cmp-link-accessibility-enabled');
       el.removeAttribute('data-cmp-link-accessibility-text');
     });
+
+    // Normalize internal links to extensionless EDS paths: strip the trailing
+    // `.html` from same-host / relative page links (preserving query + hash).
+    // External links (other hosts) and non-page hrefs are left untouched.
+    const sourceHost = (() => {
+      try { return new URL(payload && payload.url).hostname; } catch (e) { return null; }
+    })();
+    element.querySelectorAll('a[href]').forEach((a) => {
+      const href = a.getAttribute('href');
+      if (!href || href.startsWith('#')) return;
+      // Only touch relative paths or absolute URLs on the source host.
+      let isInternal = href.startsWith('/');
+      let url = null;
+      if (!isInternal) {
+        try {
+          url = new URL(href, payload && payload.url);
+          isInternal = sourceHost && url.hostname === sourceHost;
+        } catch (e) { return; }
+      }
+      if (!isInternal) return;
+      // Strip `.html` sitting just before end / query / hash.
+      const normalized = href.replace(/\.html(?=$|[?#])/i, '');
+      if (normalized !== href) a.setAttribute('href', normalized);
+    });
   }
 }
