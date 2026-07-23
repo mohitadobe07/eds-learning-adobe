@@ -344,6 +344,11 @@ main .section.dark a:any-link {
     column-gap: 48px;
     align-items: start;
 
+    /* explicit rows: title, then info/tabs, then share. min-content rows keep
+       info's row height driven only by the info panel (constant) so its top
+       doesn't shift when the tab panel content height changes */
+    grid-template-rows: min-content min-content 1fr;
+
     /* constrain to the content column so the full-width title wrapper can't
        stretch the grid past the viewport (which caused a horizontal scrollbar) */
     box-sizing: border-box;
