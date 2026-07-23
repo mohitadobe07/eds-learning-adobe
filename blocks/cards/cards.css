@@ -55,13 +55,13 @@
   padding: 0;
 }
 
-/* linked title — WKND serif heading (brand), source size 18px / lh 27px, weight 400 */
+/* linked title — matches source: Source Sans Pro (body font), 18px / lh 27px, weight 600 */
 .cards .cards-card-body h3 {
   margin: 12px 0 0;
-  font-family: var(--heading-font-family);
+  font-family: var(--body-font-family);
   font-size: 18px;
-  font-weight: 400;
-  line-height: 1.25;
+  font-weight: 600;
+  line-height: 1.5;
 }
 
 .cards .cards-card-body h3 a:any-link {
