@@ -140,10 +140,12 @@ export default {
     WebImporter.rules.transformBackgroundImages(main, document);
     WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
 
-    // 6. Generate sanitized path
-    const path = WebImporter.FileUtils.sanitizePath(
+    // 6. Generate sanitized path. The homepage (/us/en) is a section root
+    // (parent of other content) so it becomes a folder-index document.
+    const basePath = WebImporter.FileUtils.sanitizePath(
       new URL(params.originalURL).pathname.replace(/\/$/, '').replace(/\.html$/, ''),
     );
+    const path = `${basePath}/index`;
 
     return [{
       element: main,

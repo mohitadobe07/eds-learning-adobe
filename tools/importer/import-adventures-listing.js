@@ -104,9 +104,12 @@ export default {
     WebImporter.rules.transformBackgroundImages(main, document);
     WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
 
-    const path = WebImporter.FileUtils.sanitizePath(
+    // Section pages (parents of other content, e.g. the adventures listing)
+    // become folder-index documents so the folder and its page don't collide.
+    const basePath = WebImporter.FileUtils.sanitizePath(
       new URL(params.originalURL).pathname.replace(/\/$/, '').replace(/\.html$/, ''),
     );
+    const path = `${basePath}/index`;
 
     return [{
       element: main,
