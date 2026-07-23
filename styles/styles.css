@@ -505,3 +505,49 @@ main:has(blockquote) .cards .cards-card-body p {
   text-transform: uppercase;
   color: #696969;
 }
+
+/* author bio — the photo sits in a <p> immediately before the H2 name,
+   "Skater, Writer" paragraph, and the social button-wrappers. Render it as a
+   small circular avatar (source: 60px round) instead of a full-width image. */
+main:has(blockquote) .section > .default-content-wrapper p:has(img):has(+ h2 + p + p.button-wrapper) {
+  margin: 24px 0 8px;
+}
+
+main:has(blockquote) .section > .default-content-wrapper p:has(img):has(+ h2 + p + p.button-wrapper) img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* social links (Facebook / Twitter / Instagram) — the author bio's
+   button-wrappers. Lay them in a row as compact dark square buttons instead of
+   full-width yellow CTAs. */
+main:has(blockquote) .section > .default-content-wrapper p.button-wrapper {
+  display: inline-block;
+  margin: 8px 8px 0 0;
+}
+
+main:has(blockquote) .section > .default-content-wrapper p.button-wrapper a.button:any-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 44px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 0;
+  background-color: var(--text-color);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: background-color 0.2s;
+}
+
+main:has(blockquote) .section > .default-content-wrapper p.button-wrapper a.button:hover,
+main:has(blockquote) .section > .default-content-wrapper p.button-wrapper a.button:focus-visible {
+  background-color: var(--accent-color);
+  color: var(--text-color);
+}
