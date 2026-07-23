@@ -154,7 +154,8 @@
 /* stack image over text, boxed card */
 .columns-locked > div:only-child {
   position: relative;
-  display: block;
+  display: flex;
+  flex-direction: column;
   border: 1px solid #ebebeb;
   overflow: hidden;
 }
@@ -204,7 +205,7 @@
 
 /* "members only" lock badge in the corner of the image */
 .columns-locked > div:only-child > .columns-img-col::after {
-  content: '\1F512 Members only';
+  content: '\01F512  Members only';
   position: absolute;
   top: 12px;
   left: 12px;
