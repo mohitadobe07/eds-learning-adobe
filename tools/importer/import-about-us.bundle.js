@@ -321,9 +321,10 @@ var CustomImportScript = (() => {
       WebImporter.rules.createMetadata(main, document);
       WebImporter.rules.transformBackgroundImages(main, document);
       WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
-      const path = WebImporter.FileUtils.sanitizePath(
+      const basePath = WebImporter.FileUtils.sanitizePath(
         new URL(params.originalURL).pathname.replace(/\/$/, "").replace(/\.html$/, "")
       );
+      const path = `${basePath}/index`;
       return [{
         element: main,
         path,

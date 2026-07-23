@@ -93,9 +93,12 @@ export default {
     WebImporter.rules.transformBackgroundImages(main, document);
     WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
 
-    const path = WebImporter.FileUtils.sanitizePath(
+    // Section page (parent of the magazine article pages) becomes a
+    // folder-index document so the folder and its landing page don't collide.
+    const basePath = WebImporter.FileUtils.sanitizePath(
       new URL(params.originalURL).pathname.replace(/\/$/, '').replace(/\.html$/, ''),
     );
+    const path = `${basePath}/index`;
 
     return [{
       element: main,

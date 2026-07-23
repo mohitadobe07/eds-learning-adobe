@@ -88,9 +88,12 @@ export default {
     WebImporter.rules.transformBackgroundImages(main, document);
     WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
 
-    const path = WebImporter.FileUtils.sanitizePath(
+    // Landing page becomes a folder-index document (matches the adventures /
+    // magazine convention: /us/en/faqs/index).
+    const basePath = WebImporter.FileUtils.sanitizePath(
       new URL(params.originalURL).pathname.replace(/\/$/, '').replace(/\.html$/, ''),
     );
+    const path = `${basePath}/index`;
 
     return [{
       element: main,
