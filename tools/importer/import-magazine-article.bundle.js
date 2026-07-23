@@ -158,13 +158,7 @@ var CustomImportScript = (() => {
         "#onetrust-banner-sdk",
         // Content-fragment internal title — not shown on the source page and
         // would otherwise duplicate the page H1 (e.g. "Bali Surf Camp").
-        ".cmp-contentfragment__title",
-        // Download component (e.g. the "Download PDF" widget on the LA Skateparks
-        // magazine article). It links to a source-only DAM PDF that won't resolve
-        // on the migrated site and renders as cluttered default content
-        // (duplicate links + raw file-metadata list). Drop it entirely.
-        ".download",
-        ".cmp-download"
+        ".cmp-contentfragment__title"
       ]);
     }
     if (hookName === TransformHook.afterTransform) {
