@@ -127,8 +127,18 @@ var CustomImportScript = (() => {
       const article = panel.querySelector("article, .cmp-contentfragment, .contentfragment") || panel;
       const contentNodes = [];
       const source = article.querySelector(".cmp-contentfragment__elements") || article;
+      source.querySelectorAll(".cmp-image__title").forEach((cap) => {
+        const text = cap.textContent.trim();
+        if (!text) return;
+        const p = document.createElement("p");
+        const em = document.createElement("em");
+        em.textContent = text;
+        p.append(em);
+        const img = cap.closest(".cmp-image") || cap.parentElement;
+        img.parentNode.insertBefore(p, img.nextSibling);
+      });
       source.querySelectorAll("p, ul, ol, h1, h2, h3, h4, h5, h6, img, picture").forEach((node) => {
-        if (node.closest(".aem-Grid") && !["P", "UL", "OL", "IMG", "PICTURE"].includes(node.tagName)) return;
+        if (node.closest(".aem-Grid") && !["P", "UL", "OL", "IMG", "PICTURE"].includes(node.tagName) && !/^H[1-6]$/.test(node.tagName)) return;
         if ((node.tagName === "P" || /^H[1-6]$/.test(node.tagName)) && !node.textContent.trim() && !node.querySelector("img, picture")) return;
         contentNodes.push(node);
       });
