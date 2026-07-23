@@ -15,7 +15,7 @@
   border: 0;
   border-radius: 0;
   padding: 8px 16px;
-  background-color: #767676;
+  background-color: var(--text-color);
   color: #fff;
   font-family: var(--body-font-family);
   font-size: 14px;
@@ -25,16 +25,9 @@
   text-align: initial;
   white-space: nowrap;
   cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.tabs .tabs-list button:hover,
-.tabs .tabs-list button:focus-visible {
-  background-color: var(--text-color);
 }
 
 .tabs .tabs-list button[aria-selected='true'] {
-  background-color: var(--text-color);
   cursor: initial;
 }
 
