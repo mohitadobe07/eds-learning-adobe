@@ -7,8 +7,10 @@
   font-family: var(--body-font-family);
 }
 
-/* each fact: light-grey left border, indented content */
+/* each fact: light-grey left border, indented content. Fixed height matches
+   the source (84px), leaving deliberate empty space below the value. */
 .info-panel .info-panel-item {
+  min-height: 84px;
   margin-bottom: 22.5px;
   padding-left: 18px;
   border-left: 5px solid #ebebeb;
