@@ -11,21 +11,21 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 32px 14px;
 }
 
 /* tablet: 2 columns */
 @media (width >= 600px) {
   .cards > ul {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 /* desktop: 4 columns (matches source) */
 @media (width >= 900px) {
   .cards > ul {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
@@ -34,6 +34,10 @@
   padding: 0;
   border: 0;
   background-color: transparent;
+
+  /* min-width:0 lets the nowrap description ellipsis clamp within the grid
+     track instead of forcing the column wider */
+  min-width: 0;
 }
 
 /* image on top, fixed source aspect ratio (260 x 200) */
