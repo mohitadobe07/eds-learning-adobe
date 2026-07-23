@@ -335,20 +335,26 @@ main .section.dark a:any-link {
   color: #fff;
 }
 
-/* adventure detail body — info panel sidebar (left) + tabs (right) */
+/* adventure detail body — info panel sidebar (left) + tabs (right).
+   Targets any section whose default-content wrapper holds both blocks. */
 @media (width >= 900px) {
-  main .section.detail-body > div {
+  main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) {
     display: grid;
     grid-template-columns: 280px 1fr;
     column-gap: 48px;
     align-items: start;
   }
 
-  main .section.detail-body .info-panel-wrapper {
+  main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .info-panel-wrapper {
     grid-column: 1;
   }
 
-  main .section.detail-body .tabs-wrapper {
+  main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .tabs-wrapper {
     grid-column: 2;
+  }
+
+  /* keep the H1 (default-content) full-width above the two columns */
+  main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .default-content-wrapper {
+    grid-column: 1 / -1;
   }
 }
