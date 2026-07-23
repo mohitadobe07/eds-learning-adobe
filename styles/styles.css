@@ -347,15 +347,25 @@ main .section.dark a:any-link {
 
   main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .info-panel-wrapper {
     grid-column: 1;
+    grid-row: 2;
+  }
+
+  /* "Share this Adventure" (default content with an h5) sits in the left
+     column directly under the info panel */
+  main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .default-content-wrapper:has(h5) {
+    grid-column: 1;
+    grid-row: 3;
   }
 
   main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .tabs-wrapper {
     grid-column: 2;
+    grid-row: 2 / span 2;
   }
 
-  /* keep the H1 (default-content) full-width above the two columns */
-  main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .default-content-wrapper {
+  /* keep the title (default content with an h1) full-width above the columns */
+  main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .default-content-wrapper:has(h1) {
     grid-column: 1 / -1;
+    grid-row: 1;
   }
 }
 
