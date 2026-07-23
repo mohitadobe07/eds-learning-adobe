@@ -422,7 +422,7 @@ main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .default-content
 
 /* ---------------------------------------------------------------------------
    Magazine article layout (e.g. /magazine/arctic-surfing)
-   Scoped to `main:has(blockquote)` — only the long-form magazine article
+   Scoped to `main:has(.breadcrumb):has(.cards)` — only the long-form magazine article
    template renders a blockquote (homepage, listing, and adventure-detail do
    not), so this cannot leak into other templates.
    Source uses a two-column magazine layout: a ~776px article reading column
@@ -431,25 +431,25 @@ main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .default-content
 
 /* article reading column: match the source's 18px justified body and narrower
    measure so lines aren't full-viewport wide */
-main:has(blockquote) .section > .default-content-wrapper p {
+main:has(.breadcrumb):has(.cards) .section > .default-content-wrapper p {
   font-size: 18px;
   line-height: 1.6;
   text-align: justify;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-main:has(blockquote) .section > .default-content-wrapper:has(h1) h1 {
+main:has(.breadcrumb):has(.cards) .section > .default-content-wrapper:has(h1) h1 {
   font-size: 40px;
 }
 
-main:has(blockquote) .section > .default-content-wrapper h4 {
+main:has(.breadcrumb):has(.cards) .section > .default-content-wrapper h4 {
   font-size: 16px;
 }
 
 @media (width >= 900px) {
   /* the article-body section holds the article (default content) on the left
      and the related-stories cards on the right — lay it out as two columns */
-  main:has(blockquote) .section.cards-container:has(> .cards-wrapper) {
+  main:has(.breadcrumb):has(.cards) .section.cards-container:has(> .cards-wrapper) {
     display: grid;
     grid-template-columns: minmax(0, 776px) 263px;
     column-gap: 48px;
@@ -460,14 +460,14 @@ main:has(blockquote) .section > .default-content-wrapper h4 {
     box-sizing: border-box;
   }
 
-  main:has(blockquote) .section.cards-container:has(> .cards-wrapper) > .default-content-wrapper {
+  main:has(.breadcrumb):has(.cards) .section.cards-container:has(> .cards-wrapper) > .default-content-wrapper {
     grid-column: 1;
     max-width: none;
     margin: 0;
     padding: 0;
   }
 
-  main:has(blockquote) .section.cards-container:has(> .cards-wrapper) > .cards-wrapper {
+  main:has(.breadcrumb):has(.cards) .section.cards-container:has(> .cards-wrapper) > .cards-wrapper {
     grid-column: 2;
     align-self: start;
     max-width: none;
@@ -478,11 +478,11 @@ main:has(blockquote) .section > .default-content-wrapper h4 {
 
 /* related-stories cards as a vertical sidebar list (one per row), not the
    default multi-column image-card grid */
-main:has(blockquote) .cards > ul {
+main:has(.breadcrumb):has(.cards) .cards > ul {
   display: block;
 }
 
-main:has(blockquote) .cards > ul > li {
+main:has(.breadcrumb):has(.cards) .cards > ul > li {
   border: 0;
   border-bottom: 1px solid #ebebeb;
   border-radius: 0;
@@ -490,7 +490,7 @@ main:has(blockquote) .cards > ul > li {
   padding: 0 0 18px;
 }
 
-main:has(blockquote) .cards .cards-card-body h3 {
+main:has(.breadcrumb):has(.cards) .cards .cards-card-body h3 {
   margin: 0;
   font-family: var(--body-font-family);
   font-size: 18px;
@@ -499,7 +499,7 @@ main:has(blockquote) .cards .cards-card-body h3 {
   text-transform: uppercase;
 }
 
-main:has(blockquote) .cards .cards-card-body p {
+main:has(.breadcrumb):has(.cards) .cards .cards-card-body p {
   margin: 4px 0 0;
   font-size: 12px;
   text-transform: uppercase;
@@ -509,11 +509,11 @@ main:has(blockquote) .cards .cards-card-body p {
 /* author bio — the photo sits in a <p> immediately before the H2 name,
    "Skater, Writer" paragraph, and the social button-wrappers. Render it as a
    small circular avatar (source: 60px round) instead of a full-width image. */
-main:has(blockquote) .section > .default-content-wrapper p:has(img):has(+ h2 + p + p.button-wrapper) {
+main:has(.breadcrumb):has(.cards) .section > .default-content-wrapper p:has(img):has(+ h2 + p + p.button-wrapper) {
   margin: 24px 0 8px;
 }
 
-main:has(blockquote) .section > .default-content-wrapper p:has(img):has(+ h2 + p + p.button-wrapper) img {
+main:has(.breadcrumb):has(.cards) .section > .default-content-wrapper p:has(img):has(+ h2 + p + p.button-wrapper) img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -523,12 +523,12 @@ main:has(blockquote) .section > .default-content-wrapper p:has(img):has(+ h2 + p
 /* social links (Facebook / Twitter / Instagram) — the author bio's
    button-wrappers. Lay them in a row as compact dark square buttons instead of
    full-width yellow CTAs. */
-main:has(blockquote) .section > .default-content-wrapper p.button-wrapper {
+main:has(.breadcrumb):has(.cards) .section > .default-content-wrapper p.button-wrapper {
   display: inline-block;
   margin: 8px 8px 0 0;
 }
 
-main:has(blockquote) .section > .default-content-wrapper p.button-wrapper a.button:any-link {
+main:has(.breadcrumb):has(.cards) .section > .default-content-wrapper p.button-wrapper a.button:any-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -546,8 +546,8 @@ main:has(blockquote) .section > .default-content-wrapper p.button-wrapper a.butt
   transition: background-color 0.2s;
 }
 
-main:has(blockquote) .section > .default-content-wrapper p.button-wrapper a.button:hover,
-main:has(blockquote) .section > .default-content-wrapper p.button-wrapper a.button:focus-visible {
+main:has(.breadcrumb):has(.cards) .section > .default-content-wrapper p.button-wrapper a.button:hover,
+main:has(.breadcrumb):has(.cards) .section > .default-content-wrapper p.button-wrapper a.button:focus-visible {
   background-color: var(--accent-color);
   color: var(--text-color);
 }
