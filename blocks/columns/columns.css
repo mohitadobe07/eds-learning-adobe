@@ -138,3 +138,105 @@
     font-size: 36px;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   WKND "Members Only" locked teaser variant (.columns-locked).
+   Source renders these as compact cards: image on top, then title + short
+   description below, with the content visually gated behind a members-only
+   sign-in. Overrides the featured-teaser layout above (both are single-row
+   columns blocks) with a higher-specificity `.columns-locked` prefix.
+   The descending-specificity warnings are expected: these variant rules
+   intentionally follow the base featured-teaser rules to override them.
+   --------------------------------------------------------------------------- */
+
+/* stylelint-disable no-descending-specificity */
+
+/* stack image over text, boxed card */
+.columns-locked > div:only-child {
+  position: relative;
+  display: block;
+  border: 1px solid #ebebeb;
+  overflow: hidden;
+}
+
+/* image on top, fixed band */
+.columns-locked > div:only-child > .columns-img-col {
+  position: relative;
+  order: 0;
+}
+
+.columns-locked > div:only-child > .columns-img-col img {
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+
+  /* locked cue: dim + slightly desaturate the preview image */
+  filter: grayscale(30%) brightness(0.92);
+}
+
+/* text panel below the image */
+.columns-locked > div:only-child > div:not(.columns-img-col) {
+  order: 1;
+  background-color: transparent;
+  padding: 18px 20px 22px;
+}
+
+.columns-locked > div:only-child > div:not(.columns-img-col) h2 {
+  margin: 0 0 6px;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--text-color);
+}
+
+.columns-locked > div:only-child > div:not(.columns-img-col) p {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #696969;
+}
+
+/* "members only" lock badge in the corner of the image */
+.columns-locked > div:only-child > .columns-img-col::after {
+  content: '\1F512 Members only';
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 5px 10px;
+  background-color: rgb(32 32 32 / 82%);
+  color: #fff;
+  font-family: var(--body-font-family);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* two locked cards side by side on desktop, matching the source 2-up grid */
+@media (width >= 900px) {
+  .columns-locked > div:only-child {
+    flex-direction: column;
+    max-width: 388px;
+  }
+
+  .columns-locked > div:only-child > .columns-img-col {
+    flex: unset;
+  }
+
+  .columns-locked > div:only-child > div:not(.columns-img-col) {
+    flex: unset;
+    padding: 18px 20px 22px;
+  }
+
+  .columns-locked > div:only-child > div:not(.columns-img-col) h2 {
+    font-size: 18px;
+  }
+}
+
+/* stylelint-enable no-descending-specificity */

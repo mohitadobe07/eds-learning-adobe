@@ -15,4 +15,11 @@ export default function decorate(block) {
       }
     });
   });
+
+  // "Members only" locked teaser: a columns teaser with no CTA link (the source
+  // "Read More" is plain text on the locked WKND magazine members-only cards).
+  // Tag it so CSS can render it as a compact, dimmed locked card.
+  if (!block.querySelector('a')) {
+    block.classList.add('columns-locked');
+  }
 }
