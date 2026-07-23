@@ -30,6 +30,12 @@
             "main .cmp-layout-container--fixed:nth-of-type(1) .image-list.list",
             "main .cmp-layout-container--fixed:nth-of-type(2) .image-list.list"
           ]
+        },
+        {
+          "name": "hero",
+          "instances": [
+            "main .teaser.cmp-teaser--hero.cmp-teaser--imagebottom"
+          ]
         }
       ],
       "sections": [
@@ -70,8 +76,8 @@
           "name": "Next Adventures Teaser",
           "selector": "main .teaser.cmp-teaser--hero.cmp-teaser--imagebottom",
           "style": null,
-          "blocks": [],
-          "defaultContent": ["main .teaser.cmp-teaser--hero.cmp-teaser--imagebottom"]
+          "blocks": ["hero"],
+          "defaultContent": []
         },
         {
           "id": "rc10",

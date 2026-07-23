@@ -124,6 +124,28 @@ var CustomImportScript = (() => {
     element.replaceWith(block);
   }
 
+  // tools/importer/parsers/hero.js
+  function parse4(element, { document }) {
+    const img = element.querySelector(".cmp-teaser__image img, img");
+    const contentCell = [];
+    const heading = element.querySelector(".cmp-teaser__title, h1, h2, h3, h4, h5, h6");
+    if (heading) contentCell.push(heading);
+    const description = element.querySelector(".cmp-teaser__description, p");
+    if (description) contentCell.push(description);
+    const cta = element.querySelector(".cmp-teaser__action-link, .cmp-teaser__action-container a, a");
+    if (cta) contentCell.push(cta);
+    if (!img && !contentCell.length) {
+      element.replaceWith(...element.childNodes);
+      return;
+    }
+    const cells = [
+      [img || ""],
+      [contentCell.length ? contentCell : ""]
+    ];
+    const block = WebImporter.Blocks.createBlock(document, { name: "hero", cells });
+    element.replaceWith(block);
+  }
+
   // tools/importer/transformers/wknd-cleanup.js
   var TransformHook = { beforeTransform: "beforeTransform", afterTransform: "afterTransform" };
   function transform(hookName, element, payload) {
@@ -297,6 +319,10 @@ var CustomImportScript = (() => {
           "main .cmp-layout-container--fixed:nth-of-type(1) .image-list.list",
           "main .cmp-layout-container--fixed:nth-of-type(2) .image-list.list"
         ]
+      },
+      {
+        name: "hero",
+        instances: ["main .teaser.cmp-teaser--hero.cmp-teaser--imagebottom"]
       }
     ],
     sections: [
@@ -304,7 +330,7 @@ var CustomImportScript = (() => {
       { id: "rc3", name: "Featured Article", selector: "main .teaser.cmp-teaser--featured", style: null, blocks: ["columns"], defaultContent: [] },
       { id: "rc4", name: "Recent Articles Heading", selector: "main .title.cmp-title--underline:nth-of-type(2)", style: null, blocks: [], defaultContent: ["main .title.cmp-title--underline:nth-of-type(2) h2"] },
       { id: "rc5", name: "Recent Articles Cards", selector: "main .cmp-layout-container--fixed:nth-of-type(1) .image-list.list", style: null, blocks: ["cards"], defaultContent: [] },
-      { id: "rc9", name: "Next Adventures Teaser", selector: "main .teaser.cmp-teaser--hero.cmp-teaser--imagebottom", style: null, blocks: [], defaultContent: ["main .teaser.cmp-teaser--hero.cmp-teaser--imagebottom"] },
+      { id: "rc9", name: "Next Adventures Teaser", selector: "main .teaser.cmp-teaser--hero.cmp-teaser--imagebottom", style: null, blocks: ["hero"], defaultContent: [] },
       { id: "rc10", name: "Where To Go Heading", selector: "main .cmp-layout-container--fixed:nth-of-type(2) .title", style: null, blocks: [], defaultContent: ["main .cmp-layout-container--fixed:nth-of-type(2) .title h3"] },
       { id: "rc11", name: "Destination Cards", selector: "main .cmp-layout-container--fixed:nth-of-type(2) .image-list.list", style: null, blocks: ["cards"], defaultContent: [] }
     ]
@@ -316,7 +342,8 @@ var CustomImportScript = (() => {
   var parsers = {
     carousel: parse,
     columns: parse2,
-    cards: parse3
+    cards: parse3,
+    hero: parse4
   };
   function executeTransformers(hookName, element, payload) {
     const enhancedPayload = __spreadProps(__spreadValues({}, payload), { template: PAGE_TEMPLATE });

@@ -5,6 +5,7 @@
 import carouselParser from './parsers/carousel.js';
 import columnsParser from './parsers/columns.js';
 import cardsParser from './parsers/cards.js';
+import heroParser from './parsers/hero.js';
 
 // TRANSFORMER IMPORTS
 import cleanupTransformer from './transformers/wknd-cleanup.js';
@@ -33,13 +34,17 @@ const PAGE_TEMPLATE = {
         'main .cmp-layout-container--fixed:nth-of-type(2) .image-list.list',
       ],
     },
+    {
+      name: 'hero',
+      instances: ['main .teaser.cmp-teaser--hero.cmp-teaser--imagebottom'],
+    },
   ],
   sections: [
     { id: 'rc2', name: 'Hero Carousel', selector: 'main .cmp-carousel--hero', style: null, blocks: ['carousel'], defaultContent: [] },
     { id: 'rc3', name: 'Featured Article', selector: 'main .teaser.cmp-teaser--featured', style: null, blocks: ['columns'], defaultContent: [] },
     { id: 'rc4', name: 'Recent Articles Heading', selector: 'main .title.cmp-title--underline:nth-of-type(2)', style: null, blocks: [], defaultContent: ['main .title.cmp-title--underline:nth-of-type(2) h2'] },
     { id: 'rc5', name: 'Recent Articles Cards', selector: 'main .cmp-layout-container--fixed:nth-of-type(1) .image-list.list', style: null, blocks: ['cards'], defaultContent: [] },
-    { id: 'rc9', name: 'Next Adventures Teaser', selector: 'main .teaser.cmp-teaser--hero.cmp-teaser--imagebottom', style: null, blocks: [], defaultContent: ['main .teaser.cmp-teaser--hero.cmp-teaser--imagebottom'] },
+    { id: 'rc9', name: 'Next Adventures Teaser', selector: 'main .teaser.cmp-teaser--hero.cmp-teaser--imagebottom', style: null, blocks: ['hero'], defaultContent: [] },
     { id: 'rc10', name: 'Where To Go Heading', selector: 'main .cmp-layout-container--fixed:nth-of-type(2) .title', style: null, blocks: [], defaultContent: ['main .cmp-layout-container--fixed:nth-of-type(2) .title h3'] },
     { id: 'rc11', name: 'Destination Cards', selector: 'main .cmp-layout-container--fixed:nth-of-type(2) .image-list.list', style: null, blocks: ['cards'], defaultContent: [] },
   ],
@@ -56,6 +61,7 @@ const parsers = {
   carousel: carouselParser,
   columns: columnsParser,
   cards: cardsParser,
+  hero: heroParser,
 };
 
 /**
