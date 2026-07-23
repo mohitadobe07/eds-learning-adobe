@@ -77,7 +77,8 @@
   text-decoration: underline;
 }
 
-/* description — uppercase grey, matches source #696969 14px / 21px */
+/* description — uppercase grey, matches source #696969 14px / 21px,
+   clamped to a single line with ellipsis (source uses white-space:nowrap) */
 .cards .cards-card-body p {
   margin: 16px 0 0;
   color: #696969;
@@ -86,4 +87,7 @@
   font-weight: 400;
   line-height: 21px;
   text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
