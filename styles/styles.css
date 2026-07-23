@@ -374,9 +374,12 @@ main .section.dark a:any-link {
   }
 }
 
-/* adventure detail H1 — Asar serif, left aligned, no underline (matches source) */
+/* adventure detail H1 — Asar serif, left aligned with a yellow underline accent */
 main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .default-content-wrapper h1 {
+  display: inline-block;
   margin: 27px 0 13.5px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid var(--accent-color);
   font-family: var(--heading-font-family);
   font-size: 40px;
   font-weight: 400;
