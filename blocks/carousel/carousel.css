@@ -6,6 +6,14 @@
   --carousel-image-height: 320px;
   --carousel-card-overlap: 60px;
   --carousel-content-max-width: 1136px;
+
+  /* full-bleed: break out of the constrained section column to match the
+     edge-to-edge WKND hero. calc(50% - 50vw) avoids the horizontal-scrollbar
+     overflow that a bare 100vw + negative margin can cause. */
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
 }
 
 .carousel .carousel-slides-container {
@@ -67,7 +75,7 @@
   max-width: var(--carousel-content-max-width);
   box-sizing: border-box;
   margin: calc(-1 * var(--carousel-card-overlap)) auto 0;
-  padding: 20px 24px 28px;
+  padding: 28px 24px;
   background-color: var(--background-color);
   color: var(--text-color);
 }
@@ -149,46 +157,50 @@
   background-color: rgb(0 0 0 / 80%);
 }
 
-/* prev/next controls */
+/* prev/next controls — WKND places small transparent chevrons at the
+   bottom-right of the hero, aligned on the indicator row (not overlaid on
+   the image sides). */
 .carousel .carousel-navigation-buttons {
   position: absolute;
-  top: calc(var(--carousel-image-height) / 2);
-  transform: translateY(-50%);
-  left: 12px;
-  right: 12px;
+  right: 24px;
+  bottom: 20px;
+  left: auto;
+  top: auto;
+  transform: none;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 18px;
   z-index: 2;
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 .carousel .carousel-navigation-buttons button {
   position: relative;
-  width: 44px;
-  height: 44px;
+  width: 26px;
+  height: 24px;
   margin: 0;
   padding: 0;
   border: 0;
-  border-radius: 50%;
-  background-color: rgb(0 0 0 / 25%);
-  transition: background-color 0.2s;
+  border-radius: 0;
+  background-color: transparent;
+  transition: opacity 0.2s;
   cursor: pointer;
 }
 
 .carousel .carousel-navigation-buttons button:hover,
 .carousel .carousel-navigation-buttons button:focus-visible {
-  background-color: rgb(0 0 0 / 80%);
+  background-color: transparent;
+  opacity: 0.6;
 }
 
 .carousel .carousel-navigation-buttons button::after {
   display: block;
   content: '';
-  border: 2px solid #fff;
+  border: 2px solid var(--text-color);
   border-bottom: 0;
   border-left: 0;
-  height: 12px;
-  width: 12px;
+  height: 11px;
+  width: 11px;
   position: absolute;
   top: 50%;
   left: calc(50% + 2px);
@@ -213,7 +225,7 @@
   }
 
   .carousel .carousel-slide .carousel-slide-content {
-    padding: 24px 28px 32px;
+    padding: 28px 28px;
   }
 }
 
@@ -225,6 +237,10 @@
   }
 
   .carousel .carousel-slide .carousel-slide-content {
-    padding: 32px 28px 36px;
+    padding: 0 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: var(--carousel-card-overlap);
   }
 }
