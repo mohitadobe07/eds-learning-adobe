@@ -419,3 +419,89 @@ main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .default-content
   color: var(--text-color);
   text-align: left;
 }
+
+/* ---------------------------------------------------------------------------
+   Magazine article layout (e.g. /magazine/arctic-surfing)
+   Scoped to `main:has(blockquote)` — only the long-form magazine article
+   template renders a blockquote (homepage, listing, and adventure-detail do
+   not), so this cannot leak into other templates.
+   Source uses a two-column magazine layout: a ~776px article reading column
+   on the left and a related-stories sidebar (~263px) on the right.
+   --------------------------------------------------------------------------- */
+
+/* article reading column: match the source's 18px justified body and narrower
+   measure so lines aren't full-viewport wide */
+main:has(blockquote) .section > .default-content-wrapper p {
+  font-size: 18px;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main:has(blockquote) .section > .default-content-wrapper:has(h1) h1 {
+  font-size: 40px;
+}
+
+main:has(blockquote) .section > .default-content-wrapper h4 {
+  font-size: 16px;
+}
+
+@media (width >= 900px) {
+  /* the article-body section holds the article (default content) on the left
+     and the related-stories cards on the right — lay it out as two columns */
+  main:has(blockquote) .section.cards-container:has(> .cards-wrapper) {
+    display: grid;
+    grid-template-columns: minmax(0, 776px) 263px;
+    column-gap: 48px;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+    box-sizing: border-box;
+  }
+
+  main:has(blockquote) .section.cards-container:has(> .cards-wrapper) > .default-content-wrapper {
+    grid-column: 1;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  main:has(blockquote) .section.cards-container:has(> .cards-wrapper) > .cards-wrapper {
+    grid-column: 2;
+    align-self: start;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* related-stories cards as a vertical sidebar list (one per row), not the
+   default multi-column image-card grid */
+main:has(blockquote) .cards > ul {
+  display: block;
+}
+
+main:has(blockquote) .cards > ul > li {
+  border: 0;
+  border-bottom: 1px solid #ebebeb;
+  border-radius: 0;
+  margin: 0 0 18px;
+  padding: 0 0 18px;
+}
+
+main:has(blockquote) .cards .cards-card-body h3 {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+main:has(blockquote) .cards .cards-card-body p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #696969;
+}
