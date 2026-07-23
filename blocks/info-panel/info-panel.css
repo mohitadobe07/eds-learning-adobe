@@ -1,0 +1,31 @@
+/* Info panel — stacked label/value facts, matching the adventure info sidebar. */
+
+.info-panel .info-panel-list {
+  margin: 0;
+  padding: 0;
+  font-family: var(--body-font-family);
+}
+
+.info-panel .info-panel-term {
+  margin: 0;
+  font-size: var(--body-font-size-xs, 12px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #959595;
+}
+
+.info-panel .info-panel-value {
+  margin: 4px 0 20px;
+  font-size: var(--body-font-size-m, 18px);
+  line-height: 1.4;
+  color: var(--text-color);
+}
+
+.info-panel .info-panel-value:last-child {
+  margin-bottom: 0;
+}
+
+.info-panel .info-panel-value p {
+  margin: 0;
+}
