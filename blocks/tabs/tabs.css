@@ -1,6 +1,11 @@
 /* WKND adventure tabs — dark tab buttons (active filled), plain content panel
    below, matching the source detail page. */
 
+/* fill the grid column so a short panel can't shrink/shift the block */
+.tabs {
+  width: 100%;
+}
+
 .tabs .tabs-list {
   display: flex;
   gap: 2px;
@@ -25,9 +30,19 @@
   text-align: initial;
   white-space: nowrap;
   cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* hover: light background, dark text */
+.tabs .tabs-list button:hover,
+.tabs .tabs-list button:focus-visible {
+  background-color: var(--light-color);
+  color: var(--text-color);
 }
 
 .tabs .tabs-list button[aria-selected='true'] {
+  background-color: var(--text-color);
+  color: #fff;
   cursor: initial;
 }
 
