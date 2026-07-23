@@ -44,7 +44,9 @@
           "name": "Hero Carousel",
           "selector": "main .cmp-carousel--hero",
           "style": null,
-          "blocks": ["carousel"],
+          "blocks": [
+            "carousel"
+          ],
           "defaultContent": []
         },
         {
@@ -52,7 +54,9 @@
           "name": "Featured Article",
           "selector": "main .teaser.cmp-teaser--featured",
           "style": null,
-          "blocks": ["columns"],
+          "blocks": [
+            "columns"
+          ],
           "defaultContent": []
         },
         {
@@ -61,14 +65,18 @@
           "selector": "main .title.cmp-title--underline:nth-of-type(2)",
           "style": null,
           "blocks": [],
-          "defaultContent": ["main .title.cmp-title--underline:nth-of-type(2) h2"]
+          "defaultContent": [
+            "main .title.cmp-title--underline:nth-of-type(2) h2"
+          ]
         },
         {
           "id": "rc5",
           "name": "Recent Articles Cards",
           "selector": "main .cmp-layout-container--fixed:nth-of-type(1) .image-list.list",
           "style": null,
-          "blocks": ["cards"],
+          "blocks": [
+            "cards"
+          ],
           "defaultContent": []
         },
         {
@@ -76,7 +84,9 @@
           "name": "Next Adventures Teaser",
           "selector": "main .teaser.cmp-teaser--hero.cmp-teaser--imagebottom",
           "style": null,
-          "blocks": ["hero"],
+          "blocks": [
+            "hero"
+          ],
           "defaultContent": []
         },
         {
@@ -85,14 +95,18 @@
           "selector": "main .cmp-layout-container--fixed:nth-of-type(2) .title",
           "style": null,
           "blocks": [],
-          "defaultContent": ["main .cmp-layout-container--fixed:nth-of-type(2) .title h3"]
+          "defaultContent": [
+            "main .cmp-layout-container--fixed:nth-of-type(2) .title h3"
+          ]
         },
         {
           "id": "rc11",
           "name": "Destination Cards",
           "selector": "main .cmp-layout-container--fixed:nth-of-type(2) .image-list.list",
           "style": null,
-          "blocks": ["cards"],
+          "blocks": [
+            "cards"
+          ],
           "defaultContent": []
         }
       ]
@@ -108,11 +122,16 @@
       "blocks": [
         {
           "name": "columns",
-          "instances": ["main .teaser.cmp-teaser--hero .cmp-teaser"]
+          "instances": [
+            "main .teaser.cmp-teaser--hero .cmp-teaser"
+          ]
         },
         {
           "name": "adventure-filter",
-          "instances": ["main #container-7ea6258004 .cmp-tabs", "main .cmp-tabs"]
+          "instances": [
+            "main #container-7ea6258004 .cmp-tabs",
+            "main .cmp-tabs"
+          ]
         }
       ],
       "sections": [
@@ -121,16 +140,24 @@
           "name": "Adventures Banner",
           "selector": "main #container-6069f81f2b",
           "style": null,
-          "blocks": ["columns"],
-          "defaultContent": ["#container-9e4d6ec1e1 .cmp-title h1"]
+          "blocks": [
+            "columns"
+          ],
+          "defaultContent": [
+            "#container-9e4d6ec1e1 .cmp-title h1"
+          ]
         },
         {
           "id": "s2",
           "name": "Current Adventures",
           "selector": "main #container-7ea6258004",
           "style": null,
-          "blocks": ["adventure-filter"],
-          "defaultContent": ["#title-dffa0ffaf3 .cmp-title h2"]
+          "blocks": [
+            "adventure-filter"
+          ],
+          "defaultContent": [
+            "#title-dffa0ffaf3 .cmp-title h2"
+          ]
         }
       ]
     },
@@ -147,19 +174,27 @@
       "blocks": [
         {
           "name": "breadcrumb",
-          "instances": ["main nav.cmp-breadcrumb"]
+          "instances": [
+            "main nav.cmp-breadcrumb"
+          ]
         },
         {
-          "name": "hero",
-          "instances": ["main div.carousel.cmp-carousel--mini"]
+          "name": "carousel",
+          "instances": [
+            "main div.carousel.cmp-carousel--mini"
+          ]
         },
         {
           "name": "info-panel",
-          "instances": ["main article > dl.cmp-contentfragment__elements"]
+          "instances": [
+            "main article > dl.cmp-contentfragment__elements"
+          ]
         },
         {
           "name": "tabs",
-          "instances": ["main div.tabs.panelcontainer > div.cmp-tabs"]
+          "instances": [
+            "main div.tabs.panelcontainer > div.cmp-tabs"
+          ]
         }
       ],
       "sections": [
@@ -168,7 +203,9 @@
           "name": "Breadcrumb",
           "selector": "main nav.cmp-breadcrumb",
           "style": null,
-          "blocks": ["breadcrumb"],
+          "blocks": [
+            "breadcrumb"
+          ],
           "defaultContent": []
         },
         {
@@ -176,7 +213,9 @@
           "name": "Hero Image",
           "selector": "main div.carousel.cmp-carousel--mini",
           "style": null,
-          "blocks": ["hero"],
+          "blocks": [
+            "carousel"
+          ],
           "defaultContent": []
         },
         {
@@ -185,22 +224,19 @@
           "selector": "main div.title.cmp-title--underline",
           "style": null,
           "blocks": [],
-          "defaultContent": ["main div.title.cmp-title--underline h1"]
+          "defaultContent": [
+            "main div.title.cmp-title--underline h1"
+          ]
         },
         {
           "id": "d4",
-          "name": "Info Panel",
+          "name": "Detail Body",
           "selector": "main article > dl.cmp-contentfragment__elements",
-          "style": null,
-          "blocks": ["info-panel"],
-          "defaultContent": []
-        },
-        {
-          "id": "d6",
-          "name": "Trip Details Tabs",
-          "selector": "main div.tabs.panelcontainer > div.cmp-tabs",
-          "style": null,
-          "blocks": ["tabs"],
+          "style": "detail-body",
+          "blocks": [
+            "info-panel",
+            "tabs"
+          ],
           "defaultContent": []
         }
       ]

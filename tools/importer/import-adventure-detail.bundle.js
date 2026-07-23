@@ -72,25 +72,28 @@ var CustomImportScript = (() => {
     element.replaceWith(block);
   }
 
-  // tools/importer/parsers/hero.js
+  // tools/importer/parsers/carousel.js
   function parse2(element, { document }) {
-    const img = element.querySelector(".cmp-teaser__image img, img");
-    const contentCell = [];
-    const heading = element.querySelector(".cmp-teaser__title, h1, h2, h3, h4, h5, h6");
-    if (heading) contentCell.push(heading);
-    const description = element.querySelector(".cmp-teaser__description, p");
-    if (description) contentCell.push(description);
-    const cta = element.querySelector(".cmp-teaser__action-link, .cmp-teaser__action-container a, a");
-    if (cta) contentCell.push(cta);
-    if (!img && !contentCell.length) {
+    const cells = [];
+    const slides = element.querySelectorAll(".cmp-carousel__item");
+    slides.forEach((slide) => {
+      const img = slide.querySelector(".cmp-teaser__image img, img");
+      const contentCell = [];
+      const title = slide.querySelector(".cmp-teaser__title, h1, h2, h3, h4, h5, h6");
+      if (title) contentCell.push(title);
+      const description = slide.querySelector(".cmp-teaser__description, p");
+      if (description) contentCell.push(description);
+      const cta = slide.querySelector(".cmp-teaser__action-link, .cmp-teaser__action-container a, a");
+      if (cta) contentCell.push(cta);
+      if (img || contentCell.length) {
+        cells.push([img || "", contentCell.length ? contentCell : ""]);
+      }
+    });
+    if (!cells.length) {
       element.replaceWith(...element.childNodes);
       return;
     }
-    const cells = [
-      [img || ""],
-      [contentCell.length ? contentCell : ""]
-    ];
-    const block = WebImporter.Blocks.createBlock(document, { name: "hero", cells });
+    const block = WebImporter.Blocks.createBlock(document, { name: "carousel", cells });
     element.replaceWith(block);
   }
 
@@ -318,13 +321,13 @@ var CustomImportScript = (() => {
     ],
     blocks: [
       { name: "breadcrumb", instances: ["main nav.cmp-breadcrumb"] },
-      { name: "hero", instances: ["main div.carousel.cmp-carousel--mini"] },
+      { name: "carousel", instances: ["main div.carousel.cmp-carousel--mini"] },
       { name: "info-panel", instances: ["main article > dl.cmp-contentfragment__elements"] },
       { name: "tabs", instances: ["main div.tabs.panelcontainer > div.cmp-tabs"] }
     ],
     sections: [
       { id: "d1", name: "Breadcrumb", selector: "main nav.cmp-breadcrumb", style: null, blocks: ["breadcrumb"], defaultContent: [] },
-      { id: "d2", name: "Hero Image", selector: "main div.carousel.cmp-carousel--mini", style: null, blocks: ["hero"], defaultContent: [] },
+      { id: "d2", name: "Hero Image", selector: "main div.carousel.cmp-carousel--mini", style: null, blocks: ["carousel"], defaultContent: [] },
       { id: "d3", name: "Title", selector: "main div.title.cmp-title--underline", style: null, blocks: [], defaultContent: ["main div.title.cmp-title--underline h1"] },
       { id: "d4", name: "Detail Body", selector: "main article > dl.cmp-contentfragment__elements", style: "detail-body", blocks: ["info-panel", "tabs"], defaultContent: [] }
     ]
@@ -335,7 +338,7 @@ var CustomImportScript = (() => {
   ];
   var parsers = {
     breadcrumb: parse,
-    hero: parse2,
+    carousel: parse2,
     "info-panel": parse3,
     tabs: parse4
   };

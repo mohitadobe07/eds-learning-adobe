@@ -3,7 +3,7 @@
 
 // PARSER IMPORTS
 import breadcrumbParser from './parsers/breadcrumb.js';
-import heroParser from './parsers/hero.js';
+import carouselParser from './parsers/carousel.js';
 import infoPanelParser from './parsers/info-panel.js';
 import tabsParser from './parsers/tabs.js';
 
@@ -22,13 +22,13 @@ const PAGE_TEMPLATE = {
   ],
   blocks: [
     { name: 'breadcrumb', instances: ['main nav.cmp-breadcrumb'] },
-    { name: 'hero', instances: ['main div.carousel.cmp-carousel--mini'] },
+    { name: 'carousel', instances: ['main div.carousel.cmp-carousel--mini'] },
     { name: 'info-panel', instances: ['main article > dl.cmp-contentfragment__elements'] },
     { name: 'tabs', instances: ['main div.tabs.panelcontainer > div.cmp-tabs'] },
   ],
   sections: [
     { id: 'd1', name: 'Breadcrumb', selector: 'main nav.cmp-breadcrumb', style: null, blocks: ['breadcrumb'], defaultContent: [] },
-    { id: 'd2', name: 'Hero Image', selector: 'main div.carousel.cmp-carousel--mini', style: null, blocks: ['hero'], defaultContent: [] },
+    { id: 'd2', name: 'Hero Image', selector: 'main div.carousel.cmp-carousel--mini', style: null, blocks: ['carousel'], defaultContent: [] },
     { id: 'd3', name: 'Title', selector: 'main div.title.cmp-title--underline', style: null, blocks: [], defaultContent: ['main div.title.cmp-title--underline h1'] },
     { id: 'd4', name: 'Detail Body', selector: 'main article > dl.cmp-contentfragment__elements', style: 'detail-body', blocks: ['info-panel', 'tabs'], defaultContent: [] },
   ],
@@ -41,7 +41,7 @@ const transformers = [
 
 const parsers = {
   breadcrumb: breadcrumbParser,
-  hero: heroParser,
+  carousel: carouselParser,
   'info-panel': infoPanelParser,
   tabs: tabsParser,
 };
