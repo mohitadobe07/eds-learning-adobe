@@ -1,37 +1,122 @@
-.hero-container .hero-wrapper {
-  max-width: unset;
-  padding: 0;
-}
+/* WKND hero teaser — full-bleed background image with an overlapping white
+   content card (heading + description + CTA). Mirrors the carousel hero. */
 
 .hero {
+  --hero-image-height: 320px;
+  --hero-card-overlap: 60px;
+  --hero-content-max-width: 1136px;
+
+  /* full-bleed: break out of the constrained section column, edge-to-edge */
   position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
 }
 
-.hero h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
+/* full-bleed background image */
+.hero .hero-image {
+  width: 100%;
+  height: var(--hero-image-height);
 }
 
-.hero picture {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  object-fit: cover;
-  box-sizing: border-box;
-}
-
-.hero img {
-  object-fit: cover;
+.hero .hero-image picture {
+  display: block;
   width: 100%;
   height: 100%;
 }
 
+.hero .hero-image picture > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* white content card overlapping the bottom of the image */
+.hero .hero-content {
+  z-index: 1;
+  position: relative;
+  width: 100%;
+  max-width: var(--hero-content-max-width);
+  box-sizing: border-box;
+  margin: calc(-1 * var(--hero-card-overlap)) auto 0;
+  padding: 28px 24px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.hero .hero-content h1,
+.hero .hero-content h2,
+.hero .hero-content h3 {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+.hero .hero-content p {
+  margin: 12px 0 0;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--text-color);
+}
+
+/* CTA — WKND yellow button, square corners, uppercase */
+.hero .hero-content p:last-child {
+  margin-top: 20px;
+}
+
+.hero .hero-content a:any-link {
+  display: inline-block;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 14px 35px;
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.hero .hero-content a:hover,
+.hero .hero-content a:focus-visible {
+  background-color: var(--text-color);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* tablet and up */
+@media (width >= 600px) {
+  .hero {
+    --hero-image-height: 480px;
+    --hero-card-overlap: 120px;
+  }
+
+  .hero .hero-content {
+    padding: 28px;
+  }
+}
+
+/* desktop — matches source hero proportions (640px image, ~180px overlap) */
 @media (width >= 900px) {
   .hero {
-    padding: 40px 32px;
+    --hero-image-height: 640px;
+    --hero-card-overlap: 180px;
+  }
+
+  .hero .hero-content {
+    padding: 0 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: var(--hero-card-overlap);
   }
 }
