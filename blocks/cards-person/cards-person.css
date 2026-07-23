@@ -1,0 +1,104 @@
+/* WKND person / team card grid (contributors & guides)
+ * Source: https://wknd.site/us/en/about-us.html
+ * Each card: circular portrait photo, centered H3 name, H5 role/tagline,
+ * and a horizontal row of 3 social icon links. 4-across on desktop.
+ */
+
+.cards-person > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 40px 24px;
+}
+
+/* tablet: 2 columns */
+@media (width >= 600px) {
+  .cards-person > ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* desktop: up to 4 columns (contributors grid is 4-across, guides 3-across) */
+@media (width >= 900px) {
+  .cards-person > ul {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.cards-person > ul > li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  min-width: 0;
+  text-align: center;
+}
+
+/* circular portrait photo */
+.cards-person .cards-person-card-image {
+  line-height: 0;
+}
+
+.cards-person .cards-person-card-image img {
+  display: block;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.cards-person .cards-person-card-body {
+  margin: 0;
+  padding: 0;
+}
+
+/* name */
+.cards-person .cards-person-card-body h3 {
+  margin: 16px 0 0;
+  font-family: var(--body-font-family);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* role / tagline — uppercase grey, smaller */
+.cards-person .cards-person-card-body h5 {
+  margin: 6px 0 0;
+  color: #696969;
+  font-family: var(--body-font-family);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* horizontal social-icon link row */
+.cards-person .cards-person-social {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 14px 0 0;
+}
+
+.cards-person .cards-person-social a:any-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 0;
+  border: 1px solid #dadada;
+  border-radius: 50%;
+}
+
+.cards-person .cards-person-social a:hover {
+  color: #fff;
+  background-color: var(--text-color);
+  border-color: var(--text-color);
+}
