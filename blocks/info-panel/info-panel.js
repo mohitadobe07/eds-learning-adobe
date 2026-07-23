@@ -22,6 +22,9 @@ export default function decorate(block) {
     const valueCell = cells[1];
     if (!labelCell) return;
 
+    const item = document.createElement('div');
+    item.className = 'info-panel-item';
+
     const dt = document.createElement('dt');
     dt.className = 'info-panel-term';
     dt.textContent = labelCell.textContent.trim();
@@ -32,7 +35,8 @@ export default function decorate(block) {
       dd.innerHTML = valueCell.innerHTML.trim();
     }
 
-    dl.append(dt, dd);
+    item.append(dt, dd);
+    dl.append(item);
   });
 
   block.textContent = '';
