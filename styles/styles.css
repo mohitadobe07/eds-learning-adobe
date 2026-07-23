@@ -368,6 +368,7 @@ main .section.dark a:any-link {
   main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .tabs-wrapper {
     grid-column: 2;
     grid-row: 2 / span 2;
+    align-self: start;
 
     /* fill the column so a short panel can't shrink/shift the tabs */
     justify-self: stretch;
