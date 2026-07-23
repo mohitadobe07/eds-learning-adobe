@@ -27,39 +27,37 @@
 }
 
 /* Lay consecutive person-card blocks out as a grid. Each .cards-person-wrapper
-   holds one person; a run of them (between the section headings) flows into
-   rows. Full width on mobile, 2-up tablet, 4-up desktop. */
-main .section .cards-person-wrapper {
-  display: inline-block;
-  width: 100%;
-  vertical-align: top;
-  margin: 0 0 40px;
+   holds one person; the section that contains them becomes a flex row so the
+   wrappers wrap into columns (flex avoids the inline-block whitespace that
+   would otherwise overflow a 4-up row). The default-content headings
+   ("Our Contributors" / "WKND Guides") are full-width flex items that force a
+   line break, naturally splitting the two grids. */
+main .section.cards-person-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px 24px;
+}
+
+main .section.cards-person-container > .default-content-wrapper {
+  flex: 0 0 100%;
+  margin: 0;
+}
+
+main .section.cards-person-container > .cards-person-wrapper {
+  flex: 0 0 100%;
+  margin: 0;
+  min-width: 0;
 }
 
 @media (width >= 600px) {
-  main .section .cards-person-wrapper {
-    width: calc(50% - 12px);
-    margin-right: 24px;
-  }
-
-  main .section .cards-person-wrapper:nth-of-type(2n) {
-    margin-right: 0;
+  main .section.cards-person-container > .cards-person-wrapper {
+    flex-basis: calc(50% - 12px);
   }
 }
 
 @media (width >= 900px) {
-  main .section .cards-person-wrapper {
-    width: calc(25% - 18px);
-    margin-right: 24px;
-  }
-
-  /* reset the tablet 2n rule, then clear every 4th on desktop */
-  main .section .cards-person-wrapper:nth-of-type(2n) {
-    margin-right: 24px;
-  }
-
-  main .section .cards-person-wrapper:nth-of-type(4n) {
-    margin-right: 0;
+  main .section.cards-person-container > .cards-person-wrapper {
+    flex-basis: calc(25% - 18px);
   }
 }
 
