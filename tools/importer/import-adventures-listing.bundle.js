@@ -65,71 +65,9 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/adventure-filter.js
-  var CATEGORY_MAP = {
-    Climbing: ["Climbing New Zealand", "Colorado Rock Climbing"],
-    Cycling: ["Whistler Mountain Biking", "Cycling Tuscany", "West Coast Cycling"],
-    Skiing: ["Downhill Skiing Wyoming", "Ski Touring Mont Blanc", "Tahoe Skiing"],
-    Surfing: ["Bali Surf Camp", "Surf Camp in Costa Rica"],
-    Travel: ["Beervana in Portland", "Cycling Tuscany", "Gastronomic Marais Tour", "Napa Wine Tasting", "Riverside Camping", "Yosemite Backpacking"]
-  };
-  function buildTitleToCategories() {
-    const map = {};
-    Object.keys(CATEGORY_MAP).forEach((category) => {
-      CATEGORY_MAP[category].forEach((title) => {
-        const key = title.trim().toLowerCase();
-        if (!map[key]) map[key] = [];
-        if (!map[key].includes(category)) map[key].push(category);
-      });
-    });
-    return map;
-  }
+  var INDEX_PATH = "/us/en/adventures/query-index.json";
   function parse2(element, { document }) {
-    const titleToCategories = buildTitleToCategories();
-    const allPanel = element.querySelector(".cmp-tabs__tabpanel--active") || element.querySelector(".cmp-tabs__tabpanel") || element;
-    const cards = allPanel.querySelectorAll(".cmp-image-list__item, li");
-    const cells = [];
-    cards.forEach((card) => {
-      var _a, _b;
-      const img = card.querySelector("img");
-      const titleLink = card.querySelector(".cmp-image-list__item-title-link, a");
-      const title = (((_a = card.querySelector(".cmp-image-list__item-title")) == null ? void 0 : _a.textContent) || (titleLink == null ? void 0 : titleLink.textContent) || "").trim();
-      const description = (((_b = card.querySelector(".cmp-image-list__item-description")) == null ? void 0 : _b.textContent) || "").trim();
-      if (!title && !img) return;
-      let imageCell = "";
-      if (img) {
-        const picture = document.createElement("img");
-        picture.setAttribute("src", img.getAttribute("src") || "");
-        picture.setAttribute("alt", img.getAttribute("alt") || title);
-        imageCell = picture;
-      }
-      const bodyCell = [];
-      if (title) {
-        const heading = document.createElement("h3");
-        if (titleLink) {
-          const a = document.createElement("a");
-          let href = titleLink.getAttribute("href") || "";
-          href = href.replace(/\.html($|[?#])/, "$1");
-          a.setAttribute("href", href);
-          a.textContent = title;
-          heading.append(a);
-        } else {
-          heading.textContent = title;
-        }
-        bodyCell.push(heading);
-      }
-      if (description) {
-        const p = document.createElement("p");
-        p.textContent = description;
-        bodyCell.push(p);
-      }
-      const categories = titleToCategories[title.toLowerCase()] || [];
-      const categoryCell = categories.join(", ");
-      cells.push([imageCell, bodyCell, categoryCell]);
-    });
-    if (cells.length === 0) {
-      element.replaceWith(...element.childNodes);
-      return;
-    }
+    const cells = [[INDEX_PATH]];
     const block = WebImporter.Blocks.createBlock(document, { name: "adventure-filter", cells });
     element.replaceWith(block);
   }
@@ -154,7 +92,10 @@ var CustomImportScript = (() => {
         '[id*="consent"]',
         '[class*="consent"]',
         "#onetrust-consent-sdk",
-        "#onetrust-banner-sdk"
+        "#onetrust-banner-sdk",
+        // Content-fragment internal title — not shown on the source page and
+        // would otherwise duplicate the page H1 (e.g. "Bali Surf Camp").
+        ".cmp-contentfragment__title"
       ]);
     }
     if (hookName === TransformHook.afterTransform) {

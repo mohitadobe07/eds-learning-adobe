@@ -34,6 +34,51 @@ const PAGE_TEMPLATE = {
   ],
 };
 
+// Authentic WKND filter categories keyed by adventure page slug. Sourced from
+// the adventures-listing authored category column. Injected as a `Category`
+// metadata field so the dynamic adventure-filter block (which reads the
+// published query-index.json) can build its filter tab bar.
+const CATEGORY_BY_SLUG = {
+  'bali-surf-camp': 'Surfing',
+  'surf-camp-costa-rica': 'Surfing',
+  'beervana-portland': 'Travel',
+  'gastronomic-marais-tour': 'Travel',
+  'napa-wine-tasting': 'Travel',
+  'riverside-camping-australia': 'Travel',
+  'yosemite-backpacking': 'Travel',
+  'climbing-new-zealand': 'Climbing',
+  'colorado-rock-climbing': 'Climbing',
+  'cycling-southern-utah': 'Cycling',
+  'west-coast-cycling': 'Cycling',
+  'whistler-mountain-biking': 'Cycling',
+  'cycling-tuscany': 'Cycling, Travel',
+  'downhill-skiing-wyoming': 'Skiing',
+  'ski-touring-mont-blanc': 'Skiing',
+  'tahoe-skiing': 'Skiing',
+};
+
+function injectCategoryMetadata(main, document, originalURL) {
+  const slug = new URL(originalURL).pathname
+    .replace(/\/$/, '')
+    .replace(/\.html$/, '')
+    .split('/')
+    .pop();
+  const category = CATEGORY_BY_SLUG[slug];
+  if (!category) return;
+
+  const tables = main.querySelectorAll('table');
+  const metaTable = tables[tables.length - 1];
+  if (!metaTable) return;
+
+  const tr = document.createElement('tr');
+  const keyCell = document.createElement('td');
+  keyCell.textContent = 'Category';
+  const valueCell = document.createElement('td');
+  valueCell.textContent = category;
+  tr.append(keyCell, valueCell);
+  metaTable.appendChild(tr);
+}
+
 const transformers = [
   cleanupTransformer,
   ...(PAGE_TEMPLATE.sections && PAGE_TEMPLATE.sections.length > 1 ? [sectionsTransformer] : []),
@@ -101,6 +146,7 @@ export default {
     const hr = document.createElement('hr');
     main.appendChild(hr);
     WebImporter.rules.createMetadata(main, document);
+    injectCategoryMetadata(main, document, params.originalURL);
     WebImporter.rules.transformBackgroundImages(main, document);
     WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
 

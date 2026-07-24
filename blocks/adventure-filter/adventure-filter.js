@@ -1,71 +1,106 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
 /**
- * Adventure Filter block.
+ * Adventure Filter block (dynamic).
  *
- * Renders a grid of adventure cards (image + linked title + description) with an
- * interactive category filter bar above it. Categories are derived from each
- * card's authored category list, so authors never maintain a separate tab list.
+ * Renders a filterable grid of adventure cards built at runtime from the
+ * published query index of the adventure detail pages, so the listing always
+ * reflects the current set of child pages under /us/en/adventures/ without any
+ * authored card list to maintain.
  *
- * Expected authored structure (one row per adventure card):
- *   Column 1 = the card image.
- *   Column 2 = card body: a linked heading and a description paragraph.
- *   Column 3 = one or more comma-separated categories (e.g. "Surfing, Travel"),
- *              or empty for uncategorized (All-only) cards. Consumed to build
- *              the filter; not rendered in the card.
+ * Authored structure: a single-cell block whose text is the query-index path.
+ * If empty, defaults to `/us/en/adventures/query-index.json` (a sibling of the
+ * listing page).
+ *
+ * Each index row provides: path, title, description, image, category. The
+ * `category` value may be comma-separated (a card can belong to several
+ * filters). The filter tab bar is derived from the categories present, in a
+ * fixed WKND order (All first).
  *
  * @param {Element} block The block element
  */
 const ALL_LABEL = 'All';
+const DEFAULT_INDEX = '/us/en/adventures/query-index.json';
+const CATEGORY_ORDER = ['Surfing', 'Travel', 'Climbing', 'Cycling', 'Skiing'];
 
 function slug(value) {
   return value.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
-export default function decorate(block) {
-  const rows = [...block.children];
+function splitCategories(value) {
+  return (value || '')
+    .split(',')
+    .map((c) => c.trim())
+    .filter(Boolean);
+}
 
-  // Build the card list from authored rows.
-  const ul = document.createElement('ul');
-  const orderedCategories = [];
+function buildCard(row) {
+  const li = document.createElement('li');
+  const categories = splitCategories(row.category);
+  li.dataset.categories = categories.map(slug).join(' ');
 
-  rows.forEach((row) => {
-    const cols = [...row.children];
-    // Column 3 (if present) holds the comma-separated categories.
-    const categoryCol = cols.length >= 3 ? cols[cols.length - 1] : null;
-    const cardCategories = [];
-    if (categoryCol) {
-      categoryCol.textContent.split(',').forEach((cat) => {
-        const label = cat.trim();
-        if (!label) return;
-        cardCategories.push(label);
-        if (!orderedCategories.includes(label)) orderedCategories.push(label);
-      });
-      categoryCol.remove();
+  const imageDiv = document.createElement('div');
+  imageDiv.className = 'adventure-filter-card-image';
+  if (row.image) {
+    const link = document.createElement('a');
+    link.href = row.path;
+    link.append(createOptimizedPicture(row.image, row.title, false, [{ width: '750' }]));
+    imageDiv.append(link);
+  }
+
+  const bodyDiv = document.createElement('div');
+  bodyDiv.className = 'adventure-filter-card-body';
+  const h3 = document.createElement('h3');
+  const a = document.createElement('a');
+  a.href = row.path;
+  a.textContent = row.title;
+  h3.append(a);
+  bodyDiv.append(h3);
+  if (row.description) {
+    const p = document.createElement('p');
+    p.textContent = row.description;
+    bodyDiv.append(p);
+  }
+
+  li.append(imageDiv, bodyDiv);
+  return li;
+}
+
+export default async function decorate(block) {
+  const indexPath = (block.textContent || '').trim() || DEFAULT_INDEX;
+  block.textContent = '';
+
+  let rows = [];
+  try {
+    const resp = await fetch(indexPath);
+    if (resp.ok) {
+      const json = await resp.json();
+      rows = json.data || [];
     }
+  } catch (e) {
+    rows = [];
+  }
 
-    const li = document.createElement('li');
-    while (row.firstElementChild) li.append(row.firstElementChild);
+  // Keep a stable order: sort by title.
+  rows.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
 
-    // Classify the remaining columns: image vs body.
-    [...li.children].forEach((div) => {
-      if (div.children.length === 1 && div.querySelector('picture')) {
-        div.className = 'adventure-filter-card-image';
-      } else {
-        div.className = 'adventure-filter-card-body';
-      }
-    });
+  const ul = document.createElement('ul');
+  ul.className = 'adventure-filter-cards';
 
-    li.dataset.categories = cardCategories.map(slug).join(' ');
-    ul.append(li);
+  const present = new Set();
+  rows.forEach((row) => {
+    if (!row.title) return;
+    splitCategories(row.category).forEach((c) => present.add(c));
+    ul.append(buildCard(row));
   });
 
-  // Optimize images.
-  ul.querySelectorAll('picture > img').forEach((img) => img
-    .closest('picture')
-    .replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
+  // Build the filter tab bar: All + each present category (fixed WKND order,
+  // then any extra categories alphabetically).
+  const ordered = [
+    ...CATEGORY_ORDER.filter((c) => present.has(c)),
+    ...[...present].filter((c) => !CATEGORY_ORDER.includes(c)).sort(),
+  ];
 
-  // Build the filter tab bar: All + each discovered category (in first-seen order).
   const nav = document.createElement('div');
   nav.className = 'adventure-filter-tabs';
   nav.setAttribute('role', 'tablist');
@@ -83,13 +118,12 @@ export default function decorate(block) {
   };
 
   nav.append(makeTab(ALL_LABEL, '*', true));
-  orderedCategories.forEach((label) => nav.append(makeTab(label, slug(label), false)));
+  ordered.forEach((label) => nav.append(makeTab(label, slug(label), false)));
 
   const applyFilter = (value) => {
     [...ul.children].forEach((li) => {
       const cats = (li.dataset.categories || '').split(' ').filter(Boolean);
-      const show = value === '*' || cats.includes(value);
-      li.hidden = !show;
+      li.hidden = !(value === '*' || cats.includes(value));
     });
   };
 
@@ -105,6 +139,5 @@ export default function decorate(block) {
     applyFilter(tab.dataset.filter);
   });
 
-  ul.className = 'adventure-filter-cards';
   block.replaceChildren(nav, ul);
 }
