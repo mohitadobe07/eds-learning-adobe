@@ -15,4 +15,22 @@ export default function decorate(block) {
       }
     });
   });
+
+  // "Members only" locked teaser: a columns teaser with no CTA link (the source
+  // "Read More" is plain text on the locked WKND magazine members-only cards).
+  // Tag it so CSS can render it as a compact, dimmed locked card, and move the
+  // image column to the top of each row so the card is image-over-text
+  // regardless of the source cell order.
+  // Gated on the page also having a `.cards` block (the magazine listing "All
+  // Articles" grid) so the linkless intro teaser on the adventures-listing page
+  // — which has no `.cards` — is not mistaken for a locked members-only card.
+  if (!block.querySelector('a') && document.querySelector('.cards')) {
+    block.classList.add('columns-locked');
+    [...block.children].forEach((row) => {
+      const imgCol = row.querySelector(':scope > .columns-img-col');
+      if (imgCol && row.firstElementChild !== imgCol) {
+        row.insertBefore(imgCol, row.firstElementChild);
+      }
+    });
+  }
 }

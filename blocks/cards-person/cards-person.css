@@ -1,0 +1,135 @@
+/* WKND person / team card grid (contributors & guides)
+ * Source: https://wknd.site/us/en/about-us.html
+ * Each card: circular portrait photo, centered H3 name, H5 role/tagline,
+ * and a horizontal row of 3 social icon links. 4-across on desktop.
+ *
+ * Note: each person imports as its own single-card cards-person block, so the
+ * *wrappers* (.cards-person-wrapper) are laid out as a flex row to form the
+ * multi-column grid; the per-block <ul> holds a single card.
+ */
+
+.cards-person > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 40px 24px;
+}
+
+.cards-person > ul > li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  min-width: 0;
+  text-align: center;
+}
+
+/* Lay consecutive person-card blocks out as a grid. Each .cards-person-wrapper
+   holds one person; the section that contains them becomes a flex row so the
+   wrappers wrap into columns (flex avoids the inline-block whitespace that
+   would otherwise overflow a 4-up row). The default-content headings
+   ("Our Contributors" / "WKND Guides") are full-width flex items that force a
+   line break, naturally splitting the two grids. */
+main .section.cards-person-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px 24px;
+  box-sizing: border-box;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 32px;
+}
+
+main .section.cards-person-container > .default-content-wrapper {
+  flex: 0 0 100%;
+  margin: 0;
+}
+
+main .section.cards-person-container > .cards-person-wrapper {
+  flex: 0 0 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+@media (width >= 600px) {
+  main .section.cards-person-container > .cards-person-wrapper {
+    flex-basis: calc(50% - 12px);
+  }
+}
+
+@media (width >= 900px) {
+  main .section.cards-person-container > .cards-person-wrapper {
+    flex-basis: calc(25% - 18px);
+  }
+}
+
+/* circular portrait photo */
+.cards-person .cards-person-card-image {
+  line-height: 0;
+}
+
+.cards-person .cards-person-card-image img {
+  display: block;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.cards-person .cards-person-card-body {
+  margin: 0;
+  padding: 0;
+}
+
+/* name — Asar serif, matching the source contributor cards */
+.cards-person .cards-person-card-body h3 {
+  margin: 16px 0 0;
+  font-family: var(--heading-font-family);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* role / tagline — uppercase grey, smaller */
+.cards-person .cards-person-card-body h5 {
+  margin: 6px 0 0;
+  color: #696969;
+  font-family: var(--body-font-family);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* horizontal social-icon link row */
+.cards-person .cards-person-social {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 14px 0 0;
+}
+
+.cards-person .cards-person-social a:any-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 0;
+  border: 1px solid #dadada;
+  border-radius: 50%;
+}
+
+.cards-person .cards-person-social a:hover {
+  color: #fff;
+  background-color: var(--text-color);
+  border-color: var(--text-color);
+}

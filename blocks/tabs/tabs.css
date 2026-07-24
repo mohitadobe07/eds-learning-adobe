@@ -1,0 +1,89 @@
+/* WKND adventure tabs — dark tab buttons (active filled), plain content panel
+   below, matching the source detail page. */
+
+/* fill the grid column so a short panel can't shrink/shift the block */
+.tabs {
+  width: 100%;
+}
+
+.tabs .tabs-list {
+  display: flex;
+  gap: 2px;
+  max-width: 100%;
+  margin: 0 0 18px;
+  overflow-x: auto;
+}
+
+.tabs .tabs-list button {
+  flex: 0 0 max-content;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 8px 16px;
+  background-color: transparent;
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-transform: uppercase;
+  text-align: initial;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* hover: dark background, light text */
+.tabs .tabs-list button:hover,
+.tabs .tabs-list button:focus-visible {
+  background-color: var(--text-color);
+  color: #fff;
+}
+
+/* active tab: dark filled */
+.tabs .tabs-list button[aria-selected='true'] {
+  background-color: var(--text-color);
+  color: #fff;
+  cursor: initial;
+}
+
+.tabs .tabs-panel {
+  margin: 0;
+  padding: 24px 0 0;
+  overflow: auto;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 2.5;
+  color: var(--text-color);
+
+  /* reserve a stable height so switching between short/tall panels doesn't
+     shift the surrounding layout */
+  min-height: 360px;
+}
+
+.tabs .tabs-panel[aria-hidden='true'] {
+  display: none;
+}
+
+.tabs .tabs-panel p {
+  margin: 0 0 13.5px;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  line-height: 2.5;
+}
+
+.tabs .tabs-panel li {
+  font-family: var(--body-font-family);
+  font-size: 18px;
+}
+
+.tabs .tabs-panel strong,
+.tabs .tabs-panel b {
+  font-weight: 600;
+}
+
+.tabs .tabs-panel img {
+  max-width: 100%;
+  height: auto;
+}

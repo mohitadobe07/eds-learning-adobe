@@ -1,0 +1,38 @@
+{
+  "variantName": "carousel",
+  "baseBlock": "carousel",
+  "version": "1.0.0",
+  "created": "2026-07-23T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://wknd.site/us/en.html",
+    "originPage": "WKND homepage",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "spacious",
+    "purpose": "hero",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image + heading + description + CTA per slide",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "hero carousels with rotating full-bleed image slides",
+      "landing page image galleries with overlaid text and CTA"
+    ],
+    "notSuitableFor": [
+      "static single hero (use hero block)",
+      "grids of cards (use cards block)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/us/en"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-23T00:00:00.000Z"
+  },
+  "notes": "Base carousel block sourced from AEM Block Collection. Adapted for this doc (DA) boilerplate: removed dependencies on fetchPlaceholders (aem.js) and moveInstrumentation (scripts.js), which are not exported in this project; inlined default aria labels. DOM output and content model are unchanged from the vanilla 'Carousel (multiple)' variant."
+}

@@ -4,6 +4,21 @@ import { loadFragment } from '../fragment/fragment.js';
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
 
+/**
+ * Append a trailing slash to internal page links. Skips hash-only anchors,
+ * external URLs, and links that already end with a slash.
+ * @param {Element} container Element whose descendant links to normalize
+ */
+function addTrailingSlashToLinks(container) {
+  container.querySelectorAll('a[href]').forEach((a) => {
+    const href = a.getAttribute('href');
+    if (!href || !href.startsWith('/')) return;
+    const [path, rest = ''] = href.split(/(?=[?#])/);
+    if (path.endsWith('/')) return;
+    a.setAttribute('href', `${path}/${rest}`);
+  });
+}
+
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
     const nav = document.getElementById('nav');
@@ -123,8 +138,13 @@ export default async function decorate(block) {
   const nav = document.createElement('nav');
   nav.id = 'nav';
   while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
+  addTrailingSlashToLinks(nav);
 
-  const classes = ['brand', 'sections', 'tools'];
+  // Four content sections → utility (top strip), brand, sections (main nav), tools.
+  // Falls back to the 3-section layout (brand, sections, tools) if no utility strip is authored.
+  const classes = nav.children.length >= 4
+    ? ['utility', 'brand', 'sections', 'tools']
+    : ['brand', 'sections', 'tools'];
   classes.forEach((c, i) => {
     const section = nav.children[i];
     if (section) section.classList.add(`nav-${c}`);
@@ -135,6 +155,30 @@ export default async function decorate(block) {
   if (brandLink) {
     brandLink.className = '';
     brandLink.closest('.button-container').className = '';
+  }
+
+  // Utility strip: wire the language toggle (EN-US) as a dropdown.
+  const navUtility = nav.querySelector('.nav-utility');
+  if (navUtility) {
+    const langToggle = navUtility.querySelector('li:has(ul)');
+    if (langToggle) {
+      langToggle.classList.add('nav-lang');
+      langToggle.setAttribute('aria-expanded', 'false');
+      const label = langToggle.querySelector(':scope > p');
+      if (label) {
+        label.setAttribute('role', 'button');
+        label.setAttribute('tabindex', '0');
+      }
+      const toggle = () => {
+        const open = langToggle.getAttribute('aria-expanded') === 'true';
+        langToggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+      };
+      langToggle.addEventListener('click', (e) => { e.stopPropagation(); toggle(); });
+      langToggle.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+      });
+      document.addEventListener('click', () => langToggle.setAttribute('aria-expanded', 'false'));
+    }
   }
 
   const navSections = nav.querySelector('.nav-sections');
@@ -149,6 +193,24 @@ export default async function decorate(block) {
         }
       });
     });
+  }
+
+  // Build the WKND search field: replace the authored :search: icon token with a
+  // real input (search icon inside a light field + "Search" placeholder).
+  const navTools = nav.querySelector('.nav-tools');
+  const searchIcon = navTools ? navTools.querySelector('.icon-search') : null;
+  if (searchIcon) {
+    const field = document.createElement('div');
+    field.className = 'nav-search';
+    const iconClone = searchIcon.cloneNode(true);
+    const input = document.createElement('input');
+    input.type = 'search';
+    input.name = 'fulltext';
+    input.placeholder = 'Search';
+    input.setAttribute('aria-label', 'Search');
+    field.append(iconClone, input);
+    const target = searchIcon.closest('p') || searchIcon;
+    target.replaceWith(field);
   }
 
   // hamburger for mobile

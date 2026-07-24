@@ -1,0 +1,41 @@
+{
+  "variantName": "adventure-filter",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-07-23T10:31:47.401Z",
+  "sourceContext": {
+    "originUrl": "https://wknd.site/us/en/adventures.html",
+    "originPage": "Adventures listing page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "adventure-filter",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "filter-tabs + card-grid (image + linked-title + description + categories)",
+    "buttonCount": 0,
+    "imageCount": 16
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "listing/index pages with a filterable set of items",
+      "category-tagged card grids (destinations, adventures, products by type)",
+      "pages needing client-side tab filtering derived from item tags"
+    ],
+    "notSuitableFor": [
+      "simple non-interactive card grids (use the base cards block)",
+      "content that swaps entire panels rather than filtering one item set (use tabs)",
+      "hero or single-image intros"
+    ]
+  },
+  "interactive": true,
+  "notes": "New interactive block. Combines a filter tab bar (categories derived from card category tags, plus an 'All' default) with a WKND-styled destination card grid. Card sub-structure mirrors the local 'cards' block (image + linked title + description). Multi-category cards supported (a card may match more than one tab).",
+  "usage": {
+    "pagesUsing": ["/us/en/adventures"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-23T10:31:47.401Z"
+  }
+}

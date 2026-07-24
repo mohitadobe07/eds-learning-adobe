@@ -1,0 +1,132 @@
+/* WKND "Current Adventures" filterable card grid.
+ * Values extracted from source: https://wknd.site/us/en/adventures.html
+ * Filter tab bar (cmp-tabs__tablist) above a 4-across destination card grid
+ * (.cmp-image-list). Cards mirror the WKND destination card styling:
+ * 260x200 image (aspect 13/10), uppercase 18px linked title, uppercase grey
+ * 14px/21px description (#696969).
+ */
+
+/* --- Filter tab bar --- */
+.adventure-filter .adventure-filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 0 0 32px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.adventure-filter .adventure-filter-tab {
+  appearance: none;
+  margin: 0;
+  padding: 8px 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: #696969;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 21px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+}
+
+.adventure-filter .adventure-filter-tab:hover {
+  color: var(--text-color);
+}
+
+.adventure-filter .adventure-filter-tab-active {
+  color: var(--text-color);
+  border-bottom-color: var(--text-color);
+}
+
+/* --- Card grid --- */
+.adventure-filter .adventure-filter-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px 14px;
+}
+
+/* tablet: 2 columns */
+@media (width >= 600px) {
+  .adventure-filter .adventure-filter-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* desktop: 4 columns (matches source) */
+@media (width >= 900px) {
+  .adventure-filter .adventure-filter-cards {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.adventure-filter .adventure-filter-cards > li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  min-width: 0;
+}
+
+.adventure-filter .adventure-filter-cards > li[hidden] {
+  display: none;
+}
+
+/* image on top, fixed source aspect ratio (260 x 200) */
+.adventure-filter .adventure-filter-card-image {
+  line-height: 0;
+}
+
+.adventure-filter .adventure-filter-cards > li img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 13 / 10;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+/* text block below the image */
+.adventure-filter .adventure-filter-card-body {
+  margin: 0;
+  padding: 0;
+}
+
+/* linked title — Source Sans Pro, 18px / lh 27px, weight 600, uppercase */
+.adventure-filter .adventure-filter-card-body h3 {
+  margin: 16px 0 0;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.adventure-filter .adventure-filter-card-body h3 a:any-link {
+  color: var(--text-color);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.adventure-filter .adventure-filter-card-body h3 a:hover {
+  color: var(--text-color);
+  text-decoration: underline;
+}
+
+/* description — uppercase grey #696969 14px / 21px, single-line ellipsis */
+.adventure-filter .adventure-filter-card-body p {
+  margin: 16px 0 0;
+  color: #696969;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

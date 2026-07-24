@@ -1,0 +1,38 @@
+{
+  "variantName": "breadcrumb",
+  "baseBlock": "breadcrumb",
+  "version": "1.0.0",
+  "created": "2026-07-23T10:33:36.000Z",
+  "sourceContext": {
+    "originUrl": "https://wknd.site/us/en/adventures/bali-surf-camp.html",
+    "originPage": "adventure detail page",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "breadcrumb-navigation",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "one row per crumb; linked ancestors + active current page",
+    "buttonCount": 0,
+    "imageCount": 0,
+    "crumbCount": 2
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "detail pages needing an ancestor trail",
+      "deep content pages within a section (adventures, magazine articles)"
+    ],
+    "notSuitableFor": [
+      "top-level landing pages with no ancestors",
+      "pages where global nav already conveys location"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/us/en/adventures/bali-surf-camp"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-23T10:33:36.000Z"
+  }
+}

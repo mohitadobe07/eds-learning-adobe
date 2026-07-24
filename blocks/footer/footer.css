@@ -1,20 +1,170 @@
+/* WKND footer — matched to source computed styles + layout (dark #202020, #ebebeb text) */
 footer {
-  background-color: var(--light-color);
+  background-color: var(--footer-bg-color, #202020);
+  color: #ebebeb;
   font-size: var(--body-font-size-xs);
 }
 
 footer .footer > div {
   margin: auto;
-  max-width: 1200px;
+  max-width: var(--content-max-width, 1200px);
   padding: 40px 24px 24px;
 }
 
 footer .footer p {
-  margin: 0;
+  margin: 0 0 12px;
 }
 
+footer .footer a:any-link {
+  color: #ebebeb;
+  text-decoration: none;
+}
+
+footer .footer a:hover {
+  text-decoration: underline;
+}
+
+/* WKND logo SVG (light variant on dark bg) */
+footer .footer p:first-child a {
+  display: inline-flex;
+  align-items: center;
+}
+
+footer .footer .icon-wknd-logo-light {
+  display: inline-block;
+  width: 128px;
+  height: 48px;
+}
+
+footer .footer .icon-wknd-logo-light img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* nav list — uppercase, weight 400 (source), 14px */
+footer .footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+}
+
+footer .footer ul li {
+  font-family: var(--body-font-family);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  font-size: 14px;
+}
+
+/* "Follow Us" heading — 16px semibold uppercase */
+footer .footer p strong {
+  font-family: var(--body-font-family);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  font-size: 16px;
+}
+
+/* social links: WKND connected strip of 48x48 light squares (no gap, dark glyph) */
+footer .footer ul:last-of-type {
+  gap: 0;
+}
+
+footer .footer ul:last-of-type li a:any-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  background-color: #ebebeb;
+  color: #202020;
+  text-decoration: none;
+}
+
+footer .footer ul:last-of-type li a:hover {
+  background-color: #fff;
+  text-decoration: none;
+}
+
+/* social SVG glyph — dark, centered in the light square (source glyph ~18px) */
+footer .footer ul:last-of-type .icon {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  color: #202020;
+}
+
+footer .footer ul:last-of-type .icon img {
+  width: 100%;
+  height: 100%;
+}
+
+/* legal / copyright text — #f7f7f7, 12px */
+footer .footer p:nth-last-child(-n + 2) {
+  color: #f7f7f7;
+  font-size: 12px;
+  line-height: 1.5;
+  max-width: 100%;
+}
+
+/* ===== WKND footer layout (matched to source: horizontal top band + legal below) ===== */
 @media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
+  footer .footer .default-content-wrapper {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    column-gap: 48px;
+  }
+
+  /* row 1: logo (left) · nav (left-clustered) · Follow Us heading · social squares — all inline */
+  footer .footer .default-content-wrapper > p:first-child {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0;
+  }
+
+  footer .footer .default-content-wrapper > ul:first-of-type {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    justify-content: flex-start;
+    margin: 0;
+  }
+
+  footer .footer .default-content-wrapper > p:nth-child(3) {
+    grid-column: 3;
+    grid-row: 1;
+    margin: 0;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  /* social squares inline to the right of the Follow Us heading (same row) */
+  footer .footer .default-content-wrapper > ul:last-of-type {
+    grid-column: 4;
+    grid-row: 1;
+    justify-content: flex-end;
+    margin: 0;
+  }
+
+  /* row 2-3: legal spans all columns beneath the band */
+  footer .footer .default-content-wrapper > p:nth-last-child(-n + 2) {
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+
+  footer .footer .default-content-wrapper > p:nth-child(5) {
+    grid-row: 2;
+    margin-top: 32px;
+  }
+
+  footer .footer .default-content-wrapper > p:last-child {
+    grid-row: 3;
+    margin-top: 8px;
   }
 }

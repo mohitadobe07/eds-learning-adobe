@@ -10,63 +10,37 @@
  * governing permissions and limitations under the License.
  */
 
+@import url("brand.css");
+
 :root {
-  /* colors */
-  --background-color: white;
-  --light-color: #f8f8f8;
-  --dark-color: #505050;
-  --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
+  /* body sizes (mobile-first) */
+  --body-font-size-m: 18px;
+  --body-font-size-s: 16px;
+  --body-font-size-xs: 14px;
 
-  /* fonts */
-  --body-font-family: roboto, roboto-fallback, sans-serif;
-  --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
-
-  /* body sizes */
-  --body-font-size-m: 22px;
-  --body-font-size-s: 19px;
-  --body-font-size-xs: 17px;
-
-  /* heading sizes */
-  --heading-font-size-xxl: 55px;
-  --heading-font-size-xl: 44px;
-  --heading-font-size-l: 34px;
-  --heading-font-size-m: 27px;
-  --heading-font-size-s: 24px;
-  --heading-font-size-xs: 22px;
-
-  /* nav height */
-  --nav-height: 64px;
-}
-
-/* fallback fonts */
-@font-face {
-  font-family: roboto-condensed-fallback;
-  size-adjust: 88.82%;
-  src: local('Arial');
-}
-
-@font-face {
-  font-family: roboto-fallback;
-  size-adjust: 99.529%;
-  src: local('Arial');
+  /* mobile heading sizes (desktop overrides in media query below) */
+  --heading-font-size-xxl: 36px;
+  --heading-font-size-xl: 28px;
+  --heading-font-size-l: 22px;
+  --heading-font-size-m: 18px;
+  --heading-font-size-s: 16px;
+  --heading-font-size-xs: 14px;
 }
 
 @media (width >= 900px) {
   :root {
     /* body sizes */
-    --body-font-size-m: 18px;
-    --body-font-size-s: 16px;
-    --body-font-size-xs: 14px;
+    --body-font-size-m: 20px;
+    --body-font-size-s: 18px;
+    --body-font-size-xs: 16px;
 
-    /* heading sizes */
-    --heading-font-size-xxl: 45px;
+    /* heading sizes (WKND desktop, from source) */
+    --heading-font-size-xxl: 48px;
     --heading-font-size-xl: 36px;
-    --heading-font-size-l: 28px;
-    --heading-font-size-m: 22px;
-    --heading-font-size-s: 20px;
-    --heading-font-size-xs: 18px;
+    --heading-font-size-l: 24px;
+    --heading-font-size-m: 20px;
+    --heading-font-size-s: 16px;
+    --heading-font-size-xs: 14px;
   }
 }
 
@@ -78,6 +52,10 @@ body {
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-m);
   line-height: 1.6;
+
+  /* contain full-bleed (100vw) blocks like the hero/carousel so the vertical
+     scrollbar width can't trigger a horizontal scrollbar */
+  overflow-x: clip;
 }
 
 body.appear {
@@ -85,7 +63,14 @@ body.appear {
 }
 
 header {
-  height: var(--nav-height);
+  min-height: var(--nav-height);
+}
+
+/* header is position:fixed on desktop — reserve its full height (utility strip + main row) */
+@media (width >= 900px) {
+  header {
+    min-height: 124px;
+  }
 }
 
 header .header,
@@ -100,15 +85,26 @@ footer .footer[data-block-status="loaded"] {
 
 h1,
 h2,
-h3,
+h3 {
+  margin-top: 0.8em;
+  margin-bottom: 0.25em;
+  font-family: var(--heading-font-family);
+  font-weight: 400;
+  line-height: 1.25;
+  scroll-margin: 40px;
+}
+
+/* WKND small headings / eyebrows: sans-serif, semibold, uppercase */
 h4,
 h5,
 h6 {
   margin-top: 0.8em;
   margin-bottom: 0.25em;
-  font-family: var(--heading-font-family);
+  font-family: var(--body-font-family);
   font-weight: 600;
   line-height: 1.25;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   scroll-margin: 40px;
 }
 
@@ -179,11 +175,14 @@ button.button {
   max-width: 100%;
   margin: 0;
   border: 2px solid transparent;
-  border-radius: 2.4em;
-  padding: 0.5em 1.2em;
-  font: inherit;
-  font-weight: 500;
+  border-radius: 0; /* WKND buttons are square */
+  padding: 14px 35px;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 600;
   line-height: 1.25;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
   overflow: hidden;
@@ -251,20 +250,21 @@ button.button.secondary:disabled:focus-visible {
   color: var(--dark-color);
 }
 
-/* high-impact call-to-action */
+/* high-impact call-to-action — WKND yellow */
 a.button.accent,
 button.button.accent {
-  border-color: var(--link-color);
-  background-color: var(--link-color);
-  color: var(--background-color);
+  border-color: var(--accent-color);
+  background-color: var(--accent-color);
+  color: var(--text-color);
 }
 
 a.button.accent:hover,
 a.button.accent:focus-visible,
 button.button.accent:hover,
 button.button.accent:focus-visible {
-  border-color: var(--link-hover-color);
-  background-color: var(--link-hover-color);
+  border-color: var(--text-color);
+  background-color: var(--text-color);
+  color: #fff;
 }
 
 a.button.accent[aria-disabled="true"],
@@ -323,3 +323,242 @@ main .section.highlight {
   margin: 0;
   padding: 40px 0;
 }
+
+main .section.dark {
+  background-color: var(--dark-color);
+  color: #fff;
+  margin: 0;
+  padding: 40px 0;
+}
+
+main .section.dark a:any-link {
+  color: #fff;
+}
+
+/* adventure detail body — info panel sidebar (left) + tabs (right).
+   Targets any section whose default-content wrapper holds both blocks. */
+@media (width >= 900px) {
+  main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) {
+    display: grid;
+    grid-template-columns: 263px 1fr;
+    column-gap: 48px;
+    align-items: start;
+
+    /* explicit rows: title, then info/tabs, then share. min-content rows keep
+       info's row height driven only by the info panel (constant) so its top
+       doesn't shift when the tab panel content height changes */
+    grid-template-rows: min-content min-content 1fr;
+
+    /* constrain to the content column so the full-width title wrapper can't
+       stretch the grid past the viewport (which caused a horizontal scrollbar) */
+    box-sizing: border-box;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .info-panel-wrapper {
+    grid-column: 1;
+    grid-row: 2;
+
+    /* fill the 263px column (the section's `margin:auto` on > div otherwise
+       shrinks this wrapper to its content width) and pin to the top */
+    place-self: start stretch;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+  }
+
+  /* "Share this Adventure" (default content with an h5) sits in the left
+     column directly under the info panel */
+  main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .default-content-wrapper:has(h5) {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .tabs-wrapper {
+    grid-column: 2;
+    grid-row: 2 / span 2;
+
+    /* fill the column (stretch) but pin to top (start) so a short panel can't
+       shrink/shift the tabs or push the info panel down. margin:0 overrides the
+       section's `> div { margin: auto }`, whose auto vertical margins would
+       otherwise center the wrapper and drift the tab strip down on short panels. */
+    place-self: start stretch;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+  }
+
+  main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .tabs-wrapper .tabs {
+    width: 100%;
+  }
+
+  /* keep the title (default content with an h1) full-width above the columns,
+     left-aligned to the content edge (not centered) */
+  main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .default-content-wrapper:has(h1) {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    justify-self: stretch;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+}
+
+/* adventure detail H1 — Asar serif, left aligned with a yellow underline accent */
+main .section:has(> .info-panel-wrapper):has(> .tabs-wrapper) > .default-content-wrapper h1 {
+  display: inline-block;
+  margin: 27px 0 13.5px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid var(--accent-color);
+  font-family: var(--heading-font-family);
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-color);
+  text-align: left;
+}
+
+/* ---------------------------------------------------------------------------
+   Magazine article layout (e.g. /magazine/arctic-surfing)
+   Scoped to `main:has(.breadcrumb):has(.cards)` — only the long-form magazine article
+   template renders a blockquote (homepage, listing, and adventure-detail do
+   not), so this cannot leak into other templates.
+   Source uses a two-column magazine layout: a ~776px article reading column
+   on the left and a related-stories sidebar (~263px) on the right.
+   --------------------------------------------------------------------------- */
+
+/* article reading column: match the source's 18px justified body and narrower
+   measure so lines aren't full-viewport wide */
+main:has(.breadcrumb):has(.cards) .section > .default-content-wrapper p {
+  font-size: 18px;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+main:has(.breadcrumb):has(.cards) .section > .default-content-wrapper:has(h1) h1 {
+  font-size: 40px;
+}
+
+main:has(.breadcrumb):has(.cards) .section > .default-content-wrapper h4 {
+  font-size: 16px;
+}
+
+@media (width >= 900px) {
+  /* the article-body section holds the article (default content) on the left
+     and the related-stories cards on the right — lay it out as two columns */
+  main:has(.breadcrumb):has(.cards) .section.cards-container:has(> .cards-wrapper) {
+    display: grid;
+    grid-template-columns: minmax(0, 776px) 263px;
+    column-gap: 48px;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+    box-sizing: border-box;
+  }
+
+  main:has(.breadcrumb):has(.cards) .section.cards-container:has(> .cards-wrapper) > .default-content-wrapper {
+    grid-column: 1;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  main:has(.breadcrumb):has(.cards) .section.cards-container:has(> .cards-wrapper) > .cards-wrapper {
+    grid-column: 2;
+    align-self: start;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* related-stories cards as a vertical sidebar list (one per row), not the
+   default multi-column image-card grid */
+main:has(.breadcrumb):has(.cards) .cards > ul {
+  display: block;
+}
+
+main:has(.breadcrumb):has(.cards) .cards > ul > li {
+  border: 0;
+  border-bottom: 1px solid #ebebeb;
+  border-radius: 0;
+  margin: 0 0 18px;
+  padding: 0 0 18px;
+}
+
+main:has(.breadcrumb):has(.cards) .cards .cards-card-body h3 {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+main:has(.breadcrumb):has(.cards) .cards .cards-card-body p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #696969;
+}
+
+/* author bio — the photo sits in a <p> immediately before the H2 name,
+   "Skater, Writer" paragraph, and the social button-wrappers. Render it as a
+   small circular avatar (source: 60px round) instead of a full-width image. */
+main:has(.breadcrumb):has(.cards) .section > .default-content-wrapper p:has(img):has(+ h2 + p + p.button-wrapper) {
+  margin: 24px 0 8px;
+}
+
+main:has(.breadcrumb):has(.cards) .section > .default-content-wrapper p:has(img):has(+ h2 + p + p.button-wrapper) img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* social links (Facebook / Twitter / Instagram) — the author bio's
+   button-wrappers. Lay them in a row as compact dark square buttons instead of
+   full-width yellow CTAs. */
+main:has(.breadcrumb):has(.cards) .section > .default-content-wrapper p.button-wrapper {
+  display: inline-block;
+  margin: 8px 8px 0 0;
+}
+
+main:has(.breadcrumb):has(.cards) .section > .default-content-wrapper p.button-wrapper a.button:any-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 44px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 0;
+  background-color: var(--text-color);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: background-color 0.2s;
+}
+
+main:has(.breadcrumb):has(.cards) .section > .default-content-wrapper p.button-wrapper a.button:hover,
+main:has(.breadcrumb):has(.cards) .section > .default-content-wrapper p.button-wrapper a.button:focus-visible {
+  background-color: var(--accent-color);
+  color: var(--text-color);
+}
+
+/* Magazine listing, FAQ, and About Us page titles — match the source's 40px
+   H1 (the default heading scale renders 48px). Scoped to each template via a
+   block that only appears on that page. */
+/* stylelint-disable no-descending-specificity */
+main:has(.accordion) .default-content-wrapper h1,
+main:has(.cards-person) .default-content-wrapper h1,
+main:has(.columns):has(.cards) .default-content-wrapper h1 {
+  font-size: 40px;
+}
+/* stylelint-enable no-descending-specificity */

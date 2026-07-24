@@ -1,0 +1,43 @@
+{
+  "variantName": "cards-person",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-07-23T18:12:53.000Z",
+  "sourceContext": {
+    "originUrl": "https://wknd.site/us/en/about-us.html",
+    "originPage": "About Us (contributors & guides team page)",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "team",
+    "imagePattern": "avatar"
+  },
+  "contentPattern": {
+    "structure": "photo + name + role + social-links",
+    "buttonCount": 0,
+    "socialLinkCount": 3,
+    "imageCount": 1,
+    "notes": "Circular portrait photo, centered H3 name, uppercase grey H5 role/tagline, and a horizontal row of 3 social icon links (Facebook/Twitter/Instagram)."
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "team / people pages",
+      "contributor grids",
+      "guide or staff directories",
+      "any repeatable person card (photo + name + role + social links)"
+    ],
+    "notSuitableFor": [
+      "article / destination card grids (use base cards block)",
+      "product feature cards",
+      "cards with landscape imagery and long descriptions"
+    ]
+  },
+  "reuseVsBaseNote": "Not reused from the existing 'cards' block: base cards is tailored to WKND article/destination cards (landscape 13/10 image, uppercase title, single-line ellipsis grey description) and has no support for a circular avatar, an H5 role line, or a social-icon row. Similarity to base cards is well below the 80% threshold on purpose, image pattern, and content structure, so a dedicated variant was created. Both the contributors and guides grids on the About Us page use this single variant.",
+  "usage": {
+    "pagesUsing": ["/us/en/about-us"],
+    "reuseCount": 1,
+    "lastUsed": "2026-07-23T18:12:53.000Z"
+  }
+}
