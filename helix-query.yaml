@@ -6,7 +6,6 @@ indices:
       - '/us/en/adventures/**'
     exclude:
       - '/us/en/adventures/'
-      - '/us/en/adventures'
     target: /us/en/adventures/query-index.json
     properties:
       title:
@@ -25,7 +24,3 @@ indices:
         select: head > meta[name="category"]
         value: |
           attribute(el, 'content')
-      lastModified:
-        select: none
-        value: |
-          parseTimestamp(headers('last-modified'), 'ddd, DD MMM YYYY hh:mm:ss GMT')
