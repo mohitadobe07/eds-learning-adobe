@@ -55,19 +55,19 @@
   margin: 16px 0 0;
   font-family: var(--body-font-family);
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.5;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .recent-articles .cards-card-body h3 a:any-link {
-  color: var(--text-color);
+  color: #0045ff;
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .recent-articles .cards-card-body h3 a:hover {
-  color: var(--text-color);
+  color: #0045ff;
   text-decoration: underline;
 }
 
