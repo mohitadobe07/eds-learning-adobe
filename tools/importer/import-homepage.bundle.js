@@ -92,6 +92,34 @@ var CustomImportScript = (() => {
   // tools/importer/parsers/cards.js
   function parse3(element, { document }) {
     const cells = [];
+    const listItems = element.querySelectorAll(".cmp-list__item");
+    if (listItems.length) {
+      listItems.forEach((item) => {
+        const link = item.querySelector("a.cmp-list__item-link, a");
+        const title = item.querySelector(".cmp-list__item-title");
+        const date = item.querySelector(".cmp-list__item-date");
+        const contentCell = [];
+        if (link) {
+          const heading = document.createElement("h3");
+          const a = document.createElement("a");
+          a.href = link.getAttribute("href");
+          a.textContent = (title ? title.textContent : link.textContent).trim();
+          heading.append(a);
+          contentCell.push(heading);
+        }
+        if (date && date.textContent.trim()) {
+          const p = document.createElement("p");
+          p.textContent = date.textContent.trim();
+          contentCell.push(p);
+        }
+        if (contentCell.length) cells.push([contentCell]);
+      });
+      if (cells.length) {
+        const block2 = WebImporter.Blocks.createBlock(document, { name: "cards", cells });
+        element.replaceWith(block2);
+        return;
+      }
+    }
     const items = element.querySelectorAll(".cmp-image-list__item");
     items.forEach((item) => {
       const img = item.querySelector(".cmp-image-list__item-image img, img");
@@ -124,8 +152,16 @@ var CustomImportScript = (() => {
     element.replaceWith(block);
   }
 
-  // tools/importer/parsers/hero.js
+  // tools/importer/parsers/recent-articles.js
+  var INDEX_PATH = "/us/en/magazine/query-index.json";
   function parse4(element, { document }) {
+    const cells = [[INDEX_PATH]];
+    const block = WebImporter.Blocks.createBlock(document, { name: "recent-articles", cells });
+    element.replaceWith(block);
+  }
+
+  // tools/importer/parsers/hero.js
+  function parse5(element, { document }) {
     const img = element.querySelector(".cmp-teaser__image img, img");
     const contentCell = [];
     const heading = element.querySelector(".cmp-teaser__title, h1, h2, h3, h4, h5, h6");
@@ -166,7 +202,10 @@ var CustomImportScript = (() => {
         '[id*="consent"]',
         '[class*="consent"]',
         "#onetrust-consent-sdk",
-        "#onetrust-banner-sdk"
+        "#onetrust-banner-sdk",
+        // Content-fragment internal title — not shown on the source page and
+        // would otherwise duplicate the page H1 (e.g. "Bali Surf Camp").
+        ".cmp-contentfragment__title"
       ]);
     }
     if (hookName === TransformHook.afterTransform) {
@@ -327,9 +366,14 @@ var CustomImportScript = (() => {
         instances: ["main .teaser.cmp-teaser--featured"]
       },
       {
+        name: "recent-articles",
+        instances: [
+          "main .cmp-layout-container--fixed:nth-of-type(1) .image-list.list"
+        ]
+      },
+      {
         name: "cards",
         instances: [
-          "main .cmp-layout-container--fixed:nth-of-type(1) .image-list.list",
           "main .cmp-layout-container--fixed:nth-of-type(2) .image-list.list"
         ]
       },
@@ -342,7 +386,7 @@ var CustomImportScript = (() => {
       { id: "rc2", name: "Hero Carousel", selector: "main .cmp-carousel--hero", style: null, blocks: ["carousel"], defaultContent: [] },
       { id: "rc3", name: "Featured Article", selector: "main .teaser.cmp-teaser--featured", style: null, blocks: ["columns"], defaultContent: [] },
       { id: "rc4", name: "Recent Articles Heading", selector: "main .title.cmp-title--underline:nth-of-type(2)", style: null, blocks: [], defaultContent: ["main .title.cmp-title--underline:nth-of-type(2) h2"] },
-      { id: "rc5", name: "Recent Articles Cards", selector: "main .cmp-layout-container--fixed:nth-of-type(1) .image-list.list", style: null, blocks: ["cards"], defaultContent: [] },
+      { id: "rc5", name: "Recent Articles Cards", selector: "main .cmp-layout-container--fixed:nth-of-type(1) .image-list.list", style: null, blocks: ["recent-articles"], defaultContent: [] },
       { id: "rc9", name: "Next Adventures Teaser", selector: "main .teaser.cmp-teaser--hero.cmp-teaser--imagebottom", style: null, blocks: ["hero"], defaultContent: [] },
       { id: "rc10", name: "Where To Go Heading", selector: "main .cmp-layout-container--fixed:nth-of-type(2) .title", style: null, blocks: [], defaultContent: ["main .cmp-layout-container--fixed:nth-of-type(2) .title h3"] },
       { id: "rc11", name: "Destination Cards", selector: "main .cmp-layout-container--fixed:nth-of-type(2) .image-list.list", style: null, blocks: ["cards"], defaultContent: [] }
@@ -356,7 +400,8 @@ var CustomImportScript = (() => {
     carousel: parse,
     columns: parse2,
     cards: parse3,
-    hero: parse4
+    "recent-articles": parse4,
+    hero: parse5
   };
   function executeTransformers(hookName, element, payload) {
     const enhancedPayload = __spreadProps(__spreadValues({}, payload), { template: PAGE_TEMPLATE });
