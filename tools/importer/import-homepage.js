@@ -6,6 +6,7 @@ import carouselParser from './parsers/carousel.js';
 import columnsParser from './parsers/columns.js';
 import cardsParser from './parsers/cards.js';
 import recentArticlesParser from './parsers/recent-articles.js';
+import destinationsParser from './parsers/destinations.js';
 import heroParser from './parsers/hero.js';
 
 // TRANSFORMER IMPORTS
@@ -35,7 +36,7 @@ const PAGE_TEMPLATE = {
       ],
     },
     {
-      name: 'cards',
+      name: 'destinations',
       instances: [
         'main .cmp-layout-container--fixed:nth-of-type(2) .image-list.list',
       ],
@@ -52,7 +53,7 @@ const PAGE_TEMPLATE = {
     { id: 'rc5', name: 'Recent Articles Cards', selector: 'main .cmp-layout-container--fixed:nth-of-type(1) .image-list.list', style: null, blocks: ['recent-articles'], defaultContent: [] },
     { id: 'rc9', name: 'Next Adventures Teaser', selector: 'main .teaser.cmp-teaser--hero.cmp-teaser--imagebottom', style: null, blocks: ['hero'], defaultContent: [] },
     { id: 'rc10', name: 'Where To Go Heading', selector: 'main .cmp-layout-container--fixed:nth-of-type(2) .title', style: null, blocks: [], defaultContent: ['main .cmp-layout-container--fixed:nth-of-type(2) .title h3'] },
-    { id: 'rc11', name: 'Destination Cards', selector: 'main .cmp-layout-container--fixed:nth-of-type(2) .image-list.list', style: null, blocks: ['cards'], defaultContent: [] },
+    { id: 'rc11', name: 'Destination Cards', selector: 'main .cmp-layout-container--fixed:nth-of-type(2) .image-list.list', style: null, blocks: ['destinations'], defaultContent: [] },
   ],
 };
 
@@ -68,6 +69,7 @@ const parsers = {
   columns: columnsParser,
   cards: cardsParser,
   'recent-articles': recentArticlesParser,
+  destinations: destinationsParser,
   hero: heroParser,
 };
 

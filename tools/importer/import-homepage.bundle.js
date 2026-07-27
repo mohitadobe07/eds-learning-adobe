@@ -160,8 +160,16 @@ var CustomImportScript = (() => {
     element.replaceWith(block);
   }
 
-  // tools/importer/parsers/hero.js
+  // tools/importer/parsers/destinations.js
+  var INDEX_PATH2 = "/us/en/adventures/query-index.json";
   function parse5(element, { document }) {
+    const cells = [[INDEX_PATH2]];
+    const block = WebImporter.Blocks.createBlock(document, { name: "destinations", cells });
+    element.replaceWith(block);
+  }
+
+  // tools/importer/parsers/hero.js
+  function parse6(element, { document }) {
     const img = element.querySelector(".cmp-teaser__image img, img");
     const contentCell = [];
     const heading = element.querySelector(".cmp-teaser__title, h1, h2, h3, h4, h5, h6");
@@ -372,7 +380,7 @@ var CustomImportScript = (() => {
         ]
       },
       {
-        name: "cards",
+        name: "destinations",
         instances: [
           "main .cmp-layout-container--fixed:nth-of-type(2) .image-list.list"
         ]
@@ -389,7 +397,7 @@ var CustomImportScript = (() => {
       { id: "rc5", name: "Recent Articles Cards", selector: "main .cmp-layout-container--fixed:nth-of-type(1) .image-list.list", style: null, blocks: ["recent-articles"], defaultContent: [] },
       { id: "rc9", name: "Next Adventures Teaser", selector: "main .teaser.cmp-teaser--hero.cmp-teaser--imagebottom", style: null, blocks: ["hero"], defaultContent: [] },
       { id: "rc10", name: "Where To Go Heading", selector: "main .cmp-layout-container--fixed:nth-of-type(2) .title", style: null, blocks: [], defaultContent: ["main .cmp-layout-container--fixed:nth-of-type(2) .title h3"] },
-      { id: "rc11", name: "Destination Cards", selector: "main .cmp-layout-container--fixed:nth-of-type(2) .image-list.list", style: null, blocks: ["cards"], defaultContent: [] }
+      { id: "rc11", name: "Destination Cards", selector: "main .cmp-layout-container--fixed:nth-of-type(2) .image-list.list", style: null, blocks: ["destinations"], defaultContent: [] }
     ]
   };
   var transformers = [
@@ -401,7 +409,8 @@ var CustomImportScript = (() => {
     columns: parse2,
     cards: parse3,
     "recent-articles": parse4,
-    hero: parse5
+    destinations: parse5,
+    hero: parse6
   };
   function executeTransformers(hookName, element, payload) {
     const enhancedPayload = __spreadProps(__spreadValues({}, payload), { template: PAGE_TEMPLATE });
